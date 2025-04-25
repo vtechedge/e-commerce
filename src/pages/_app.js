@@ -1,13 +1,15 @@
 import Footer from "@/layout/Footer";
-import Header from "@/layout/Header";
+import Sidebar from "@/layout/Sidebar";
 import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+      <Sidebar />
+      <div style={{ marginLeft: "300px" }}>
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </>
   );
 }

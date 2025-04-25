@@ -1,46 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaFilter, FaFacebookF, FaInstagram, FaEnvelope, FaStar, FaShoppingCart } from "react-icons/fa";
+import { FaStar, FaShoppingCart } from "react-icons/fa";
+import Breadcrumb from "@/components/common/Breadcrumb";
 
 const Container = styled.div`
   display: flex;
-  /* height: 100vh; */
-  font-family: "Arial", sans-serif;
+  flex-direction: column;
+  /* font-family: "Arial", sans-serif; */
+  padding: 1rem 0rem;
 `;
 
-const Sidebar = styled.div`
-  width: 250px;
-  background-color: #f9f9f9;
-  padding: 2rem 1.5rem;
-  border-right: 1px solid #eee;
-`;
-
-const SidebarTitle = styled.h3`
-  font-size: 0.9rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-`;
-
-const SidebarItem = styled.div`
-  font-size: 0.85rem;
-  padding: 0.4rem 0;
-  color: #666;
-  cursor: pointer;
+const Main = styled.div`
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 10px;
-
-  &:hover {
-    color: #000;
-  }
+  flex-direction: column;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
   padding: 1.5rem 2rem;
 `;
 
@@ -54,12 +34,6 @@ const SortDropdown = styled.select`
   font-size: 0.85rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-`;
-
-const Main = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
 `;
 
 const ProductGrid = styled.div`
@@ -149,13 +123,24 @@ const AddToCartButton = styled.button`
     background-color: #0056b3;
   }
 `;
-const Banner = styled.div`
+
+const BannerSlider = styled.div`
+  position: relative;
+  overflow: hidden;
+  margin: 1.5rem 2rem 0 2rem;
+`;
+
+const BannerTrack = styled.div`
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+`;
+
+const BannerSlide = styled.div`
+  min-width: 100%;
   background-color: #ffecec;
   padding: 2rem;
   text-align: center;
-  margin: 1.5rem 2rem 0 2rem;
   border-radius: 12px;
-  position: relative;
 `;
 
 const BannerTitle = styled.h2`
@@ -178,6 +163,23 @@ const BuyNowButton = styled.button`
   &:hover {
     background-color: #cc0000;
   }
+`;
+
+const SliderDots = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+`;
+
+const Dot = styled.button`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${(props) => (props.active ? "#ff4d4d" : "#ddd")};
+  cursor: pointer;
+  transition: background-color 0.3s;
 `;
 
 const products = [
@@ -225,42 +227,57 @@ const products = [
   },
 ];
 
+const bannerSlides = [
+  {
+    title: "Grab upto 50% Off On Selected headphone",
+    buttonText: "Buy Now",
+  },
+  {
+    title: "Special Offer: Free Shipping on Orders Over $100",
+    buttonText: "Shop Now",
+  },
+  {
+    title: "New Arrivals: Check Out Our Latest Products",
+    buttonText: "Explore",
+  },
+];
+
 function Landing() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % bannerSlides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  const breadcrumbItems = [{ label: "Home", href: "/" }];
+
   return (
     <Container>
-      <Sidebar>
-        <h2 style={{ fontSize: "1.2rem", fontWeight: "600", marginBottom: "2rem" }}>HOMELOFT</h2>
-        <SidebarItem style={{ fontWeight: "bold" }}>🔥 Popular</SidebarItem>
-        <SidebarItem>New Collection</SidebarItem>
-        <SidebarItem>Custom Furniture</SidebarItem>
-
-        <SidebarTitle>MATERIAL</SidebarTitle>
-        <SidebarItem>Wood</SidebarItem>
-        <SidebarItem>Glass</SidebarItem>
-        <SidebarItem>Fabric</SidebarItem>
-
-        <SidebarTitle>PACKAGE</SidebarTitle>
-        <SidebarItem>Bedroom</SidebarItem>
-        <SidebarItem>Bathroom</SidebarItem>
-        <SidebarItem>Kitchen Sets</SidebarItem>
-
-        <SidebarTitle>CONTACT</SidebarTitle>
-        <SidebarItem>
-          <FaFacebookF /> Facebook
-        </SidebarItem>
-        <SidebarItem>
-          <FaInstagram /> Instagram
-        </SidebarItem>
-        <SidebarItem>
-          <FaEnvelope /> Email
-        </SidebarItem>
-      </Sidebar>
-
       <Main>
-        <Banner>
-          <BannerTitle>Grab upto 50% Off On Selected headphone</BannerTitle>
-          <BuyNowButton>Buy Now</BuyNowButton>
-        </Banner>
+        <Breadcrumb items={breadcrumbItems} />
+        <BannerSlider>
+          <BannerTrack style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+            {bannerSlides.map((slide, index) => (
+              <BannerSlide key={index}>
+                <BannerTitle>{slide.title}</BannerTitle>
+                <BuyNowButton>{slide.buttonText}</BuyNowButton>
+              </BannerSlide>
+            ))}
+          </BannerTrack>
+          <SliderDots>
+            {bannerSlides.map((_, index) => (
+              <Dot key={index} active={currentSlide === index} onClick={() => goToSlide(index)} />
+            ))}
+          </SliderDots>
+        </BannerSlider>
 
         <Header>
           <Title>Our Product</Title>
