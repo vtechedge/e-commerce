@@ -452,7 +452,12 @@ function CategoryPage() {
   const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Categories", href: "/categories" }, { label: categoryTitle }];
 
   if (loading) {
-    return <LoadingSpinner text="Loading products..." />;
+    return (
+      <CategoryContainer>
+        <Breadcrumb items={breadcrumbItems} />
+        <LoadingSpinner text="Loading products..." />
+      </CategoryContainer>
+    );
   }
 
   if (error) {
