@@ -27,8 +27,9 @@ const FilterSection = styled.div`
   align-items: center;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: rgba(40, 95, 235, 0.05);
   border-radius: 8px;
+  border: 1px solid rgba(40, 95, 235, 0.1);
 `;
 
 const FilterGroup = styled.div`
@@ -112,6 +113,18 @@ const mockProducts = {
       rating: 4.5,
       category: "Display & Video Adapters",
       subcategory: "DisplayPort & Mini DisplayPort Adapters",
+    },
+  ],
+  "thunderbolt-display-adapters": [
+    {
+      id: 30,
+      name: "DisplayPort to HDMI Adapter",
+      heading: "4K Video Support",
+      price: "$19.99",
+      image: "/products/displayport-hdmi.jpg",
+      rating: 4.7,
+      category: "Display & Video Adapters",
+      subcategory: "Thunderbolt Display Adapters",
     },
   ],
 

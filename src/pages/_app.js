@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Sidebar />
-      <div style={{ marginLeft: "300px" }}>
+      <div style={{ marginLeft: "320px" }}>
         <Component {...pageProps} />
         <Footer />
       </div>

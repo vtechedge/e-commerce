@@ -30,10 +30,9 @@ const geist = Geist({
 });
 
 const SidebarContainer = styled.aside`
-  width: 300px;
-  background-color: #f8f9fa;
-
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  background-color: #fafcff;
+  box-shadow: 0 2px 4px rgba(40, 95, 235, 0.1);
   height: 100vh;
   position: fixed;
   left: 0;
@@ -48,72 +47,82 @@ const SidebarContainer = styled.aside`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+  color: var(--primary-color);
   text-decoration: none;
-  padding: 1.5rem 1.5rem;
-  border-bottom: 1px solid #eee;
+  padding: 1rem 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
 
   &:hover {
-    color: #666;
+    color: var(--primary-hover);
   }
 `;
 
 const NavLinks = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+  padding: 0 0.8rem;
 `;
 
 const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 0.8rem;
   color: #333;
   text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  border-radius: 6px;
+  transition: all 0.2s;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: rgba(40, 95, 235, 0.05);
+    color: var(--primary-color);
   }
 `;
 
 const AllProductsLink = styled(NavLink)`
-  background-color: #f8f9fa;
+  background-color: rgba(40, 95, 235, 0.05);
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
 
   &:hover {
-    background-color: #e9ecef;
+    background-color: rgba(40, 95, 235, 0.1);
   }
 `;
 
 const CategorySection = styled.div`
-  border-top: 1px solid #eee;
-  /* padding: 1rem 0; */
+  margin-bottom: 0.3rem;
 `;
 
 const CategoryTitle = styled.div`
   font-size: 0.8rem;
-  color: #666;
-  padding: 0.5rem 1.5rem;
-  /* margin-bottom: 0.5rem; */
+  color: #333;
+  padding: 0.6rem 0.8rem;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: rgba(40, 95, 235, 0.05);
+    color: var(--primary-color);
+    box-shadow: 0 3px 8px rgba(40, 95, 235, 0.1);
   }
 `;
 
 const SubCategoryContainer = styled.div`
   display: ${(props) => (props.$isOpen ? "block" : "none")};
+  margin-left: 0.5rem;
 `;
 
 const SubCategory = styled(Link)`
@@ -122,51 +131,64 @@ const SubCategory = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 0.6rem 1.5rem 0.6rem 2.5rem;
-  font-size: 0.9rem;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const UserSection = styled.div`
-  padding: 1.5rem;
-  border-top: 1px solid #eee;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-`;
-
-const UserLink = styled(Link)`
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-
-  &:hover {
-    color: #666;
-  }
-`;
-
-const CartButton = styled.button`
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
   border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  transition: all 0.2s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: rgba(40, 95, 235, 0.05);
+    color: var(--primary-color);
   }
 `;
+
+// const UserSection = styled.div`
+//   padding: 1rem;
+//   margin-top: auto;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 0.6rem;
+//   background-color: white;
+//   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+// `;
+
+// const UserLink = styled(Link)`
+//   color: #333;
+//   text-decoration: none;
+//   font-weight: 500;
+//   display: flex;
+//   align-items: center;
+//   gap: 0.8rem;
+//   padding: 0.6rem 0.8rem;
+//   border-radius: 6px;
+//   transition: all 0.2s;
+
+//   &:hover {
+//     color: var(--primary-color);
+//     background-color: rgba(40, 95, 235, 0.05);
+//   }
+// `;
+
+// const CartButton = styled.button`
+//   background-color: var(--primary-color);
+//   color: white;
+//   border: none;
+//   padding: 0.6rem 0.8rem;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   font-weight: 500;
+//   display: flex;
+//   align-items: center;
+//   gap: 0.5rem;
+//   box-shadow: 0 2px 6px rgba(40, 95, 235, 0.2);
+//   transition: all 0.2s;
+
+//   &:hover {
+//     background-color: var(--primary-hover);
+//     box-shadow: 0 3px 8px rgba(40, 95, 235, 0.3);
+//   }
+// `;
 
 const categories = [
   {
@@ -342,7 +364,7 @@ function Sidebar() {
         {categories.map((category) => (
           <CategorySection key={category.title}>
             <CategoryTitle onClick={() => toggleCategory(category.title)}>
-              {category.icon}
+              {React.createElement(category.icon)}
               {category.title}
               <FaChevronDown
                 style={{

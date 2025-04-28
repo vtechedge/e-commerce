@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import React, { useState } from "react";
+import styled from "styled-components";
+import Link from "next/link";
 import { Geist } from "next/font/google";
-import { FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown } from "react-icons/fa";
 
 const geist = Geist({
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
+  weight: ["400", "500", "600", "700"],
 });
 
 const HeaderContainer = styled.header`
@@ -17,32 +17,32 @@ const HeaderContainer = styled.header`
   top: 0;
   z-index: 1000;
   font-family: ${geist.style.fontFamily};
-`
+`;
 
 const Nav = styled.nav`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+  color: var(--primary-color);
   text-decoration: none;
-  
+
   &:hover {
-    color: #666;
+    color: var(--primary-hover);
   }
-`
+`;
 
 const NavLinks = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
   margin: 0 auto;
-`
+`;
 
 const NavLink = styled(Link)`
   color: #333;
@@ -51,49 +51,49 @@ const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
+
   &:hover {
-    color: #666;
+    color: var(--primary-color);
   }
-`
+`;
 
 const RightSection = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
-`
+`;
 
 const LoginButton = styled(Link)`
   color: #333;
   text-decoration: none;
   font-weight: 500;
-  
+
   &:hover {
-    color: #666;
+    color: var(--primary-color);
   }
-`
+`;
 
 const CartButton = styled.button`
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  
+
   &:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-hover);
   }
-`
+`;
 
 const DropdownContainer = styled.div`
   position: relative;
   display: inline-block;
-`
+`;
 
 const DropdownContent = styled.div`
-  display: ${props => props.$isOpen ? 'block' : 'none'};
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
   position: absolute;
   background-color: #fff;
   min-width: 160px;
@@ -102,18 +102,19 @@ const DropdownContent = styled.div`
   padding: 0.5rem 0;
   top: 100%;
   left: 0;
-`
+`;
 
 const DropdownItem = styled(Link)`
   color: #333;
   padding: 0.5rem 1rem;
   text-decoration: none;
   display: block;
-  
+
   &:hover {
-    background-color: #f5f5f5;
+    background-color: rgba(40, 95, 235, 0.05);
+    color: var(--primary-color);
   }
-`
+`;
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -127,11 +128,7 @@ function Header() {
           <NavLink href="/categories">Categories</NavLink>
           <NavLink href="/about">About</NavLink>
           <DropdownContainer>
-            <NavLink 
-              href="/category"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
-            >
+            <NavLink href="/category" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
               Category <FaChevronDown size={12} />
             </NavLink>
             <DropdownContent $isOpen={isDropdownOpen}>
@@ -148,7 +145,7 @@ function Header() {
         </RightSection>
       </Nav>
     </HeaderContainer>
-  )
+  );
 }
 
-export default Header
+export default Header;

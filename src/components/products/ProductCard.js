@@ -69,7 +69,7 @@ const AddToCartButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #007bff;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -80,7 +80,7 @@ const AddToCartButton = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-hover);
   }
 `;
 
