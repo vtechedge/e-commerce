@@ -447,14 +447,13 @@ function CategoryPage() {
     }
   }, [slug]);
 
-  const categoryTitle = Object.entries(categoryTitles).find(([_, value]) => value === slug)?.[0] || "Category";
-
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Categories", href: "/categories" }, { label: categoryTitle }];
+  const categoryTitle =
+    Object.entries(categoryTitles).find(([_, value]) => value === slug)?.[0] ||
+    "Category";
 
   if (loading) {
     return (
       <CategoryContainer>
-        <Breadcrumb items={breadcrumbItems} />
         <LoadingSpinner text="Loading products..." />
       </CategoryContainer>
     );
@@ -466,7 +465,6 @@ function CategoryPage() {
 
   return (
     <CategoryContainer>
-      <Breadcrumb items={breadcrumbItems} />
       <CategoryTitle>{categoryTitle}</CategoryTitle>
       {products.length > 0 ? (
         <ProductsGrid>

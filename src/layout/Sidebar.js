@@ -31,12 +31,10 @@ const geist = Geist({
 
 const SidebarContainer = styled.aside`
   width: 320px;
-  background-color: #fafcff;
+  background-color: rgb(245, 250, 255);
   box-shadow: 0 2px 4px rgba(40, 95, 235, 0.1);
   height: 100vh;
   position: fixed;
-  left: 0;
-  top: 0;
   display: flex;
   flex-direction: column;
   font-family: ${geist.style.fontFamily};
@@ -47,23 +45,19 @@ const SidebarContainer = styled.aside`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
   text-decoration: none;
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   margin-bottom: 0.5rem;
-  text-align: center;
-
-  &:hover {
-    color: var(--primary-hover);
-  }
+  text-align: start;
+  color: black;
 `;
 
 const NavLinks = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  /* gap: 0.3rem; */
   margin-top: 0.3rem;
-  padding: 0 0.8rem;
+  padding: 0 20px;
 `;
 
 const NavLink = styled(Link)`
@@ -73,7 +67,6 @@ const NavLink = styled(Link)`
   padding: 0.6rem 0.8rem;
   color: #333;
   text-decoration: none;
-  border-radius: 6px;
   transition: all 0.2s;
 
   &:hover {
@@ -94,7 +87,7 @@ const AllProductsLink = styled(NavLink)`
 `;
 
 const CategorySection = styled.div`
-  margin-bottom: 0.3rem;
+  /* margin-bottom: 0.3rem; */
 `;
 
 const CategoryTitle = styled.div`
@@ -104,20 +97,27 @@ const CategoryTitle = styled.div`
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 25px;
   cursor: pointer;
   transition: all 0.2s;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
   font-weight: 500;
   margin-bottom: 0.3rem;
+  border: 1px solid transparent;
 
-  &:hover {
-    background-color: rgba(40, 95, 235, 0.05);
+  &:hover,
+  &[data-open="true"] {
+    background-color: white;
     color: var(--primary-color);
-    box-shadow: 0 3px 8px rgba(40, 95, 235, 0.1);
+    border: 1px solid rgb(217, 207, 207);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
+`;
+
+const IconStyle = styled.div`
+  font-size: 20px;
+  display: flex;
+  align-items: center;
 `;
 
 const SubCategoryContainer = styled.div`
@@ -143,73 +143,53 @@ const SubCategory = styled(Link)`
   }
 `;
 
-// const UserSection = styled.div`
-//   padding: 1rem;
-//   margin-top: auto;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 0.6rem;
-//   background-color: white;
-//   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-// `;
-
-// const UserLink = styled(Link)`
-//   color: #333;
-//   text-decoration: none;
-//   font-weight: 500;
-//   display: flex;
-//   align-items: center;
-//   gap: 0.8rem;
-//   padding: 0.6rem 0.8rem;
-//   border-radius: 6px;
-//   transition: all 0.2s;
-
-//   &:hover {
-//     color: var(--primary-color);
-//     background-color: rgba(40, 95, 235, 0.05);
-//   }
-// `;
-
-// const CartButton = styled.button`
-//   background-color: var(--primary-color);
-//   color: white;
-//   border: none;
-//   padding: 0.6rem 0.8rem;
-//   border-radius: 6px;
-//   cursor: pointer;
-//   font-weight: 500;
-//   display: flex;
-//   align-items: center;
-//   gap: 0.5rem;
-//   box-shadow: 0 2px 6px rgba(40, 95, 235, 0.2);
-//   transition: all 0.2s;
-
-//   &:hover {
-//     background-color: var(--primary-hover);
-//     box-shadow: 0 3px 8px rgba(40, 95, 235, 0.3);
-//   }
-// `;
-
 const categories = [
   {
     title: "Display & Video Adapters",
     icon: FaDesktop,
     subcategories: [
-      { name: "USB-C Display Adapters", path: "/category/usb-c-display-adapters" },
-      { name: "DisplayPort & Mini DisplayPort Adapters", path: "/category/displayport-adapters" },
-      { name: "Thunderbolt Display Adapters", path: "/category/thunderbolt-display-adapters" },
-      { name: "USB-A Display Adapters", path: "/category/usb-a-display-adapters" },
-      { name: "HDMI & DVI Display Adapters", path: "/category/hdmi-dvi-adapters" },
+      {
+        name: "USB-C Display Adapters",
+        path: "/category/usb-c-display-adapters",
+      },
+      {
+        name: "DisplayPort & Mini DisplayPort Adapters",
+        path: "/category/displayport-adapters",
+      },
+      {
+        name: "Thunderbolt Display Adapters",
+        path: "/category/thunderbolt-display-adapters",
+      },
+      {
+        name: "USB-A Display Adapters",
+        path: "/category/usb-a-display-adapters",
+      },
+      {
+        name: "HDMI & DVI Display Adapters",
+        path: "/category/hdmi-dvi-adapters",
+      },
     ],
   },
   {
     title: "Universal Laptop Docking Stations",
     icon: FaLaptop,
     subcategories: [
-      { name: "Thunderbolt Docking Stations", path: "/category/thunderbolt-docking-stations" },
-      { name: "USB-C Docking Stations", path: "/category/usb-c-docking-stations" },
-      { name: "USB-C Multiport Adapters", path: "/category/usb-c-multiport-adapters" },
-      { name: "USB-A Docking Stations", path: "/category/usb-a-docking-stations" },
+      {
+        name: "Thunderbolt Docking Stations",
+        path: "/category/thunderbolt-docking-stations",
+      },
+      {
+        name: "USB-C Docking Stations",
+        path: "/category/usb-c-docking-stations",
+      },
+      {
+        name: "USB-C Multiport Adapters",
+        path: "/category/usb-c-multiport-adapters",
+      },
+      {
+        name: "USB-A Docking Stations",
+        path: "/category/usb-a-docking-stations",
+      },
     ],
   },
   {
@@ -218,14 +198,20 @@ const categories = [
     subcategories: [
       { name: "Monitor Filters", path: "/category/monitor-filters" },
       { name: "Laptop Filters", path: "/category/laptop-filters" },
-      { name: "Tablet and Phone Filters", path: "/category/tablet-phone-filters" },
+      {
+        name: "Tablet and Phone Filters",
+        path: "/category/tablet-phone-filters",
+      },
     ],
   },
   {
     title: "USB Hubs",
     icon: FaUsb,
     subcategories: [
-      { name: "Thunderbolt Hubs & Adapters", path: "/category/thunderbolt-hubs" },
+      {
+        name: "Thunderbolt Hubs & Adapters",
+        path: "/category/thunderbolt-hubs",
+      },
       { name: "USB-C Hubs", path: "/category/usb-c-hubs" },
       { name: "USB-A Hubs", path: "/category/usb-a-hubs" },
       { name: "Industrial USB Hubs", path: "/category/industrial-usb-hubs" },
@@ -237,7 +223,10 @@ const categories = [
     subcategories: [
       { name: "Monitor Mounts", path: "/category/monitor-mounts" },
       { name: "TV Mounts", path: "/category/tv-mounts" },
-      { name: "Sit-Stand Workstations", path: "/category/sit-stand-workstations" },
+      {
+        name: "Sit-Stand Workstations",
+        path: "/category/sit-stand-workstations",
+      },
       { name: "Tablet Mounts", path: "/category/tablet-mounts" },
       { name: "Laptop Backpacks", path: "/category/laptop-backpacks" },
     ],
@@ -247,9 +236,15 @@ const categories = [
     icon: FaHeadphones,
     subcategories: [
       { name: "Video Extenders", path: "/category/video-extenders" },
-      { name: "Audio-Video Converters", path: "/category/audio-video-converters" },
+      {
+        name: "Audio-Video Converters",
+        path: "/category/audio-video-converters",
+      },
       { name: "Video Splitters", path: "/category/video-splitters" },
-      { name: "Collaboration and Boardroom Solutions", path: "/category/collaboration-solutions" },
+      {
+        name: "Collaboration and Boardroom Solutions",
+        path: "/category/collaboration-solutions",
+      },
       { name: "Video Switchers", path: "/category/video-switchers" },
     ],
   },
@@ -261,15 +256,33 @@ const categories = [
       { name: "Network Cables & Adapters", path: "/category/network-cables" },
       { name: "USB Cables & Adapters", path: "/category/usb-cables" },
       { name: "Drive Cables", path: "/category/drive-cables" },
-      { name: "Computer Power Cables", path: "/category/computer-power-cables" },
-      { name: "Serial Cables, Parallel Cables & PS/2 Cables", path: "/category/serial-parallel-cables" },
+      {
+        name: "Computer Power Cables",
+        path: "/category/computer-power-cables",
+      },
+      {
+        name: "Serial Cables, Parallel Cables & PS/2 Cables",
+        path: "/category/serial-parallel-cables",
+      },
       { name: "Cable Management", path: "/category/cable-management" },
       { name: "Structured Wiring", path: "/category/structured-wiring" },
-      { name: "Bulk Wire & Connectors", path: "/category/bulk-wire-connectors" },
-      { name: "FireWire Cables and Adapters", path: "/category/firewire-cables" },
-      { name: "Thunderbolt 4 and Thunderbolt 3 Cables & Adapters", path: "/category/thunderbolt-cables" },
+      {
+        name: "Bulk Wire & Connectors",
+        path: "/category/bulk-wire-connectors",
+      },
+      {
+        name: "FireWire Cables and Adapters",
+        path: "/category/firewire-cables",
+      },
+      {
+        name: "Thunderbolt 4 and Thunderbolt 3 Cables & Adapters",
+        path: "/category/thunderbolt-cables",
+      },
       { name: "Lightning Cables", path: "/category/lightning-cables" },
-      { name: "30-pin Dock Connector Cables", path: "/category/30pin-dock-cables" },
+      {
+        name: "30-pin Dock Connector Cables",
+        path: "/category/30pin-dock-cables",
+      },
       { name: "USB 3.0 Cables", path: "/category/usb-3-cables" },
       { name: "USB-C Cables", path: "/category/usb-c-cables" },
     ],
@@ -278,7 +291,10 @@ const categories = [
     title: "Server Management",
     icon: FaServer,
     subcategories: [
-      { name: "Server Rack Accessories", path: "/category/server-rack-accessories" },
+      {
+        name: "Server Rack Accessories",
+        path: "/category/server-rack-accessories",
+      },
       { name: "KVM Consoles - Rackmount", path: "/category/kvm-consoles" },
       { name: "KVM Switches", path: "/category/kvm-switches" },
       { name: "KVM Extenders", path: "/category/kvm-extenders" },
@@ -290,27 +306,48 @@ const categories = [
     title: "Hard Drive Accessories",
     icon: FaHdd,
     subcategories: [
-      { name: "Media Card Readers & Adapters", path: "/category/media-card-readers" },
-      { name: "External Drive Enclosures", path: "/category/external-drive-enclosures" },
-      { name: "Mobile Racks/Hard Drive Backplanes", path: "/category/mobile-racks" },
+      {
+        name: "Media Card Readers & Adapters",
+        path: "/category/media-card-readers",
+      },
+      {
+        name: "External Drive Enclosures",
+        path: "/category/external-drive-enclosures",
+      },
+      {
+        name: "Mobile Racks/Hard Drive Backplanes",
+        path: "/category/mobile-racks",
+      },
       { name: "HDD Docking Stations", path: "/category/hdd-docking-stations" },
       { name: "HDD Duplicators", path: "/category/hdd-duplicators" },
-      { name: "Drive Adapters and Drive Converters", path: "/category/drive-adapters" },
-      { name: "Drive Mounting Brackets & Accessories", path: "/category/drive-mounting-brackets" },
+      {
+        name: "Drive Adapters and Drive Converters",
+        path: "/category/drive-adapters",
+      },
+      {
+        name: "Drive Mounting Brackets & Accessories",
+        path: "/category/drive-mounting-brackets",
+      },
     ],
   },
   {
     title: "Add-on Cards & Peripherals",
     icon: FaMicrochip,
     subcategories: [
-      { name: "Hard Drive Controller Cards", path: "/category/hard-drive-controller-cards" },
+      {
+        name: "Hard Drive Controller Cards",
+        path: "/category/hard-drive-controller-cards",
+      },
       { name: "USB 3.0 Cards", path: "/category/usb-3-cards" },
       { name: "USB 2.0 Cards, Extenders", path: "/category/usb-2-cards" },
       { name: "Sound Cards & Adapters", path: "/category/sound-cards" },
       { name: "Serial Cards & Adapters", path: "/category/serial-cards" },
       { name: "Parallel Cards & Adapters", path: "/category/parallel-cards" },
       { name: "FireWire Cards", path: "/category/firewire-cards" },
-      { name: "Slot Conversion & Slot Extension", path: "/category/slot-conversion" },
+      {
+        name: "Slot Conversion & Slot Extension",
+        path: "/category/slot-conversion",
+      },
     ],
   },
   {
@@ -318,24 +355,51 @@ const categories = [
     icon: FaWifi,
     subcategories: [
       { name: "SFPs", path: "/category/sfps" },
-      { name: "Media Converters & Extenders", path: "/category/media-converters" },
-      { name: "USB and Thunderbolt Network Adapters", path: "/category/usb-thunderbolt-network-adapters" },
-      { name: "Network Adapter Cards", path: "/category/network-adapter-cards" },
-      { name: "Wireless Network Adapters", path: "/category/wireless-network-adapters" },
+      {
+        name: "Media Converters & Extenders",
+        path: "/category/media-converters",
+      },
+      {
+        name: "USB and Thunderbolt Network Adapters",
+        path: "/category/usb-thunderbolt-network-adapters",
+      },
+      {
+        name: "Network Adapter Cards",
+        path: "/category/network-adapter-cards",
+      },
+      {
+        name: "Wireless Network Adapters",
+        path: "/category/wireless-network-adapters",
+      },
       { name: "Ethernet Switches", path: "/category/ethernet-switches" },
-      { name: "Network Print Servers", path: "/category/network-print-servers" },
+      {
+        name: "Network Print Servers",
+        path: "/category/network-print-servers",
+      },
       { name: "USB & PS/2 Devices", path: "/category/usb-ps2-devices" },
-      { name: "Bluetooth & Telecom Adapters", path: "/category/bluetooth-telecom-adapters" },
-      { name: "Serial Over IP (Cat5/6) Extenders", path: "/category/serial-over-ip-extenders" },
+      {
+        name: "Bluetooth & Telecom Adapters",
+        path: "/category/bluetooth-telecom-adapters",
+      },
+      {
+        name: "Serial Over IP (Cat5/6) Extenders",
+        path: "/category/serial-over-ip-extenders",
+      },
     ],
   },
   {
     title: "Computer Parts",
     icon: FaDesktop,
     subcategories: [
-      { name: "System Build and Computer Repair Parts", path: "/category/system-build-parts" },
+      {
+        name: "System Build and Computer Repair Parts",
+        path: "/category/system-build-parts",
+      },
       { name: "Power Adapters", path: "/category/power-adapters" },
-      { name: "Computer Fans & Coolers", path: "/category/computer-fans-coolers" },
+      {
+        name: "Computer Fans & Coolers",
+        path: "/category/computer-fans-coolers",
+      },
       { name: "Laptop Locks", path: "/category/laptop-locks" },
     ],
   },
@@ -353,23 +417,27 @@ function Sidebar() {
 
   return (
     <SidebarContainer>
-      <Logo href="/">TechStore</Logo>
+      <Logo href="/">VTechSecure.</Logo>
       <NavLinks>
-        <NavLink href="/">
-          <FaHome /> Home
-        </NavLink>
         <AllProductsLink href="/products">
-          <FaThLarge /> All Products
+          <FaThLarge /> Home
         </AllProductsLink>
         {categories.map((category) => (
           <CategorySection key={category.title}>
-            <CategoryTitle onClick={() => toggleCategory(category.title)}>
-              {React.createElement(category.icon)}
+            <CategoryTitle
+              onClick={() => toggleCategory(category.title)}
+              data-open={openCategories[category.title]}
+            >
+              <IconStyle>
+                <category.icon />
+              </IconStyle>
               {category.title}
               <FaChevronDown
                 style={{
                   marginLeft: "auto",
-                  transform: openCategories[category.title] ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: openCategories[category.title]
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
                   transition: "transform 0.3s ease",
                 }}
               />

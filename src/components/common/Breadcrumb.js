@@ -12,7 +12,7 @@ const BreadcrumbContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const BreadcrumbList = styled.ol`
@@ -22,13 +22,13 @@ const BreadcrumbList = styled.ol`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const BreadcrumbItem = styled.li`
   display: flex;
   align-items: center;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:not(:last-child) {
     margin-right: 0.5rem;
@@ -39,7 +39,7 @@ const BreadcrumbLink = styled(Link)`
   color: #6c757d;
   text-decoration: none;
   font-size: 0.9rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:hover {
     color: var(--primary-color);
@@ -51,7 +51,7 @@ const BreadcrumbText = styled.span`
   color: #212529;
   font-size: 0.9rem;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const Separator = styled(FaChevronRight)`
@@ -64,7 +64,7 @@ const UserActions = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const UserLink = styled(Link)`
@@ -72,7 +72,7 @@ const UserLink = styled(Link)`
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:hover {
     color: #666;
@@ -91,7 +91,7 @@ const CartButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:hover {
     background-color: var(--primary-hover);

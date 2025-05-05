@@ -10,12 +10,12 @@ const geist = Geist({
 });
 
 const HeaderContainer = styled.header`
-  background-color: #ffffff;
+  background-color: rgb(186, 40, 40);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 4rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  /* position: sticky;
+  top: 0; */
+  /* z-index: 1000; */
   font-family: ${geist.style.fontFamily};
 `;
 
@@ -128,11 +128,17 @@ function Header() {
           <NavLink href="/categories">Categories</NavLink>
           <NavLink href="/about">About</NavLink>
           <DropdownContainer>
-            <NavLink href="/category" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+            <NavLink
+              href="/category"
+              onMouseEnter={() => setIsDropdownOpen(true)}
+              onMouseLeave={() => setIsDropdownOpen(false)}
+            >
               Category <FaChevronDown size={12} />
             </NavLink>
             <DropdownContent $isOpen={isDropdownOpen}>
-              <DropdownItem href="/category/electronics">Electronics</DropdownItem>
+              <DropdownItem href="/category/electronics">
+                Electronics
+              </DropdownItem>
               <DropdownItem href="/category/clothing">Clothing</DropdownItem>
               <DropdownItem href="/category/books">Books</DropdownItem>
               <DropdownItem href="/category/home">Home & Garden</DropdownItem>
