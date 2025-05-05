@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Breadcrumb from "@/components/common/Breadcrumb";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import ProductCard from "@/components/products/ProductCard";
 
@@ -464,7 +463,9 @@ function ProductsPage() {
 
     // Apply category filter
     if (categoryFilter !== "all") {
-      filtered = filtered.filter((product) => product.category === categoryFilter);
+      filtered = filtered.filter(
+        (product) => product.category === categoryFilter
+      );
     }
 
     // Apply price filter
@@ -500,17 +501,17 @@ function ProductsPage() {
     setFilteredProducts(filtered);
   }, [products, categoryFilter, priceFilter, sortBy]);
 
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "All Products" }];
-
   return (
     <ProductsContainer>
-      <Breadcrumb items={breadcrumbItems} />
       <PageTitle>All Products</PageTitle>
 
       <FilterSection>
         <FilterGroup>
           <FilterLabel>Category:</FilterLabel>
-          <FilterSelect value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+          <FilterSelect
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
             {categories.map((category, index) => (
               <option key={index} value={category}>
                 {category === "all" ? "All Categories" : category}
@@ -521,7 +522,10 @@ function ProductsPage() {
 
         <FilterGroup>
           <FilterLabel>Price Range:</FilterLabel>
-          <FilterSelect value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)}>
+          <FilterSelect
+            value={priceFilter}
+            onChange={(e) => setPriceFilter(e.target.value)}
+          >
             <option value="all">All Prices</option>
             <option value="0-25">Under $25</option>
             <option value="25-50">$25 - $50</option>
@@ -533,7 +537,10 @@ function ProductsPage() {
 
         <FilterGroup>
           <FilterLabel>Sort By:</FilterLabel>
-          <FilterSelect value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <FilterSelect
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
             <option value="default">Default</option>
             <option value="price-low-high">Price: Low to High</option>
             <option value="price-high-low">Price: High to Low</option>
