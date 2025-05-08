@@ -40,6 +40,7 @@ const SidebarContainer = styled.aside`
   font-family: ${geist.style.fontFamily};
   z-index: 1000;
   overflow-y: auto;
+  border-right: 1px solid rgb(217, 207, 207);
 `;
 
 const Logo = styled(Link)`
