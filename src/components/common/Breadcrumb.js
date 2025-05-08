@@ -1,12 +1,70 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { FaChevronRight, FaShoppingCart } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { FaChevronRight, FaShoppingCart, FaDotCircle } from "react-icons/fa";
+
+function Breadcrumb() {
+  const router = useRouter();
+  const pathSegments = router.asPath.split("/").filter((segment) => segment);
+
+  const generateBreadcrumbs = () => {
+    const breadcrumbs = [{ label: "Home", href: "/" }];
+    let currentPath = "";
+
+    pathSegments.forEach((segment, index) => {
+      currentPath += `/${segment}`;
+      // Convert segment to readable format (e.g., "my-page" to "My Page")
+      const label = segment
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+      breadcrumbs.push({
+        label,
+        href: currentPath,
+      });
+    });
+
+    return breadcrumbs;
+  };
+
+  const breadcrumbItems = generateBreadcrumbs();
+
+  return (
+    <BreadcrumbContainer>
+      <BreadcrumbList>
+        <FaDotCircle size={24} color="var(--primary-color)" />
+        {breadcrumbItems.map((item, index) => (
+          <BreadcrumbItem key={index}>
+            {index < breadcrumbItems.length - 1 ? (
+              <>
+                <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                <Separator />
+              </>
+            ) : (
+              <BreadcrumbText>{item.label}</BreadcrumbText>
+            )}
+          </BreadcrumbItem>
+        ))}
+      </BreadcrumbList>
+      <UserActions>
+        <UserLink href="/login">Login</UserLink>
+        <UserLink href="/register">Register</UserLink>
+        <CartButton>
+          <FaShoppingCart /> Cart (0)
+        </CartButton>
+      </UserActions>
+    </BreadcrumbContainer>
+  );
+}
+
+export default Breadcrumb;
 
 const BreadcrumbContainer = styled.nav`
   padding: 1rem 2rem;
   background-color: #f8f9fa;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid rgb(217, 207, 207);
   margin-bottom: 1rem;
   width: 100%;
   display: flex;
@@ -15,19 +73,18 @@ const BreadcrumbContainer = styled.nav`
   font-family: "Inter", sans-serif;
 `;
 
-const BreadcrumbList = styled.ol`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const BreadcrumbList = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
   font-family: "Inter", sans-serif;
 `;
 
-const BreadcrumbItem = styled.li`
+const BreadcrumbItem = styled.div`
   display: flex;
   align-items: center;
+  gap: 10px;
   font-family: "Inter", sans-serif;
 
   &:not(:last-child) {
@@ -56,7 +113,7 @@ const BreadcrumbText = styled.span`
 
 const Separator = styled(FaChevronRight)`
   color: #6c757d;
-  font-size: 0.7rem;
+  font-size: 1rem;
   margin: 0 0.5rem;
 `;
 
@@ -97,33 +154,3 @@ const CartButton = styled.button`
     background-color: var(--primary-hover);
   }
 `;
-
-function Breadcrumb({ items }) {
-  return (
-    <BreadcrumbContainer>
-      <BreadcrumbList>
-        {items.map((item, index) => (
-          <BreadcrumbItem key={index}>
-            {index < items.length - 1 ? (
-              <>
-                <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
-                <Separator />
-              </>
-            ) : (
-              <BreadcrumbText>{item.label}</BreadcrumbText>
-            )}
-          </BreadcrumbItem>
-        ))}
-      </BreadcrumbList>
-      <UserActions>
-        <UserLink href="/login">Login</UserLink>
-        <UserLink href="/register">Register</UserLink>
-        <CartButton>
-          <FaShoppingCart /> Cart (0)
-        </CartButton>
-      </UserActions>
-    </BreadcrumbContainer>
-  );
-}
-
-export default Breadcrumb;

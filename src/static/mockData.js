@@ -1,0 +1,355 @@
+export const mockProducts = {
+  // Display & Video Adapters
+  "usb-c-display-adapters": [
+    {
+      id: 1,
+      name: "USB-C to HDMI Adapter",
+      heading: "4K Display Support",
+      price: "$29.99",
+      image: "/products/1.jpg",
+      rating: 4.8,
+      category: "Display & Video Adapters",
+      subcategory: "USB-C Display Adapters",
+    },
+    {
+      id: 2,
+      name: "USB-C to DisplayPort Adapter",
+      heading: "High-Resolution Display",
+      price: "$34.99",
+      image: "/products/2.jpg",
+      rating: 4.6,
+      category: "Display & Video Adapters",
+      subcategory: "USB-C Display Adapters",
+    },
+    {
+      id: 3,
+      name: "USB-C to VGA Adapter",
+      heading: "Legacy Display Support",
+      price: "$24.99",
+      image: "/products/3.jpg",
+      rating: 4.3,
+      category: "Display & Video Adapters",
+      subcategory: "USB-C Display Adapters",
+    },
+  ],
+  "displayport-adapters": [
+    {
+      id: 4,
+      name: "DisplayPort to HDMI Adapter",
+      heading: "4K Video Support",
+      price: "$19.99",
+      image: "/products/4.jpg",
+      rating: 4.7,
+      category: "Display & Video Adapters",
+      subcategory: "DisplayPort & Mini DisplayPort Adapters",
+    },
+    {
+      id: 5,
+      name: "Mini DisplayPort to DVI Adapter",
+      heading: "Dual-Link Support",
+      price: "$22.99",
+      image: "/products/5.jpg",
+      rating: 4.5,
+      category: "Display & Video Adapters",
+      subcategory: "DisplayPort & Mini DisplayPort Adapters",
+    },
+  ],
+  "thunderbolt-display-adapters": [
+    {
+      id: 30,
+      name: "DisplayPort to HDMI Adapter",
+      heading: "4K Video Support",
+      price: "$19.99",
+      image: "/products/1.jpg",
+      rating: 4.7,
+      category: "Display & Video Adapters",
+      subcategory: "Thunderbolt Display Adapters",
+    },
+  ],
+
+  // Universal Laptop Docking Stations
+  "thunderbolt-docking-stations": [
+    {
+      id: 6,
+      name: "Thunderbolt 3 Pro Dock",
+      heading: "10 Ports, 85W Charging",
+      price: "$299.99",
+      image: "/products/2.jpg",
+      rating: 4.9,
+      category: "Universal Laptop Docking Stations",
+      subcategory: "Thunderbolt Docking Stations",
+    },
+    {
+      id: 7,
+      name: "Thunderbolt 4 Dock",
+      heading: "8K Display Support",
+      price: "$349.99",
+      image: "/products/3.jpg",
+      rating: 4.8,
+      category: "Universal Laptop Docking Stations",
+      subcategory: "Thunderbolt Docking Stations",
+    },
+  ],
+  "usb-c-docking-stations": [
+    {
+      id: 8,
+      name: "USB-C Universal Dock",
+      heading: "12 Ports, 60W Charging",
+      price: "$199.99",
+      image: "/products/4.jpg",
+      rating: 4.7,
+      category: "Universal Laptop Docking Stations",
+      subcategory: "USB-C Docking Stations",
+    },
+    {
+      id: 9,
+      name: "USB-C Mini Dock",
+      heading: "Compact Design",
+      price: "$79.99",
+      image: "/products/5.jpg",
+      rating: 4.5,
+      category: "Universal Laptop Docking Stations",
+      subcategory: "USB-C Docking Stations",
+    },
+  ],
+
+  // Privacy Screen Filters
+  "monitor-filters": [
+    {
+      id: 10,
+      name: "24-inch Monitor Privacy Filter",
+      heading: "Anti-Glare, 45° Viewing Angle",
+      price: "$49.99",
+      image: "/products/1.jpg",
+      rating: 4.6,
+      category: "Privacy Screen Filters",
+      subcategory: "Monitor Filters",
+    },
+    {
+      id: 11,
+      name: "27-inch Monitor Privacy Filter",
+      heading: "Anti-Glare, 30° Viewing Angle",
+      price: "$59.99",
+      image: "/products/2.jpg",
+      rating: 4.7,
+      category: "Privacy Screen Filters",
+      subcategory: "Monitor Filters",
+    },
+  ],
+
+  // USB Hubs
+  "usb-c-hubs": [
+    {
+      id: 12,
+      name: "7-in-1 USB-C Hub",
+      heading: "HDMI, USB 3.0, SD Card Reader",
+      price: "$39.99",
+      image: "/products/3.jpg",
+      rating: 4.5,
+      category: "USB Hubs",
+      subcategory: "USB-C Hubs",
+    },
+    {
+      id: 13,
+      name: "9-in-1 USB-C Hub",
+      heading: "4K HDMI, Ethernet, USB 3.0",
+      price: "$49.99",
+      image: "/products/4.jpg",
+      rating: 4.6,
+      category: "USB Hubs",
+      subcategory: "USB-C Hubs",
+    },
+  ],
+
+  // Display Mounts and Ergonomics
+  "monitor-mounts": [
+    {
+      id: 14,
+      name: "Single Monitor Arm",
+      heading: "Gas Spring, VESA Compatible",
+      price: "$79.99",
+      image: "/products/5.jpg",
+      rating: 4.8,
+      category: "Display Mounts and Ergonomics",
+      subcategory: "Monitor Mounts",
+    },
+    {
+      id: 15,
+      name: "Dual Monitor Arm",
+      heading: "Adjustable, Cable Management",
+      price: "$129.99",
+      image: "/products/1.jpg",
+      rating: 4.7,
+      category: "Display Mounts and Ergonomics",
+      subcategory: "Monitor Mounts",
+    },
+  ],
+
+  // Audio-Video Products
+  "video-splitters": [
+    {
+      id: 16,
+      name: "4K HDMI Splitter",
+      heading: "1x4 Distribution",
+      price: "$89.99",
+      image: "/products/2.jpg",
+      rating: 4.6,
+      category: "Audio-Video Products",
+      subcategory: "Video Splitters",
+    },
+    {
+      id: 17,
+      name: "DisplayPort Splitter",
+      heading: "1x2 Distribution",
+      price: "$69.99",
+      image: "/products/3.jpg",
+      rating: 4.5,
+      category: "Audio-Video Products",
+      subcategory: "Video Splitters",
+    },
+  ],
+
+  // Cables
+  "usb-c-cables": [
+    {
+      id: 18,
+      name: "USB-C to USB-C Cable",
+      heading: "Thunderbolt 3 Compatible",
+      price: "$19.99",
+      image: "/products/4.jpg",
+      rating: 4.7,
+      category: "Cables",
+      subcategory: "USB-C Cables",
+    },
+    {
+      id: 19,
+      name: "USB-C to USB-A Cable",
+      heading: "Fast Charging Support",
+      price: "$14.99",
+      image: "/products/5.jpg",
+      rating: 4.6,
+      category: "Cables",
+      subcategory: "USB-C Cables",
+    },
+  ],
+
+  // Server Management
+  "kvm-switches": [
+    {
+      id: 20,
+      name: "4-Port KVM Switch",
+      heading: "USB 3.0, 4K Support",
+      price: "$149.99",
+      image: "/products/1.jpg",
+      rating: 4.8,
+      category: "Server Management",
+      subcategory: "KVM Switches",
+    },
+    {
+      id: 21,
+      name: "8-Port KVM Switch",
+      heading: "Rackmount, USB 3.0",
+      price: "$299.99",
+      image: "/products/2.jpg",
+      rating: 4.9,
+      category: "Server Management",
+      subcategory: "KVM Switches",
+    },
+  ],
+
+  // Hard Drive Accessories
+  "hdd-docking-stations": [
+    {
+      id: 22,
+      name: "Dual Bay HDD Docking Station",
+      heading: "USB 3.0, SATA III",
+      price: "$59.99",
+      image: "/products/3.jpg",
+      rating: 4.7,
+      category: "Hard Drive Accessories",
+      subcategory: "HDD Docking Stations",
+    },
+    {
+      id: 23,
+      name: "Single Bay HDD Docking Station",
+      heading: "USB 3.0, 2.5/3.5 inch",
+      price: "$39.99",
+      image: "/products/4.jpg",
+      rating: 4.6,
+      category: "Hard Drive Accessories",
+      subcategory: "HDD Docking Stations",
+    },
+  ],
+
+  // Add-on Cards & Peripherals
+  "usb-3-cards": [
+    {
+      id: 24,
+      name: "4-Port USB 3.0 PCIe Card",
+      heading: "Internal Card, 5Gbps",
+      price: "$29.99",
+      image: "/products/5.jpg",
+      rating: 4.5,
+      category: "Add-on Cards & Peripherals",
+      subcategory: "USB 3.0 Cards",
+    },
+    {
+      id: 25,
+      name: "7-Port USB 3.0 PCIe Card",
+      heading: "Internal Card, 5Gbps",
+      price: "$49.99",
+      image: "/products/1.jpg",
+      rating: 4.6,
+      category: "Add-on Cards & Peripherals",
+      subcategory: "USB 3.0 Cards",
+    },
+  ],
+
+  // Networking IO Products
+  "ethernet-switches": [
+    {
+      id: 26,
+      name: "5-Port Gigabit Ethernet Switch",
+      heading: "Unmanaged, Plug & Play",
+      price: "$24.99",
+      image: "/products/2.jpg",
+      rating: 4.7,
+      category: "Networking IO Products",
+      subcategory: "Ethernet Switches",
+    },
+    {
+      id: 27,
+      name: "8-Port Gigabit Ethernet Switch",
+      heading: "Unmanaged, Plug & Play",
+      price: "$39.99",
+      image: "/products/3.jpg",
+      rating: 4.8,
+      category: "Networking IO Products",
+      subcategory: "Ethernet Switches",
+    },
+  ],
+
+  // Computer Parts
+  "computer-fans-coolers": [
+    {
+      id: 28,
+      name: "120mm Case Fan",
+      heading: "PWM, 4-Pin Connector",
+      price: "$14.99",
+      image: "/products/4.jpg",
+      rating: 4.6,
+      category: "Computer Parts",
+      subcategory: "Computer Fans & Coolers",
+    },
+    {
+      id: 29,
+      name: "CPU Air Cooler",
+      heading: "Dual Tower, 120mm Fan",
+      price: "$49.99",
+      image: "/products/5.jpg",
+      rating: 4.7,
+      category: "Computer Parts",
+      subcategory: "Computer Fans & Coolers",
+    },
+  ],
+};

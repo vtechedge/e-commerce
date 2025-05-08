@@ -4,29 +4,25 @@ import { FaStar, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 
 const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   width: 100%;
   max-width: 100%;
   height: 420px;
-  padding: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid rgb(217, 207, 207);
   border-radius: 10px;
   transition: transform 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
+  overflow: hidden;
 
-  &:hover {
+  /* &:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+  } */
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 220px;
   object-fit: cover;
-  border-radius: 10px;
   margin-bottom: 0.5rem;
 `;
 
@@ -90,6 +86,12 @@ const ProductLink = styled(Link)`
   width: 100%;
 `;
 
+const ProductDataComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+`;
+
 function ProductCard({ product }) {
   const { id, name, heading, price, image, rating } = product;
 
@@ -97,19 +99,26 @@ function ProductCard({ product }) {
     <Card>
       <ProductLink href={`/product/${id}`}>
         <ProductImage src={image} alt={name} />
-        <ProductName>{name}</ProductName>
-        <ProductHeading>{heading}</ProductHeading>
-        <RatingContainer>
-          {[...Array(5)].map((_, i) => (
-            <StarIcon key={i} style={{ opacity: i < Math.floor(rating) ? 1 : 0.3 }} />
-          ))}
-          <span style={{ fontSize: "0.8rem", color: "#666" }}>({rating})</span>
-        </RatingContainer>
-        <ProductPrice>{price}</ProductPrice>
+        <ProductDataComponent>
+          <ProductName>{name}</ProductName>
+          <ProductHeading>{heading}</ProductHeading>
+          <RatingContainer>
+            {[...Array(5)].map((_, i) => (
+              <StarIcon
+                key={i}
+                style={{ opacity: i < Math.floor(rating) ? 1 : 0.3 }}
+              />
+            ))}
+            <span style={{ fontSize: "0.8rem", color: "#666" }}>
+              ({rating})
+            </span>
+          </RatingContainer>
+          <ProductPrice>{price}</ProductPrice>
+          <AddToCartButton>
+            <FaShoppingCart /> Add to Cart
+          </AddToCartButton>
+        </ProductDataComponent>
       </ProductLink>
-      <AddToCartButton>
-        <FaShoppingCart /> Add to Cart
-      </AddToCartButton>
     </Card>
   );
 }
