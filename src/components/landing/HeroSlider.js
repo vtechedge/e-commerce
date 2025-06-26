@@ -1,23 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const slideIn = keyframes`
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-`;
+import styled from "styled-components";
 
 const HeroSection = styled.section`
   position: relative;
@@ -39,7 +21,94 @@ const Slide = styled.div`
   justify-content: center;
   background-size: cover;
   background-position: center;
-  animation: ${(props) => (props.active ? slideIn : fadeIn)} 0.5s ease-in-out;
+`;
+
+const ContentContainer = styled.div`
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 2rem;
+  z-index: 10;
+`;
+
+const Headline = styled.h1`
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+`;
+
+const Subheadline = styled.h2`
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const Button = styled.button`
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.primary {
+    background-color: #1e3888;
+    color: white;
+
+    &:hover {
+      background-color: #152a66;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 56, 136, 0.3);
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+
+    &:hover {
+      background-color: white;
+      color: #1e3888;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    }
+  }
 `;
 
 const Dots = styled.div`
@@ -91,7 +160,18 @@ const HeroSlider = () => {
   return (
     <HeroSection>
       {slides.map((slide, index) => (
-        <Slide key={index} active={index === currentSlide} style={{ backgroundImage: slide.background }}></Slide>
+        <Slide key={index} active={index === currentSlide} style={{ backgroundImage: slide.background }}>
+          <ContentContainer>
+            <Headline>Smart, Secure, and Scalable IT Solutions — Built for Healthcare and Enterprise</Headline>
+            <Subheadline>
+              From clinics and pharmacies to enterprise networks, Vtechsecure delivers reliable, end-to-end technology management that keeps your business moving forward.
+            </Subheadline>
+            <ButtonContainer>
+              <Button className="primary">Get a Free Consultation</Button>
+              <Button className="secondary">Explore Our Services</Button>
+            </ButtonContainer>
+          </ContentContainer>
+        </Slide>
       ))}
       <Dots>
         {slides.map((_, index) => (

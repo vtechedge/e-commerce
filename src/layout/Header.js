@@ -380,7 +380,7 @@ const Header = () => {
           </Logo>
           <Nav>
             <NavLink href="/">Home</NavLink>
-            <NavLink href="/expertise">Our Expertise</NavLink>
+            <NavLink href="/about">About Us</NavLink>
             <NavLink href="/services" onClick={toggleServices} isOpen={isServicesOpen} ref={dropdownRef}>
               Services
               <ChevronDown size={16} />

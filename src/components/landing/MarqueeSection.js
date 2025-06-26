@@ -45,18 +45,26 @@ const Dot = styled.span`
 `;
 
 const marqueeItems = [
-  "Cloud Solutions",
-  "Network Security",
-  "Data Analytics",
-  "IT Consulting",
-  "Managed Services",
-  "Digital Transformation",
-  "Cloud Solutions",
-  "Network Security",
-  "Data Analytics",
-  "IT Consulting",
-  "Managed Services",
-  "Digital Transformation",
+  "Doctor Clinics",
+  "Pharmacies",
+  "Pharma Manufacturing",
+  "Finance & Insurance",
+  "Government & Education",
+  "Retail & E-commerce",
+  "Construction & Real Estate",
+  "Manufacturing & Service Providers",
+  "Small to Medium Businesses",
+  "Esports, Travel & Tourism",
+  "Doctor Clinics",
+  "Pharmacies",
+  "Pharma Manufacturing",
+  "Finance & Insurance",
+  "Government & Education",
+  "Retail & E-commerce",
+  "Construction & Real Estate",
+  "Manufacturing & Service Providers",
+  "Small to Medium Businesses",
+  "Esports, Travel & Tourism",
 ];
 
 const MarqueeSection = () => {

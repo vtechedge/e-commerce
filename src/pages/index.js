@@ -7,14 +7,11 @@ import Features from "../components/landing/Features";
 import AboutSection from "../components/landing/AboutSection";
 import CardSection from "../components/landing/CardSection";
 import MarqueeSection from "../components/landing/MarqueeSection";
-
-const PageContainer = styled.div`
-  min-height: 100vh;
-`;
+import Touch from "@/components/landing/Touch";
 
 const Home = () => {
   return (
-    <PageContainer>
+    <>
       <Head>
         <title>IT Solutions Provider</title>
         <meta name="description" content="Your trusted IT solutions partner" />
@@ -25,9 +22,10 @@ const Home = () => {
       <AboutSection />
       <Services />
       <MarqueeSection />
-      <CardSection />
+      {/* <CardSection /> */}
       <Features />
-    </PageContainer>
+      <Touch />
+    </>
   );
 };
 
