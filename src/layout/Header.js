@@ -4,13 +4,11 @@ import {
   Search,
   User,
   ShoppingCart,
-  MessageCircle,
-  Mail,
-  Sun,
-  Moon,
+  Menu,
+  X,
   ChevronDown,
   Phone,
-  Globe,
+  Mail,
   HelpCircle,
   Network,
   Server,
@@ -24,57 +22,184 @@ import {
   PhoneCall,
   Smartphone,
   Code,
-  Globe as GlobeIcon,
+  Globe,
   Camera,
   BarChart2,
   GitBranch,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
 
 const HeaderContainer = styled.header`
-  position: fixed;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-gray);
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 `;
 
-const HeaderContent = styled.div`
+const TopBar = styled.div`
+  background-color: var(--primary-blue);
+  color: var(--white);
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+`;
+
+const TopBarContent = styled.div`
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 4rem;
+  padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Logo = styled.a`
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
+const TopBarLeft = styled.div`
   display: flex;
+  gap: 2rem;
   align-items: center;
 `;
 
-const Nav = styled.nav`
+const TopBarRight = styled.div`
   display: flex;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const TopBarLink = styled.a`
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const MainHeader = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
   gap: 2rem;
 `;
 
-const NavLink = styled.a`
+const Logo = styled.a`
+  font-size: 1.75rem;
+  font-weight: bold;
   text-decoration: none;
-  color: #333;
-  font-weight: 500;
+  color: var(--primary-blue);
+  white-space: nowrap;
+`;
+
+const SearchContainer = styled.div`
+  flex: 1;
+  max-width: 600px;
+  position: relative;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid var(--border-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: var(--primary-blue);
+  }
+
+  &::placeholder {
+    color: var(--medium-gray);
+  }
+`;
+
+const SearchIcon = styled.div`
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--medium-gray);
+`;
+
+const HeaderActions = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  position: relative;
+  gap: 1.5rem;
+`;
+
+const ActionButton = styled.button`
+  background: none;
+  border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dark-gray);
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    color: #666;
+    background-color: var(--light-gray);
+  }
+`;
+
+const CartBadge = styled.span`
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 0.25rem;
+`;
+
+const Navigation = styled.nav`
+  background-color: var(--light-gray);
+  border-bottom: 1px solid var(--border-gray);
+`;
+
+const NavContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const NavItem = styled.li`
+  position: relative;
+`;
+
+const NavLink = styled.a`
+  display: block;
+  padding: 1rem 1.5rem;
+  color: var(--dark-gray);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--primary-blue);
   }
 
   svg {
@@ -164,98 +289,68 @@ const ServiceTitle = styled.div`
   }
 `;
 
-const RightSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  padding: 0.5rem;
-  width: 200px;
-`;
-
-const SearchInput = styled.input`
-  border: none;
-  background: none;
-  outline: none;
-  width: 100%;
-  padding: 0 0.5rem;
-  color: #333;
-
-  &::placeholder {
-    color: #666;
-  }
-`;
-
-const Button = styled.button`
-  background-color: #1e3888;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-
-  &:hover {
-    background-color: #152a66;
-  }
-`;
-
-const IconButton = styled.button`
+const MobileMenuButton = styled.button`
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
-  color: #333;
-  font-size: 1.2rem;
   padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--dark-gray);
 
-  &:hover {
-    color: #666;
+  @media (max-width: 768px) {
+    display: block;
   }
 `;
 
-const FloatingIcons = styled.div`
+const MobileMenu = styled.div`
+  display: none;
   position: fixed;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  z-index: 1000;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--white);
+  z-index: 1002;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.isOpen ? "block" : "none")};
+  }
 `;
 
-const FloatingIconButton = styled(IconButton)`
-  color: #1e3888;
-  font-size: 1.5rem;
+const MobileMenuHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
 
-  &:hover {
-    color: #152a66;
-  }
+const MobileNavList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const MobileNavItem = styled.li`
+  border-bottom: 1px solid var(--border-gray);
+`;
+
+const MobileNavLink = styled.a`
+  display: block;
+  padding: 1rem 0;
+  color: var(--dark-gray);
+  text-decoration: none;
+  font-weight: 500;
 `;
 
 const Header = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    setIsMounted(true);
-
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsServicesOpen(false);
@@ -347,7 +442,7 @@ const Header = () => {
     },
     {
       name: "Website Management and Hosting",
-      icon: <GlobeIcon size={20} />,
+      icon: <Globe size={20} />,
       subServices: ["Website Design and Development", "Hosting and Maintenance", "Security Monitoring"],
     },
     {
@@ -367,82 +462,124 @@ const Header = () => {
     },
   ];
 
-  if (!isMounted) {
-    return null;
-  }
+  const navigationItems = [
+    { name: "Home", href: "/" },
+    { name: "About Us", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
+    { name: "Client Stories", href: "/client-stories" },
+    { name: "Blog", href: "/blog" },
+    { name: "Hardware", href: "/hardware" },
+    { name: "Software", href: "/software" },
+    { name: "Shop", href: "/shop" },
+    { name: "Policies", href: "/policies" },
+  ];
 
   return (
-    <>
-      <HeaderContainer>
-        <HeaderContent>
-          <Logo href="/">
-            <p>Logo</p>
-          </Logo>
-          <Nav>
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/about">About Us</NavLink>
-            <NavLink href="/services" onClick={toggleServices} isOpen={isServicesOpen} ref={dropdownRef}>
-              Services
-              <ChevronDown size={16} />
-              {isServicesOpen && (
-                <Dropdown isOpen={true}>
-                  <DropdownGrid>
-                    {services.map((service, index) => (
-                      <DropdownItem key={index} onMouseEnter={() => setHoveredService(service.name)} onMouseLeave={() => setHoveredService(null)}>
-                        <ServiceTitle>
-                          {service.icon}
-                          {service.name}
-                        </ServiceTitle>
-                        <SubDropdown isOpen={hoveredService === service.name}>
-                          {service.subServices.map((subService, subIndex) => (
-                            <SubDropdownItem key={subIndex} href={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}/${subService.toLowerCase().replace(/\s+/g, "-")}`}>
-                              {subService}
-                            </SubDropdownItem>
-                          ))}
-                        </SubDropdown>
-                      </DropdownItem>
-                    ))}
-                  </DropdownGrid>
-                </Dropdown>
-              )}
-            </NavLink>
-            <NavLink href="/portfolio">Portfolio</NavLink>
-            <NavLink href="/client-stories">Client Stories</NavLink>
-            <NavLink href="/blog">Blog</NavLink>
-            <NavLink href="/hardware">Hardware</NavLink>
-            <NavLink href="/software">Software</NavLink>
-            <NavLink href="/shop">Shop</NavLink>
-            <NavLink href="/policies">Policies</NavLink>
-          </Nav>
-          <RightSection>
-            <SearchBar>
-              <Search size={20} />
-              <SearchInput placeholder="Search..." />
-            </SearchBar>
-            <Button>Sign In</Button>
-            <IconButton>
-              <Globe size={20} />
-            </IconButton>
-            <IconButton>
-              <ShoppingCart size={20} />
-            </IconButton>
-            <IconButton onClick={() => setIsDarkTheme(!isDarkTheme)}>{isDarkTheme ? <Sun size={20} /> : <Moon size={20} />}</IconButton>
-          </RightSection>
-        </HeaderContent>
-      </HeaderContainer>
+    <HeaderContainer>
+      <TopBar>
+        <TopBarContent>
+          <TopBarLeft>
+            <TopBarLink href="tel:1-800-123-4567">
+              <Phone size={16} />
+              1-800-123-4567
+            </TopBarLink>
+            <TopBarLink href="mailto:support@company.com">
+              <Mail size={16} />
+              support@company.com
+            </TopBarLink>
+          </TopBarLeft>
+          <TopBarRight>
+            <TopBarLink href="/account">My Account</TopBarLink>
+            <TopBarLink href="/help">Help</TopBarLink>
+          </TopBarRight>
+        </TopBarContent>
+      </TopBar>
 
-      <FloatingIcons>
-        <FloatingIconButton>
-          <MessageCircle size={24} />
-        </FloatingIconButton>
-        <FloatingIconButton>
-          <FaWhatsapp size={24} />
-        </FloatingIconButton>
-        <FloatingIconButton>
-          <Mail size={24} />
-        </FloatingIconButton>
-      </FloatingIcons>
-    </>
+      <MainHeader>
+        <Logo href="/">Vtechsecure</Logo>
+
+        <SearchContainer>
+          <SearchIcon>
+            <Search size={20} />
+          </SearchIcon>
+          <SearchInput type="text" placeholder="Search products, services, and solutions..." />
+        </SearchContainer>
+
+        <HeaderActions>
+          <ActionButton>
+            <User size={20} />
+            <span>Sign In</span>
+          </ActionButton>
+          <ActionButton>
+            <ShoppingCart size={20} />
+            <span>Cart</span>
+            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+          </ActionButton>
+          <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu size={24} />
+          </MobileMenuButton>
+        </HeaderActions>
+      </MainHeader>
+
+      <Navigation>
+        <NavContainer>
+          <NavList>
+            {navigationItems.map((item) => (
+              <NavItem key={item.name}>
+                <NavLink
+                  href={item.href}
+                  onClick={item.name === "Services" ? toggleServices : undefined}
+                  isOpen={isServicesOpen && item.name === "Services"}
+                  ref={item.name === "Services" ? dropdownRef : undefined}
+                >
+                  {item.name}
+                  {item.name === "Services" && <ChevronDown size={16} />}
+                </NavLink>
+              </NavItem>
+            ))}
+          </NavList>
+        </NavContainer>
+      </Navigation>
+
+      {isServicesOpen && (
+        <Dropdown isOpen={true} ref={dropdownRef}>
+          <DropdownGrid>
+            {services.map((service, index) => (
+              <DropdownItem key={index} onMouseEnter={() => setHoveredService(service.name)} onMouseLeave={() => setHoveredService(null)}>
+                <ServiceTitle>
+                  {service.icon}
+                  {service.name}
+                </ServiceTitle>
+                <SubDropdown isOpen={hoveredService === service.name}>
+                  {service.subServices.map((subService, subIndex) => (
+                    <SubDropdownItem key={subIndex} href={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}/${subService.toLowerCase().replace(/\s+/g, "-")}`}>
+                      {subService}
+                    </SubDropdownItem>
+                  ))}
+                </SubDropdown>
+              </DropdownItem>
+            ))}
+          </DropdownGrid>
+        </Dropdown>
+      )}
+
+      <MobileMenu isOpen={isMobileMenuOpen}>
+        <MobileMenuHeader>
+          <Logo href="/">Vtechsecure</Logo>
+          <MobileMenuButton onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={24} />
+          </MobileMenuButton>
+        </MobileMenuHeader>
+        <MobileNavList>
+          {navigationItems.map((item) => (
+            <MobileNavItem key={item.name}>
+              <MobileNavLink href={item.href}>{item.name}</MobileNavLink>
+            </MobileNavItem>
+          ))}
+        </MobileNavList>
+      </MobileMenu>
+    </HeaderContainer>
   );
 };
 

@@ -1,138 +1,225 @@
 import React from "react";
 import styled from "styled-components";
+import { Award, Users, Clock, Shield, Zap, Headphones, CheckCircle } from "lucide-react";
 
-const Section = styled.section`
-  padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
+const FeaturesSection = styled.section`
+  padding: 4rem 0;
+  background-color: var(--light-gray);
 `;
 
 const Container = styled.div`
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 `;
 
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: 3rem;
+`;
+
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 700;
+  color: var(--dark-gray);
   margin-bottom: 1rem;
-  color: #1e3888;
 `;
 
 const SectionSubtitle = styled.p`
-  text-align: center;
-  font-size: 1.1rem;
-  color: #6b7280;
-  margin-bottom: 3rem;
+  font-size: 1.25rem;
+  color: var(--medium-gray);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  line-height: 1.6;
 `;
 
-const Grid = styled.div`
+const FeaturesGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  max-width: 800px;
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const FeatureCard = styled.div`
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  border: 1px solid var(--border-gray);
 
   &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
 `;
 
-const CheckIcon = styled.div`
-  background-color: #10b981;
-  color: white;
-  width: 2rem;
-  height: 2rem;
+const FeatureIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-`;
-
-const FeatureContent = styled.div`
-  flex: 1;
+  margin: 0 auto 1.5rem;
+  color: var(--white);
 `;
 
 const FeatureTitle = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
+  color: var(--dark-gray);
+  margin-bottom: 1rem;
 `;
 
 const FeatureDescription = styled.p`
-  color: #6b7280;
+  color: var(--medium-gray);
   line-height: 1.6;
-  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+`;
+
+const FeatureList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+`;
+
+const FeatureItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--medium-gray);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+
+  svg {
+    color: var(--success-green);
+    flex-shrink: 0;
+  }
+`;
+
+const StatsSection = styled.div`
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  margin-top: 3rem;
+`;
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+`;
+
+const StatItem = styled.div`
+  color: var(--white);
+`;
+
+const StatNumber = styled.div`
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+`;
+
+const StatLabel = styled.div`
+  font-size: 1.1rem;
+  opacity: 0.9;
 `;
 
 const features = [
   {
-    title: "Deep healthcare & pharma IT expertise",
-    description: "Specialized knowledge in healthcare and pharmaceutical IT systems, ensuring compliance and optimal performance for medical practices and pharma companies.",
+    id: 1,
+    icon: <Award size={32} />,
+    title: "Industry Expertise",
+    description: "Over 15 years of experience delivering technology solutions across various industries.",
+    benefits: ["Certified professionals", "Industry best practices", "Proven methodologies"],
   },
   {
-    title: "End-to-end support: Setup → Scaling",
-    description: "Complete IT lifecycle management from initial setup and implementation to ongoing scaling and optimization as your business grows.",
+    id: 2,
+    icon: <Users size={32} />,
+    title: "Dedicated Support",
+    description: "24/7 technical support and dedicated account managers for personalized service.",
+    benefits: ["24/7 help desk", "Dedicated account managers", "Proactive monitoring"],
   },
   {
-    title: "Compliance-first approach (HIPAA, GDPR, PCI DSS)",
-    description: "Built-in compliance frameworks ensuring your IT infrastructure meets healthcare, data protection, and payment security standards.",
+    id: 3,
+    icon: <Clock size={32} />,
+    title: "Rapid Response",
+    description: "Quick response times and efficient problem resolution to minimize downtime.",
+    benefits: ["15-minute response time", "Same-day resolution", "Emergency support"],
   },
   {
-    title: "Flexible support for any industry or business size",
-    description: "Adaptable solutions that work for startups, SMBs, enterprises, and organizations across all industry verticals.",
+    id: 4,
+    icon: <Shield size={32} />,
+    title: "Security First",
+    description: "Enterprise-grade security measures to protect your data and infrastructure.",
+    benefits: ["Multi-layer security", "Compliance certified", "Regular security audits"],
   },
   {
-    title: "Clear, reliable communication from start to finish",
-    description: "Transparent project management with regular updates, clear timelines, and dedicated support channels for seamless collaboration.",
+    id: 5,
+    icon: <Zap size={32} />,
+    title: "Performance Optimized",
+    description: "Optimized solutions designed for maximum performance and scalability.",
+    benefits: ["Performance monitoring", "Scalable architecture", "Load balancing"],
   },
+  {
+    id: 6,
+    icon: <Headphones size={32} />,
+    title: "Training & Support",
+    description: "Comprehensive training programs and ongoing support for your team.",
+    benefits: ["Custom training programs", "Documentation & guides", "Ongoing support"],
+  },
+];
+
+const stats = [
+  { number: "500+", label: "Happy Clients" },
+  { number: "15+", label: "Years Experience" },
+  { number: "99.9%", label: "Uptime Guarantee" },
+  { number: "24/7", label: "Support Available" },
 ];
 
 const Features = () => {
   return (
-    <Section bgColor="#f8fafc">
+    <FeaturesSection>
       <Container>
-        <SectionTitle>Why Leading Brands Choose Vtechsecure</SectionTitle>
-        <SectionSubtitle>Trusted by businesses across industries for our comprehensive IT solutions and unwavering commitment to excellence</SectionSubtitle>
-        <Grid>
-          {features.map((feature, index) => (
-            <FeatureCard key={index}>
-              <CheckIcon>✓</CheckIcon>
-              <FeatureContent>
-                <FeatureTitle>{feature.title}</FeatureTitle>
-                <FeatureDescription>{feature.description}</FeatureDescription>
-              </FeatureContent>
+        <SectionHeader>
+          <SectionTitle>Why Choose Us</SectionTitle>
+          <SectionSubtitle>We deliver exceptional value through expertise, reliability, and customer-focused solutions</SectionSubtitle>
+        </SectionHeader>
+
+        <FeaturesGrid>
+          {features.map((feature) => (
+            <FeatureCard key={feature.id}>
+              <FeatureIcon>{feature.icon}</FeatureIcon>
+              <FeatureTitle>{feature.title}</FeatureTitle>
+              <FeatureDescription>{feature.description}</FeatureDescription>
+              <FeatureList>
+                {feature.benefits.map((benefit, index) => (
+                  <FeatureItem key={index}>
+                    <CheckCircle size={16} />
+                    {benefit}
+                  </FeatureItem>
+                ))}
+              </FeatureList>
             </FeatureCard>
           ))}
-        </Grid>
+        </FeaturesGrid>
+
+        <StatsSection>
+          <StatsGrid>
+            {stats.map((stat, index) => (
+              <StatItem key={index}>
+                <StatNumber>{stat.number}</StatNumber>
+                <StatLabel>{stat.label}</StatLabel>
+              </StatItem>
+            ))}
+          </StatsGrid>
+        </StatsSection>
       </Container>
-    </Section>
+    </FeaturesSection>
   );
 };
 

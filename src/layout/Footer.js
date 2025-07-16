@@ -1,51 +1,55 @@
 import React from "react";
 import styled from "styled-components";
-import Link from "next/link";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { Geist } from "next/font/google";
-
-const geist = Geist({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
+import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowUp } from "lucide-react";
 
 const FooterContainer = styled.footer`
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 4rem 4rem 2rem;
-  font-family: ${geist.style.fontFamily};
-  width: 100%;
+  background-color: var(--dark-gray);
+  color: var(--white);
 `;
 
 const FooterContent = styled.div`
-  /* max-width: 1200px; */
+  max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  padding: 3rem 1rem 2rem;
 `;
 
-const FooterSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+const FooterTop = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 `;
+
+const FooterSection = styled.div``;
 
 const FooterTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: var(--white);
 `;
 
-const FooterLink = styled(Link)`
-  color: #ffffff;
+const FooterLink = styled.a`
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 
   &:hover {
-    opacity: 1;
+    color: var(--white);
   }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
 `;
 
 const SocialLinks = styled.div`
@@ -54,75 +58,271 @@ const SocialLinks = styled.div`
   margin-top: 1rem;
 `;
 
-const SocialIcon = styled.a`
-  color: #ffffff;
-  font-size: 1.5rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+const SocialLink = styled.a`
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s ease;
 
   &:hover {
-    opacity: 1;
+    background-color: var(--primary-blue);
+    transform: translateY(-2px);
   }
 `;
 
-const Copyright = styled.div`
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  opacity: 0.8;
+const NewsletterSection = styled.div`
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
 `;
 
-function Footer() {
+const NewsletterTitle = styled.h4`
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+`;
+
+const NewsletterDescription = styled.p`
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+`;
+
+const NewsletterForm = styled.form`
+  display: flex;
+  gap: 0.5rem;
+  max-width: 400px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const NewsletterInput = styled.input`
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  outline: none;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    border-color: var(--primary-blue);
+  }
+`;
+
+const NewsletterButton = styled.button`
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--secondary-blue);
+  }
+`;
+
+const FooterBottom = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+`;
+
+const Copyright = styled.div``;
+
+const LegalLinks = styled.div`
+  display: flex;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+`;
+
+const LegalLink = styled.a`
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--white);
+  }
+`;
+
+const ScrollToTop = styled.button`
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1000;
+
+  &:hover {
+    background-color: var(--secondary-blue);
+    transform: translateY(-2px);
+  }
+`;
+
+const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const footerSections = [
+    {
+      title: "Products",
+      links: [
+        { name: "Hardware", href: "/products/hardware" },
+        { name: "Software", href: "/products/software" },
+        { name: "Networking", href: "/products/networking" },
+        { name: "Security", href: "/products/security" },
+        { name: "Cloud Solutions", href: "/products/cloud" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { name: "IT Consulting", href: "/services/consulting" },
+        { name: "Implementation", href: "/services/implementation" },
+        { name: "Support & Maintenance", href: "/services/support" },
+        { name: "Training", href: "/services/training" },
+        { name: "Managed Services", href: "/services/managed" },
+      ],
+    },
+    {
+      title: "Solutions",
+      links: [
+        { name: "Enterprise", href: "/solutions/enterprise" },
+        { name: "Healthcare", href: "/solutions/healthcare" },
+        { name: "Education", href: "/solutions/education" },
+        { name: "Finance", href: "/solutions/finance" },
+        { name: "Manufacturing", href: "/solutions/manufacturing" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { name: "About Us", href: "/about" },
+        { name: "Careers", href: "/careers" },
+        { name: "News & Events", href: "/news" },
+        { name: "Contact", href: "/contact" },
+        { name: "Support", href: "/support" },
+      ],
+    },
+  ];
+
   return (
     <FooterContainer>
       <FooterContent>
-        <FooterSection>
-          <FooterTitle>About Us</FooterTitle>
-          <FooterLink href="/about">Our Story</FooterLink>
-          <FooterLink href="/careers">Careers</FooterLink>
-          <FooterLink href="/press">Press</FooterLink>
-          <FooterLink href="/blog">Blog</FooterLink>
-        </FooterSection>
+        <FooterTop>
+          {footerSections.map((section) => (
+            <FooterSection key={section.title}>
+              <FooterTitle>{section.title}</FooterTitle>
+              {section.links.map((link) => (
+                <FooterLink key={link.name} href={link.href}>
+                  {link.name}
+                </FooterLink>
+              ))}
+            </FooterSection>
+          ))}
 
-        <FooterSection>
-          <FooterTitle>Customer Service</FooterTitle>
-          <FooterLink href="/contact">Contact Us</FooterLink>
-          <FooterLink href="/shipping">Shipping Policy</FooterLink>
-          <FooterLink href="/returns">Returns & Exchanges</FooterLink>
-          <FooterLink href="/faq">FAQ</FooterLink>
-        </FooterSection>
+          <FooterSection>
+            <FooterTitle>Contact Us</FooterTitle>
+            <ContactInfo>
+              <Phone size={16} />
+              <span>1-800-123-4567</span>
+            </ContactInfo>
+            <ContactInfo>
+              <Mail size={16} />
+              <span>info@techsolutions.com</span>
+            </ContactInfo>
+            <ContactInfo>
+              <MapPin size={16} />
+              <span>
+                123 Business Ave, Suite 100
+                <br />
+                City, State 12345
+              </span>
+            </ContactInfo>
 
-        <FooterSection>
-          <FooterTitle>Shop</FooterTitle>
-          <FooterLink href="/products">All Products</FooterLink>
-          <FooterLink href="/new-arrivals">New Arrivals</FooterLink>
-          <FooterLink href="/sale">Sale</FooterLink>
-          <FooterLink href="/gift-cards">Gift Cards</FooterLink>
-        </FooterSection>
+            <SocialLinks>
+              <SocialLink href="#" aria-label="Facebook">
+                <Facebook size={20} />
+              </SocialLink>
+              <SocialLink href="#" aria-label="Twitter">
+                <Twitter size={20} />
+              </SocialLink>
+              <SocialLink href="#" aria-label="LinkedIn">
+                <Linkedin size={20} />
+              </SocialLink>
+              <SocialLink href="#" aria-label="Instagram">
+                <Instagram size={20} />
+              </SocialLink>
+            </SocialLinks>
+          </FooterSection>
+        </FooterTop>
 
-        <FooterSection>
-          <FooterTitle>Connect With Us</FooterTitle>
-          <SocialLinks>
-            <SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook />
-            </SocialIcon>
-            <SocialIcon href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter />
-            </SocialIcon>
-            <SocialIcon href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
-            </SocialIcon>
-            <SocialIcon href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-              <FaLinkedin />
-            </SocialIcon>
-          </SocialLinks>
-        </FooterSection>
+        <NewsletterSection>
+          <NewsletterTitle>Stay Updated</NewsletterTitle>
+          <NewsletterDescription>Subscribe to our newsletter for the latest technology insights and company updates.</NewsletterDescription>
+          <NewsletterForm>
+            <NewsletterInput type="email" placeholder="Enter your email address" required />
+            <NewsletterButton type="submit">Subscribe</NewsletterButton>
+          </NewsletterForm>
+        </NewsletterSection>
+
+        <FooterBottom>
+          <Copyright>© 2024 TechSolutions. All rights reserved.</Copyright>
+          <LegalLinks>
+            <LegalLink href="/privacy">Privacy Policy</LegalLink>
+            <LegalLink href="/terms">Terms of Service</LegalLink>
+            <LegalLink href="/cookies">Cookie Policy</LegalLink>
+            <LegalLink href="/accessibility">Accessibility</LegalLink>
+          </LegalLinks>
+        </FooterBottom>
       </FooterContent>
 
-      <Copyright>© {new Date().getFullYear()} Your Shop Name. All rights reserved.</Copyright>
+      <ScrollToTop onClick={scrollToTop} aria-label="Scroll to top">
+        <ArrowUp size={20} />
+      </ScrollToTop>
     </FooterContainer>
   );
-}
+};
 
 export default Footer;

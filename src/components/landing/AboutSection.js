@@ -1,85 +1,249 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
+import { CheckCircle, Users, Award, Clock, ArrowRight } from "lucide-react";
 
-const Section = styled.section`
-  padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
+const AboutSectionContainer = styled.section`
+  padding: 4rem 0;
+  background-color: var(--white);
 `;
 
 const Container = styled.div`
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 `;
 
-const SectionHeading = styled.h1`
-  text-align: center;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #1e3888;
-  margin-bottom: 3rem;
-`;
-
-const ContentWrapper = styled.div`
+const AboutGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
 
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 `;
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+const ContentSection = styled.div``;
+
+const SectionTitle = styled.h2`
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 `;
 
-const Title = styled.h2`
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: black;
-  margin-bottom: 1rem;
+const SectionSubtitle = styled.p`
+  font-size: 1.25rem;
+  color: var(--medium-gray);
+  margin-bottom: 2rem;
+  line-height: 1.6;
 `;
 
 const Description = styled.p`
-  font-size: 1.1rem;
+  color: var(--medium-gray);
   line-height: 1.7;
-  color: #4b5563;
+  margin-bottom: 2rem;
+  font-size: 1rem;
 `;
 
-const ImageWrapper = styled.div`
+const FeaturesList = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 2rem;
+`;
+
+const FeatureItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--dark-gray);
+  font-weight: 500;
+
+  svg {
+    color: var(--success-green);
+    flex-shrink: 0;
+  }
+`;
+
+const CTAButton = styled.button`
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  color: var(--white);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+  }
+`;
+
+const VisualSection = styled.div`
   position: relative;
-  width: 100%;
-  height: 500px;
-  border-radius: 1rem;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+`;
+
+const MainImage = styled.div`
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--light-gray) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
+
+const StatsOverlay = styled.div`
+  position: absolute;
+  bottom: -2rem;
+  right: -2rem;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+
+  @media (max-width: 768px) {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 1rem;
+  }
+`;
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+`;
+
+const StatItem = styled.div`
+  text-align: center;
+`;
+
+const StatNumber = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.25rem;
+`;
+
+const StatLabel = styled.div`
+  font-size: 0.8rem;
+  color: var(--medium-gray);
+  font-weight: 500;
+`;
+
+const FloatingCard = styled.div`
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  background: var(--white);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 180px;
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 1rem;
+  }
+`;
+
+const FloatingIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+`;
+
+const FloatingContent = styled.div``;
+
+const FloatingTitle = styled.div`
+  font-weight: 600;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+`;
+
+const FloatingSubtitle = styled.div`
+  color: var(--medium-gray);
+  font-size: 0.8rem;
 `;
 
 const AboutSection = () => {
+  const features = [
+    "15+ years of industry experience",
+    "Certified technology professionals",
+    "24/7 support and monitoring",
+    "Custom solutions for every business",
+    "Proven track record of success",
+  ];
+
+  const stats = [
+    { number: "500+", label: "Clients" },
+    { number: "15+", label: "Years" },
+    { number: "99.9%", label: "Uptime" },
+    { number: "24/7", label: "Support" },
+  ];
+
   return (
-    <Section>
+    <AboutSectionContainer>
       <Container>
-        <SectionHeading>About Us</SectionHeading>
-        <ContentWrapper>
-          <Content>
-            <Title>About Vtechsecure</Title>
-            <Description>
-              At Vtechsecure, we don't just manage technology — we empower your business through it. With deep domain knowledge in healthcare and pharmaceutical IT, and scalable
-              solutions for enterprise, retail, government, and more, we design and deliver fully managed services tailored to your unique operations.
-            </Description>
-            <Description>Whether you're setting up a new clinic or securing a nationwide infrastructure, we're here to make technology your strongest asset.</Description>
-          </Content>
-          <ImageWrapper>
-            <Image src="/products/about.jpg" alt="IT Solutions" fill style={{ objectFit: "cover" }} priority />
-          </ImageWrapper>
-        </ContentWrapper>
+        <AboutGrid>
+          <ContentSection>
+            <SectionTitle>Your Trusted Technology Partner</SectionTitle>
+            <SectionSubtitle>We deliver innovative technology solutions that drive business growth and operational excellence.</SectionSubtitle>
+
+            <FeaturesList>
+              {features.map((feature, index) => (
+                <FeatureItem key={index}>
+                  <CheckCircle size={20} />
+                  {feature}
+                </FeatureItem>
+              ))}
+            </FeaturesList>
+
+            <CTAButton>
+              Learn More About Us <ArrowRight size={16} />
+            </CTAButton>
+          </ContentSection>
+
+          <VisualSection>
+            <ImageContainer>
+              <img src="/products/about.jpg" alt="Professional Team Working" style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
+            </ImageContainer>
+          </VisualSection>
+        </AboutGrid>
       </Container>
-    </Section>
+    </AboutSectionContainer>
   );
 };
 
