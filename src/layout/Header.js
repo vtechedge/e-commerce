@@ -75,6 +75,11 @@ const TopBarLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    gap: 0.25rem;
+  }
 `;
 
 const MainHeader = styled.div`
@@ -87,11 +92,20 @@ const MainHeader = styled.div`
 `;
 
 const Logo = styled.a`
-  font-size: 1.75rem;
-  font-weight: bold;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  color: var(--primary-blue);
-  white-space: nowrap;
+  cursor: pointer;
+  
+  img {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    
+    @media (max-width: 768px) {
+      height: 75px;
+    }
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -143,10 +157,27 @@ const ActionButton = styled.button`
   font-weight: 500;
   padding: 0.5rem;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     background-color: var(--light-gray);
+  }
+  
+  &.contact-btn {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    
+    &:hover {
+      background-color: var(--secondary-blue);
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
   }
 `;
 
@@ -480,13 +511,13 @@ const Header = () => {
       <TopBar>
         <TopBarContent>
           <TopBarLeft>
-            <TopBarLink href="tel:1-800-123-4567">
+            <TopBarLink href="tel:+16478640847">
               <Phone size={16} />
-              1-800-123-4567
+              +1 647-864-0847
             </TopBarLink>
-            <TopBarLink href="mailto:support@company.com">
+            <TopBarLink href="mailto:support@vtechsecure.com">
               <Mail size={16} />
-              support@company.com
+              support@vtechsecure.com
             </TopBarLink>
           </TopBarLeft>
           <TopBarRight>
@@ -497,7 +528,9 @@ const Header = () => {
       </TopBar>
 
       <MainHeader>
-        <Logo href="/">Vtechsecure</Logo>
+        <Logo href="/">
+          <img src="/logo.png" alt="VtechSecure Logo" />
+        </Logo>
 
         <SearchContainer>
           <SearchIcon>
@@ -507,6 +540,10 @@ const Header = () => {
         </SearchContainer>
 
         <HeaderActions>
+          <ActionButton className="contact-btn" onClick={() => window.location.href = '/contact'}>
+            <PhoneCall size={20} />
+            <span>Contact Us</span>
+          </ActionButton>
           <ActionButton>
             <User size={20} />
             <span>Sign In</span>
@@ -566,7 +603,9 @@ const Header = () => {
 
       <MobileMenu isOpen={isMobileMenuOpen}>
         <MobileMenuHeader>
-          <Logo href="/">Vtechsecure</Logo>
+          <Logo href="/">
+            <img src="/logo.png" alt="VtechSecure Logo" />
+          </Logo>
           <MobileMenuButton onClick={() => setIsMobileMenuOpen(false)}>
             <X size={24} />
           </MobileMenuButton>

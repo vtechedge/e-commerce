@@ -21,6 +21,7 @@ const Slide = styled.div`
   align-items: center;
   background-size: cover;
   background-position: center;
+  background-image: url(${(props) => props.bgImage});
 `;
 
 const SlideOverlay = styled.div`
@@ -29,7 +30,7 @@ const SlideOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 204, 0.9) 0%, rgba(0, 68, 153, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(0, 51, 102, 0.85) 0%, rgba(0, 34, 77, 0.9) 100%);
 `;
 
 const ContentContainer = styled.div`
@@ -43,6 +44,12 @@ const ContentContainer = styled.div`
   gap: 4rem;
   align-items: center;
   height: 100%;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
 `;
 
 const TextContent = styled.div`
@@ -55,6 +62,7 @@ const Headline = styled.h1`
   margin-bottom: 1.5rem;
   line-height: 1.1;
   color: var(--white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -66,7 +74,8 @@ const Subheadline = styled.p`
   font-weight: 400;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -78,6 +87,10 @@ const ButtonContainer = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
 
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+  
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -123,6 +136,10 @@ const VisualContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 968px) {
+    display: none;
+  }
 `;
 
 const VideoThumbnail = styled.div`
@@ -218,20 +235,23 @@ const slides = [
   {
     id: 1,
     title: "Enterprise Technology Solutions",
-    subtitle: "Transform your business with cutting-edge IT infrastructure, cloud solutions, and digital transformation services.",
+    subtitle: "Transform your business with cutting-edge IT infrastructure, cloud solutions, and comprehensive digital transformation services tailored for healthcare and pharma industries.",
     videoThumbnail: true,
+    bgImage: "/banners/banner1.png",
   },
   {
     id: 2,
-    title: "Cybersecurity & Compliance",
-    subtitle: "Protect your organization with advanced security solutions, threat monitoring, and regulatory compliance services.",
+    title: "Healthcare & Pharma IT Excellence",
+    subtitle: "Specialized technology solutions ensuring compliance, data security, and operational efficiency for healthcare providers and pharmaceutical companies.",
     videoThumbnail: true,
+    bgImage: "/banners/banner2.png",
   },
   {
     id: 3,
-    title: "Cloud & Data Management",
-    subtitle: "Optimize your operations with scalable cloud solutions, data analytics, and intelligent automation.",
+    title: "Cybersecurity & Cloud Innovation",
+    subtitle: "Protect your critical assets with advanced security solutions, threat monitoring, and scalable cloud infrastructure designed for enterprise excellence.",
     videoThumbnail: true,
+    bgImage: "/banners/banner3.png",
   },
 ];
 
@@ -257,15 +277,15 @@ const HeroSlider = () => {
   return (
     <HeroSection>
       {slides.map((slide, index) => (
-        <Slide key={slide.id} active={index === currentSlide}>
+        <Slide key={slide.id} active={index === currentSlide} bgImage={slide.bgImage}>
           <SlideOverlay />
           <ContentContainer>
             <TextContent>
               <Headline>{slide.title}</Headline>
               <Subheadline>{slide.subtitle}</Subheadline>
               <ButtonContainer>
-                <Button className="primary">Get Started</Button>
-                <Button className="secondary">Learn More</Button>
+                <Button className="primary" onClick={() => window.location.href = '/contact'}>Get Started</Button>
+                <Button className="secondary" onClick={() => window.location.href = '/services'}>Learn More</Button>
               </ButtonContainer>
             </TextContent>
             <VisualContent>

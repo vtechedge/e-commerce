@@ -266,32 +266,36 @@ const Footer = () => {
             <FooterTitle>Contact Us</FooterTitle>
             <ContactInfo>
               <Phone size={16} />
-              <span>1-800-123-4567</span>
+              <a href="tel:+16478640847" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <span>+1 647-864-0847</span>
+              </a>
             </ContactInfo>
             <ContactInfo>
               <Mail size={16} />
-              <span>info@techsolutions.com</span>
+              <a href="mailto:support@vtechsecure.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <span>support@vtechsecure.com</span>
+              </a>
             </ContactInfo>
             <ContactInfo>
               <MapPin size={16} />
               <span>
-                123 Business Ave, Suite 100
+                78 Braemar Dr Unit#1209
                 <br />
-                City, State 12345
+                Brampton, ON L6T 2M2, Canada
               </span>
             </ContactInfo>
 
             <SocialLinks>
-              <SocialLink href="#" aria-label="Facebook">
+              <SocialLink href="https://www.facebook.com/vtechsecure" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <Facebook size={20} />
               </SocialLink>
-              <SocialLink href="#" aria-label="Twitter">
+              <SocialLink href="https://twitter.com/vtechsecure" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                 <Twitter size={20} />
               </SocialLink>
-              <SocialLink href="#" aria-label="LinkedIn">
+              <SocialLink href="https://www.linkedin.com/company/vtechsecure" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </SocialLink>
-              <SocialLink href="#" aria-label="Instagram">
+              <SocialLink href="https://www.instagram.com/vtechsecure" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <Instagram size={20} />
               </SocialLink>
             </SocialLinks>
@@ -308,7 +312,7 @@ const Footer = () => {
         </NewsletterSection>
 
         <FooterBottom>
-          <Copyright>© 2024 TechSolutions. All rights reserved.</Copyright>
+          <Copyright>© 2026 VtechSecure. All rights reserved.</Copyright>
           <LegalLinks>
             <LegalLink href="/privacy">Privacy Policy</LegalLink>
             <LegalLink href="/terms">Terms of Service</LegalLink>
