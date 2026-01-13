@@ -57,7 +57,7 @@ const FeatureCard = styled.div`
 const FeatureIcon = styled.div`
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -101,7 +101,7 @@ const FeatureItem = styled.li`
 `;
 
 const StatsSection = styled.div`
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #152a66 100%);
   border-radius: 8px;
   padding: 3rem 2rem;
   margin-top: 3rem;

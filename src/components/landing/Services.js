@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Shield, Cloud, Network, Server, Database, Monitor, ArrowRight, CheckCircle } from "lucide-react";
 
 const ServicesSection = styled.section`
-  padding: 4rem 0;
+  padding: 2rem 0;
   background-color: var(--white);
 `;
 

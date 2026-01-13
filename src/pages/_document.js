@@ -27,9 +27,12 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
           <style>{`
-            * {
+            body {
+              font-family: 'Inter', 'Urbanist', sans-serif;
+            }
+            h1, h2, h3, h4, h5, h6 {
               font-family: 'Urbanist', sans-serif;
             }
           `}</style>

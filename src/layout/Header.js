@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import {
   Search,
@@ -26,69 +27,162 @@ import {
   Camera,
   BarChart2,
   GitBranch,
+  MapPin,
+  Clock,
 } from "lucide-react";
 
-const HeaderContainer = styled.header`
-  background-color: var(--white);
-  border-bottom: 1px solid var(--border-gray);
+const HeaderWrapper = styled.header`
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: transform 0.3s ease;
 `;
 
 const TopBar = styled.div`
-  background-color: var(--primary-blue);
-  color: var(--white);
-  padding: 0.5rem 0;
-  font-size: 0.875rem;
+  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+  color: white;
+  font-size: 0.813rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: ${(props) => (props.isHidden ? '0' : '100px')};
+  opacity: ${(props) => (props.isHidden ? '0' : '1')};
+  overflow: hidden;
 `;
 
-const TopBarContent = styled.div`
-  max-width: 1200px;
+const TopBarContainer = styled.div`
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0.6rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @media (max-width: 968px) {
+    padding: 0.6rem 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+  }
 `;
 
 const TopBarLeft = styled.div`
   display: flex;
-  gap: 2rem;
   align-items: center;
+  gap: 1.5rem;
+  
+  @media (max-width: 968px) {
+    gap: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
 `;
 
 const TopBarRight = styled.div`
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 1.25rem;
+  
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+  }
+`;
+
+const TopBarItem = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  
+  &:hover {
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  @media (max-width: 968px) {
+    font-size: 0.75rem;
+    
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
 `;
 
 const TopBarLink = styled.a`
-  color: var(--white);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-
+  transition: all 0.2s ease;
+  font-weight: 500;
+  padding: 0.25rem 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: width 0.2s ease;
+  }
+  
   &:hover {
-    text-decoration: underline;
+    color: white;
+    
+    &::after {
+      width: 100%;
+    }
   }
   
   @media (max-width: 768px) {
     font-size: 0.75rem;
-    gap: 0.25rem;
   }
 `;
 
+const Divider = styled.span`
+  color: rgba(255, 255, 255, 0.4);
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MainHeaderWrapper = styled.div`
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+`;
+
 const MainHeader = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.35rem 2rem;
   display: flex;
   align-items: center;
   gap: 2rem;
+  
+  @media (max-width: 968px) {
+    gap: 1rem;
+    padding: 0.3rem 1rem;
+    justify-content: space-between;
+  }
 `;
 
 const Logo = styled.a`
@@ -96,39 +190,59 @@ const Logo = styled.a`
   align-items: center;
   text-decoration: none;
   cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+  padding: 0.25rem 0;
   
   img {
-    height: 100px;
+    height: 90px;
     width: auto;
     object-fit: contain;
+    transition: transform 0.2s ease;
+    background: transparent;
     
     @media (max-width: 768px) {
-      height: 75px;
+      height: 65px;
     }
+  }
+  
+  &:hover img {
+    transform: scale(1.05);
   }
 `;
 
 const SearchContainer = styled.div`
   flex: 1;
-  max-width: 600px;
+  max-width: 520px;
   position: relative;
+  
+  @media (max-width: 968px) {
+    display: none;
+  }
 `;
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 3rem;
-  border: 2px solid var(--border-gray);
-  border-radius: 4px;
-  font-size: 1rem;
+  padding: 0.65rem 1.125rem 0.65rem 2.75rem;
+  border: 1.5px solid transparent;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
 
   &:focus {
-    border-color: var(--primary-blue);
+    border-color: #1e3888;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(30, 56, 136, 0.15);
+    transform: translateY(-1px);
   }
 
   &::placeholder {
-    color: var(--medium-gray);
+    color: #9ca3af;
+    font-weight: 400;
   }
 `;
 
@@ -137,46 +251,86 @@ const SearchIcon = styled.div`
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--medium-gray);
+  color: #9ca3af;
+  pointer-events: none;
+  
+  svg {
+    width: 18px;
+    height: 18px;
+  }
 `;
 
 const HeaderActions = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  
+  gap: 0.75rem; /* Increased gap between buttons */
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    gap: 0.5rem; /* Adjusted for smaller screens */
+  }
 `;
 
 const ActionButton = styled.button`
-  background: none;
-  border: none;
+  background: white;
+  border: 1px solid #e5e7eb;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--dark-gray);
+  color: #4b5563;
   font-weight: 500;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 
   &:hover {
-    background-color: var(--light-gray);
+    background-color: #f9fafb;
+    color: #1e3888;
+    border-color: #1e3888;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  span {
+    @media (max-width: 968px) {
+      display: none;
+    }
   }
   
   &.contact-btn {
-    background-color: var(--primary-blue);
-    color: var(--white);
-    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+    color: white;
+    padding: 0.65rem 1.5rem;
     font-weight: 600;
+    border: none;
+    box-shadow: 0 2px 8px rgba(30, 56, 136, 0.3);
+    margin-right: 0.5rem;
     
     &:hover {
-      background-color: var(--secondary-blue);
       transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(30, 56, 136, 0.4);
+      background: linear-gradient(135deg, #2d4ba8 0%, #3557c2 100%);
     }
     
-    @media (max-width: 768px) {
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
+    &:active {
+      transform: translateY(-1px);
+    }
+    
+    @media (max-width: 968px) {
+      padding: 0.6rem 1rem;
+      font-size: 0.813rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    &:not(.contact-btn):not(:has(svg)) {
+      display: none;
     }
   }
 `;
@@ -196,14 +350,22 @@ const CartBadge = styled.span`
 `;
 
 const Navigation = styled.nav`
-  background-color: var(--light-gray);
-  border-bottom: 1px solid var(--border-gray);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.95));
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.6);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
+  z-index: 100;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 `;
 
 const NavList = styled.ul`
@@ -211,6 +373,7 @@ const NavList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 0.25rem;
 `;
 
 const NavItem = styled.li`
@@ -219,23 +382,48 @@ const NavItem = styled.li`
 
 const NavLink = styled.a`
   display: block;
-  padding: 1rem 1.5rem;
-  color: var(--dark-gray);
+  padding: 0.65rem 1rem;
+  color: #374151;
   text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  border-radius: 8px;
+  position: relative;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2.5px;
+    background: linear-gradient(90deg, #1e3888, #2d4ba8);
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
   &:hover {
-    background-color: var(--white);
-    color: var(--primary-blue);
+    color: #1e3888;
+    background-color: rgba(240, 244, 255, 0.8);
+    transform: translateY(-1px);
+    
+    &::after {
+      width: 65%;
+    }
   }
 
   svg {
-    transition: transform 0.2s ease-out;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0)")};
+    width: 16px;
+    height: 16px;
   }
 `;
 
@@ -243,32 +431,49 @@ const Dropdown = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #f1f5f2;
+  background-color: white;
   min-width: 800px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
   display: ${(props) => (props.isOpen ? "block" : "none")};
   z-index: 1001;
+  border: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+  animation: dropdownSlideIn 0.2s ease-out;
+
+  @keyframes dropdownSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;
 
 const DropdownGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1rem;
 `;
 
 const DropdownItem = styled.a`
   display: block;
-  padding: 0.5rem 1rem;
-  color: black;
+  padding: 0.75rem 1rem;
+  color: #374151;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   position: relative;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: rgba(30, 56, 136, 0.1);
-    border-radius: 4px;
+    background-color: #f0f4ff;
+    color: #1e3888;
+    transform: translateX(4px);
   }
 `;
 
@@ -276,48 +481,64 @@ const SubDropdown = styled.div`
   position: absolute;
   left: 100%;
   top: 0;
-  background-color: #f1f5f2;
+  background-color: white;
   min-width: 250px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 0.75rem;
   display: ${(props) => (props.isOpen ? "block" : "none")};
   z-index: 1002;
+  border: 1px solid #e5e7eb;
+  margin-left: 0.5rem;
 `;
 
 const SubDropdownItem = styled.a`
   display: block;
-  padding: 0.5rem 1rem;
-  color: #4a5568;
+  padding: 0.625rem 1rem;
+  color: #6b7280;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   transition: all 0.2s ease;
+  border-radius: 6px;
 
   &:hover {
-    background-color: rgba(30, 56, 136, 0.1);
-    border-radius: 4px;
+    background-color: #f0f4ff;
     color: #1e3888;
+    padding-left: 1.25rem;
   }
 `;
 
 const ServiceTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  color: black;
-  font-size: 1rem;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #111827;
+  font-size: 0.95rem;
+  font-weight: 500;
   position: relative;
   cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: rgba(30, 56, 136, 0.1);
-    border-radius: 4px;
+    background-color: #f0f4ff;
+    color: #1e3888;
+    transform: translateX(4px);
   }
 
   svg {
-    color: #1e3888;
+    margin-left: auto;
+    transition: transform 0.2s ease;
+    transform: ${(props) => (props.isOpen ? "rotate(90deg)" : "rotate(0)")};
   }
+`;
+
+const ServiceIcon = styled.div`
+  color: #1e3888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const MobileMenuButton = styled.button`
@@ -334,7 +555,7 @@ const MobileMenuButton = styled.button`
 `;
 
 const MobileMenu = styled.div`
-  display: none;
+  display: ${(props) => (props.isOpen ? "block" : "none")};
   position: fixed;
   top: 0;
   left: 0;
@@ -343,9 +564,16 @@ const MobileMenu = styled.div`
   background-color: var(--white);
   z-index: 1002;
   padding: 2rem;
-
-  @media (max-width: 768px) {
-    display: ${(props) => (props.isOpen ? "block" : "none")};
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 `;
 
@@ -372,13 +600,23 @@ const MobileNavLink = styled.a`
   color: var(--dark-gray);
   text-decoration: none;
   font-weight: 500;
+  font-size: 1.125rem;
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: var(--primary-blue);
+  }
 `;
 
 const Header = () => {
+  const router = useRouter();
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [hoveredService, setHoveredService] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isTopBarHidden, setIsTopBarHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -394,9 +632,37 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Hide top bar when scrolling down past 50px
+      if (currentScrollY > 50 && currentScrollY > lastScrollY) {
+        setIsTopBarHidden(true);
+      } else if (currentScrollY < lastScrollY) {
+        setIsTopBarHidden(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   const toggleServices = (e) => {
     e.preventDefault();
     setIsServicesOpen(!isServicesOpen);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
   };
 
   const services = [
@@ -503,61 +769,52 @@ const Header = () => {
     { name: "Hardware", href: "/hardware" },
     { name: "Software", href: "/software" },
     { name: "Shop", href: "/shop" },
+    { name: "Contact", href: "/contact" },
     { name: "Policies", href: "/policies" },
   ];
 
   return (
-    <HeaderContainer>
-      <TopBar>
-        <TopBarContent>
-          <TopBarLeft>
-            <TopBarLink href="tel:+16478640847">
-              <Phone size={16} />
-              +1 647-864-0847
-            </TopBarLink>
-            <TopBarLink href="mailto:support@vtechsecure.com">
-              <Mail size={16} />
-              support@vtechsecure.com
-            </TopBarLink>
-          </TopBarLeft>
-          <TopBarRight>
-            <TopBarLink href="/account">My Account</TopBarLink>
-            <TopBarLink href="/help">Help</TopBarLink>
-          </TopBarRight>
-        </TopBarContent>
-      </TopBar>
+    <HeaderWrapper>
+      <MainHeaderWrapper>
+        <MainHeader>
+          <Logo href="/">
+            <img src="/logo.png" alt="VtechSecure Logo" />
+          </Logo>
 
-      <MainHeader>
-        <Logo href="/">
-          <img src="/logo.png" alt="VtechSecure Logo" />
-        </Logo>
+          <SearchContainer>
+            <form onSubmit={handleSearch} style={{ width: '100%' }}>
+              <SearchIcon>
+                <Search size={20} />
+              </SearchIcon>
+              <SearchInput
+                type="text"
+                placeholder="Search products, services, and solutions..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
+          </SearchContainer>
 
-        <SearchContainer>
-          <SearchIcon>
-            <Search size={20} />
-          </SearchIcon>
-          <SearchInput type="text" placeholder="Search products, services, and solutions..." />
-        </SearchContainer>
-
-        <HeaderActions>
-          <ActionButton className="contact-btn" onClick={() => window.location.href = '/contact'}>
-            <PhoneCall size={20} />
-            <span>Contact Us</span>
-          </ActionButton>
-          <ActionButton>
-            <User size={20} />
-            <span>Sign In</span>
-          </ActionButton>
-          <ActionButton>
-            <ShoppingCart size={20} />
-            <span>Cart</span>
-            {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
-          </ActionButton>
-          <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>
-            <Menu size={24} />
-          </MobileMenuButton>
-        </HeaderActions>
-      </MainHeader>
+          <HeaderActions>
+            <ActionButton className="contact-btn" onClick={() => window.location.href = '/contact'}>
+              <PhoneCall size={18} />
+              <span>Contact Us</span>
+            </ActionButton>
+            <ActionButton>
+              <User size={18} />
+              <span>Sign In</span>
+            </ActionButton>
+            <ActionButton>
+              <ShoppingCart size={18} />
+              <span>Cart</span>
+              {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
+            </ActionButton>
+            <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>
+              <Menu size={24} />
+            </MobileMenuButton>
+          </HeaderActions>
+        </MainHeader>
+      </MainHeaderWrapper>
 
       <Navigation>
         <NavContainer>
@@ -618,7 +875,7 @@ const Header = () => {
           ))}
         </MobileNavList>
       </MobileMenu>
-    </HeaderContainer>
+    </HeaderWrapper>
   );
 };
 

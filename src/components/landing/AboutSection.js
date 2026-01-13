@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CheckCircle, Users, Award, Clock, ArrowRight } from "lucide-react";
 
 const AboutSectionContainer = styled.section`
-  padding: 4rem 0;
+  padding: 2rem 0;
   background-color: var(--white);
 `;
 
@@ -71,21 +71,24 @@ const FeatureItem = styled.li`
 `;
 
 const CTAButton = styled.button`
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-  color: var(--white);
+  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+  color: white;
   border: none;
   padding: 1rem 2rem;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(30, 56, 136, 0.25);
+  margin-top: 1rem;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 56, 136, 0.35);
   }
 `;
 
@@ -231,7 +234,7 @@ const AboutSection = () => {
               ))}
             </FeaturesList>
 
-            <CTAButton>
+            <CTAButton onClick={() => window.location.href = '/about'}>
               Learn More About Us <ArrowRight size={16} />
             </CTAButton>
           </ContentSection>

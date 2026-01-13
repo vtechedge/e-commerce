@@ -7,7 +7,7 @@ import Features from "../components/landing/Features";
 import AboutSection from "../components/landing/AboutSection";
 import CardSection from "../components/landing/CardSection";
 import MarqueeSection from "../components/landing/MarqueeSection";
-import Touch from "@/components/landing/Touch";
+import ContactCTA from "@/components/landing/ContactCTA";
 
 const Home = () => {
   return (
@@ -24,7 +24,7 @@ const Home = () => {
       <MarqueeSection />
       {/* <CardSection /> */}
       <Features />
-      <Touch />
+      <ContactCTA />
     </>
   );
 };
