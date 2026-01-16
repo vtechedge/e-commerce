@@ -1,3 +1,3 @@
-import ComingSoon from "./ComingSoon";
+import ComingSoon from "../components/common/ComingSoon";
 
 export default ComingSoon;

@@ -46,35 +46,35 @@ const sparkle = keyframes`
 `;
 
 const CTASection = styled.section`
-  padding: 2rem 2rem;
-  background: linear-gradient(135deg, #f8f9ff 0%, #e8edff 100%);
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 1.5rem 1.5rem;
+    padding: 3rem 1.5rem;
   }
 
   &::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(30, 56, 136, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
   }
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -50%;
-    left: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(45, 75, 168, 0.08) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -92,15 +92,18 @@ const CTABadge = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, rgba(30, 56, 136, 0.1) 0%, rgba(45, 75, 168, 0.1) 100%);
-  color: #1e3888;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
   padding: 0.5rem 1.25rem;
   border-radius: 50px;
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  border: 1px solid rgba(30, 56, 136, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   animation: fadeInDown 0.6s ease-out;
+  position: relative;
+  z-index: 2;
 
   svg {
     width: 16px;
@@ -112,10 +115,13 @@ const CTABadge = styled.div`
 const CTATitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1f35;
+  color: white;
   margin-bottom: 1rem;
   line-height: 1.2;
   animation: fadeInUp 0.6s ease-out 0.1s both;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -128,13 +134,15 @@ const CTATitle = styled.h2`
 
 const CTASubtitle = styled.p`
   font-size: 1.125rem;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2.5rem;
   line-height: 1.6;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   animation: fadeInUp 0.6s ease-out 0.2s both;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 768px) {
     font-size: 1rem;
@@ -146,8 +154,8 @@ const CTAButton = styled.button`
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-  color: white;
+  background: white;
+  color: #1e3888;
   font-size: 1.125rem;
   font-weight: 600;
   padding: 1.125rem 2.5rem;
@@ -167,7 +175,7 @@ const CTAButton = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #2d4ba8 0%, #3557c2 100%);
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
     opacity: 0;
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }

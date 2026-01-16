@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, memo } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import Image from "next/image";
 import {
   Search,
   User,
@@ -11,6 +12,7 @@ import {
   Phone,
   Mail,
   HelpCircle,
+  Headphones,
   Network,
   Server,
   Shield,
@@ -29,6 +31,7 @@ import {
   GitBranch,
   MapPin,
   Clock,
+  Heart,
 } from "lucide-react";
 
 const HeaderWrapper = styled.header`
@@ -171,16 +174,16 @@ const MainHeaderWrapper = styled.div`
 `;
 
 const MainHeader = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0.35rem 2rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.75rem 1.5rem 0;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
   
   @media (max-width: 968px) {
-    gap: 1rem;
-    padding: 0.3rem 1rem;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem 0;
     justify-content: space-between;
   }
 `;
@@ -192,17 +195,17 @@ const Logo = styled.a`
   cursor: pointer;
   flex-shrink: 0;
   background: transparent;
-  padding: 0.25rem 0;
+  padding: 0;
   
   img {
-    height: 90px;
+    height: 50px;
     width: auto;
     object-fit: contain;
     transition: transform 0.2s ease;
     background: transparent;
     
     @media (max-width: 768px) {
-      height: 65px;
+      height: 40px;
     }
   }
   
@@ -253,6 +256,7 @@ const SearchIcon = styled.div`
   transform: translateY(-50%);
   color: #9ca3af;
   pointer-events: none;
+  z-index: 10;
   
   svg {
     width: 18px;
@@ -275,31 +279,41 @@ const HeaderActions = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: transparent;
+  border: none;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  color: #4b5563;
-  font-weight: 500;
-  font-size: 0.875rem;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  justify-content: center;
+  gap: 0.25rem;
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.688rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
   position: relative;
+  min-width: 60px;
 
   &:hover {
-    background-color: #f9fafb;
+    background-color: rgba(240, 244, 255, 0.6);
     color: #1e3888;
-    border-color: #1e3888;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  svg {
+    width: 22px;
+    height: 22px;
   }
   
   span {
+    display: block;
+    text-transform: capitalize;
+    letter-spacing: 0.2px;
+    
     @media (max-width: 968px) {
-      display: none;
+      font-size: 0.625rem;
     }
   }
   
@@ -308,9 +322,12 @@ const ActionButton = styled.button`
     color: white;
     padding: 0.65rem 1.5rem;
     font-weight: 600;
+    font-size: 0.875rem;
     border: none;
     box-shadow: 0 2px 8px rgba(30, 56, 136, 0.3);
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    flex-direction: row;
+    min-width: auto;
     
     &:hover {
       transform: translateY(-2px);
@@ -329,24 +346,34 @@ const ActionButton = styled.button`
   }
   
   @media (max-width: 768px) {
-    &:not(.contact-btn):not(:has(svg)) {
-      display: none;
+    &:not(.contact-btn) {
+      padding: 0.4rem 0.6rem;
+      min-width: 50px;
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 `;
 
 const CartBadge = styled.span`
-  background-color: var(--primary-blue);
-  color: var(--white);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  background: linear-gradient(135deg, #1e3888, #2d4ba8);
+  color: white;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-  margin-left: 0.25rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0 0.25rem;
+  box-shadow: 0 2px 4px rgba(30, 56, 136, 0.3);
 `;
 
 const Navigation = styled.nav`
@@ -363,8 +390,8 @@ const Navigation = styled.nav`
 `;
 
 const NavContainer = styled.div`
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   padding: 0 2rem;
 `;
 
@@ -382,11 +409,11 @@ const NavItem = styled.li`
 
 const NavLink = styled.a`
   display: block;
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1rem 1.25rem 1rem;
   color: #374151;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.813rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
@@ -430,107 +457,117 @@ const NavLink = styled.a`
 const Dropdown = styled.div`
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: white;
-  min-width: 800px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 12px;
-  padding: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  min-width: 1250px;
+  max-width: 1450px;
+  box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 0.75rem;
   display: ${(props) => (props.isOpen ? "block" : "none")};
   z-index: 1001;
-  border: 1px solid #e5e7eb;
-  margin-top: 0.5rem;
-  animation: dropdownSlideIn 0.2s ease-out;
+  border: 1px solid rgba(30, 56, 136, 0.1);
+  margin-top: 0;
+  padding-top: 0.75rem;
+  animation: dropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   @keyframes dropdownSlideIn {
     from {
       opacity: 0;
-      transform: translateY(-10px);
+      transform: translateX(-50%) translateY(-15px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
     }
   }
 `;
 
 const DropdownGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  row-gap: 0.5rem;
 `;
 
-const DropdownItem = styled.a`
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #374151;
-  text-decoration: none;
-  font-size: 0.95rem;
-  position: relative;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #f0f4ff;
-    color: #1e3888;
-    transform: translateX(4px);
-  }
-`;
-
-const SubDropdown = styled.div`
-  position: absolute;
-  left: 100%;
-  top: 0;
-  background-color: white;
-  min-width: 250px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-  z-index: 1002;
-  border: 1px solid #e5e7eb;
-  margin-left: 0.5rem;
-`;
-
-const SubDropdownItem = styled.a`
-  display: block;
-  padding: 0.625rem 1rem;
-  color: #6b7280;
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
+const DropdownItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.5rem;
   border-radius: 6px;
-
+  background: white;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  
   &:hover {
-    background-color: #f0f4ff;
-    color: #1e3888;
-    padding-left: 1.25rem;
+    background: rgba(240, 244, 255, 0.5);
+    border-color: rgba(30, 56, 136, 0.15);
+    box-shadow: 0 4px 12px rgba(30, 56, 136, 0.08);
+    transform: translateY(-2px);
   }
 `;
 
 const ServiceTitle = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  color: #111827;
-  font-size: 0.95rem;
-  font-weight: 500;
-  position: relative;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  gap: 0.3rem;
+  color: #1e3888;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1px;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid #1e3888;
+  line-height: 1.1;
+  
+  svg {
+    width: 12px;
+    height: 12px;
+    color: #2d4ba8;
+    flex-shrink: 0;
+  }
+`;
 
-  &:hover {
-    background-color: #f0f4ff;
-    color: #1e3888;
-    transform: translateX(4px);
+const SubDropdown = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+`;
+
+const SubDropdownItem = styled.a`
+  display: block;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  padding: 0.2rem 0.35rem;
+  line-height: 1.2;
+  border-radius: 4px;
+  position: relative;
+  padding-left: 0.75rem;
+  
+  &::before {
+    content: '•';
+    position: absolute;
+    left: 0.15rem;
+    color: #2d4ba8;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
 
-  svg {
-    margin-left: auto;
-    transition: transform 0.2s ease;
-    transform: ${(props) => (props.isOpen ? "rotate(90deg)" : "rotate(0)")};
+  &:hover {
+    color: #1e3888;
+    background: rgba(30, 56, 136, 0.05);
+    padding-left: 0.75rem;
+    
+    &::before {
+      opacity: 1;
+    }
   }
 `;
 
@@ -542,70 +579,70 @@ const ServiceIcon = styled.div`
 `;
 
 const MobileMenuButton = styled.button`
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  color: var(--dark-gray);
+display: none;
+background: none;
+border: none;
+cursor: pointer;
+padding: 0.5rem;
+color: var(--dark - gray);
 
-  @media (max-width: 768px) {
-    display: block;
-  }
+@media(max - width: 768px) {
+  display: block;
+}
 `;
 
 const MobileMenu = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--white);
-  z-index: 1002;
-  padding: 2rem;
-  overflow-y: auto;
-  animation: slideIn 0.3s ease-out;
-  
-  @keyframes slideIn {
+display: ${(props) => (props.isOpen ? "block" : "none")};
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background - color: var(--white);
+z - index: 1002;
+padding: 2rem;
+overflow - y: auto;
+animation: slideIn 0.3s ease - out;
+
+@keyframes slideIn {
     from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+    transform: translateX(100 %);
   }
+    to {
+    transform: translateX(0);
+  }
+}
 `;
 
 const MobileMenuHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+display: flex;
+justify - content: space - between;
+align - items: center;
+margin - bottom: 2rem;
 `;
 
 const MobileNavList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+list - style: none;
+margin: 0;
+padding: 0;
 `;
 
 const MobileNavItem = styled.li`
-  border-bottom: 1px solid var(--border-gray);
+border - bottom: 1px solid var(--border - gray);
 `;
 
 const MobileNavLink = styled.a`
-  display: block;
-  padding: 1rem 0;
-  color: var(--dark-gray);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1.125rem;
-  transition: color 0.2s ease;
+display: block;
+padding: 1rem 0;
+color: var(--dark - gray);
+text - decoration: none;
+font - weight: 500;
+font - size: 1.125rem;
+transition: color 0.2s ease;
   
   &:hover {
-    color: var(--primary-blue);
-  }
+  color: var(--primary - blue);
+}
 `;
 
 const Header = () => {
@@ -633,17 +670,25 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
 
-      // Hide top bar when scrolling down past 50px
-      if (currentScrollY > 50 && currentScrollY > lastScrollY) {
-        setIsTopBarHidden(true);
-      } else if (currentScrollY < lastScrollY) {
-        setIsTopBarHidden(false);
+          // Hide top bar when scrolling down past 50px
+          if (currentScrollY > 50 && currentScrollY > lastScrollY) {
+            setIsTopBarHidden(true);
+          } else if (currentScrollY < lastScrollY) {
+            setIsTopBarHidden(false);
+          }
+
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -660,7 +705,7 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      router.push(`/ search ? q = ${encodeURIComponent(searchQuery)} `);
       setSearchQuery('');
     }
   };
@@ -760,17 +805,12 @@ const Header = () => {
   ];
 
   const navigationItems = [
-    { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Client Stories", href: "/client-stories" },
-    { name: "Blog", href: "/blog" },
-    { name: "Hardware", href: "/hardware" },
-    { name: "Software", href: "/software" },
-    { name: "Shop", href: "/shop" },
-    { name: "Contact", href: "/contact" },
-    { name: "Policies", href: "/policies" },
+    { name: "Services", href: "/services" }, // Has dropdown - main offering
+    { name: "Software", href: "/software" }, // Product category
+    { name: "Hardware", href: "/hardware" }, // Product category
+    { name: "Shop", href: "/shop" }, // General store
+    { name: "Portfolio", href: "/portfolio" }, // Showcase work
+    { name: "About Us", href: "/about" }, // Company info
   ];
 
   return (
@@ -778,13 +818,31 @@ const Header = () => {
       <MainHeaderWrapper>
         <MainHeader>
           <Logo href="/">
-            <img src="/logo.png" alt="VtechSecure Logo" />
+            <Image src="/logo.png" alt="VtechSecure Logo" width={180} height={50} priority />
           </Logo>
+
+          {/* Navigation Links - Now in main header row */}
+          <NavList style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0, gap: '0.75rem', flexShrink: 0 }}>
+            {navigationItems.map((item) => (
+              <NavItem key={item.name}>
+                <NavLink
+                  href={item.href}
+                  onMouseEnter={item.name === "Services" ? () => setIsServicesOpen(true) : undefined}
+                  onMouseLeave={item.name === "Services" ? () => setIsServicesOpen(false) : undefined}
+                  isOpen={isServicesOpen && item.name === "Services"}
+                  ref={item.name === "Services" ? dropdownRef : undefined}
+                >
+                  {item.name}
+                  {item.name === "Services" && <ChevronDown size={16} />}
+                </NavLink>
+              </NavItem>
+            ))}
+          </NavList>
 
           <SearchContainer>
             <form onSubmit={handleSearch} style={{ width: '100%' }}>
               <SearchIcon>
-                <Search size={20} />
+                <Search size={18} />
               </SearchIcon>
               <SearchInput
                 type="text"
@@ -796,17 +854,22 @@ const Header = () => {
           </SearchContainer>
 
           <HeaderActions>
-            <ActionButton className="contact-btn" onClick={() => window.location.href = '/contact'}>
-              <PhoneCall size={18} />
-              <span>Contact Us</span>
+            {/* Simplified icon buttons - Myntra style */}
+            <ActionButton onClick={() => router.push('/contact')}>
+              <Headphones size={22} />
+              <span>Help</span>
             </ActionButton>
             <ActionButton>
-              <User size={18} />
-              <span>Sign In</span>
+              <User size={22} />
+              <span>Profile</span>
             </ActionButton>
             <ActionButton>
-              <ShoppingCart size={18} />
-              <span>Cart</span>
+              <Heart size={22} />
+              <span>Wishlist</span>
+            </ActionButton>
+            <ActionButton style={{ position: 'relative' }}>
+              <ShoppingCart size={22} />
+              <span>Bag</span>
               {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
             </ActionButton>
             <MobileMenuButton onClick={() => setIsMobileMenuOpen(true)}>
@@ -816,38 +879,46 @@ const Header = () => {
         </MainHeader>
       </MainHeaderWrapper>
 
-      <Navigation>
-        <NavContainer>
-          <NavList>
-            {navigationItems.map((item) => (
-              <NavItem key={item.name}>
-                <NavLink
-                  href={item.href}
-                  onClick={item.name === "Services" ? toggleServices : undefined}
-                  isOpen={isServicesOpen && item.name === "Services"}
-                  ref={item.name === "Services" ? dropdownRef : undefined}
-                >
-                  {item.name}
-                  {item.name === "Services" && <ChevronDown size={16} />}
-                </NavLink>
-              </NavItem>
-            ))}
-          </NavList>
-        </NavContainer>
-      </Navigation>
+      {/* Hide the separate navigation row */}
+      <div style={{ display: 'none' }}>
+        <Navigation>
+          <NavContainer>
+            <NavList>
+              {navigationItems.map((item) => (
+                <NavItem key={item.name}>
+                  <NavLink
+                    href={item.href}
+                    onClick={item.name === "Services" ? toggleServices : undefined}
+                    isOpen={isServicesOpen && item.name === "Services"}
+                    ref={item.name === "Services" ? dropdownRef : undefined}
+                  >
+                    {item.name}
+                    {item.name === "Services" && <ChevronDown size={16} />}
+                  </NavLink>
+                </NavItem>
+              ))}
+            </NavList>
+          </NavContainer>
+        </Navigation>
+      </div>
 
       {isServicesOpen && (
-        <Dropdown isOpen={true} ref={dropdownRef}>
+        <Dropdown
+          isOpen={true}
+          ref={dropdownRef}
+          onMouseEnter={() => setIsServicesOpen(true)}
+          onMouseLeave={() => setIsServicesOpen(false)}
+        >
           <DropdownGrid>
             {services.map((service, index) => (
-              <DropdownItem key={index} onMouseEnter={() => setHoveredService(service.name)} onMouseLeave={() => setHoveredService(null)}>
+              <DropdownItem key={index}>
                 <ServiceTitle>
                   {service.icon}
                   {service.name}
                 </ServiceTitle>
-                <SubDropdown isOpen={hoveredService === service.name}>
+                <SubDropdown>
                   {service.subServices.map((subService, subIndex) => (
-                    <SubDropdownItem key={subIndex} href={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}/${subService.toLowerCase().replace(/\s+/g, "-")}`}>
+                    <SubDropdownItem key={subIndex} href={`/ services / ${service.name.toLowerCase().replace(/\s+/g, "-")} /${subService.toLowerCase().replace(/\s +/g, "-")}`}>
                       {subService}
                     </SubDropdownItem>
                   ))}
@@ -861,7 +932,7 @@ const Header = () => {
       <MobileMenu isOpen={isMobileMenuOpen}>
         <MobileMenuHeader>
           <Logo href="/">
-            <img src="/logo.png" alt="VtechSecure Logo" />
+            <Image src="/logo.png" alt="VtechSecure Logo" width={180} height={50} />
           </Logo>
           <MobileMenuButton onClick={() => setIsMobileMenuOpen(false)}>
             <X size={24} />
@@ -879,4 +950,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

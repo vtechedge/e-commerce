@@ -1,10 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { CheckCircle, Users, Award, Clock, ArrowRight } from "lucide-react";
 
 const AboutSectionContainer = styled.section`
-  padding: 2rem 0;
-  background-color: var(--white);
+  padding: 5rem 0;
+  background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+  }
 `;
 
 const Container = styled.div`
@@ -30,9 +42,21 @@ const ContentSection = styled.div``;
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--dark-gray);
+  color: #1a1a1a;
   margin-bottom: 1.5rem;
   line-height: 1.2;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    border-radius: 2px;
+  }
 `;
 
 const SectionSubtitle = styled.p`
@@ -61,34 +85,55 @@ const FeatureItem = styled.li`
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
-  color: var(--dark-gray);
+  color: #1a1a1a;
   font-weight: 500;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
 
   svg {
-    color: var(--success-green);
+    color: #10b981;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    padding-left: 0.5rem;
+    color: #1e3888;
+    
+    svg {
+      transform: scale(1.2);
+    }
   }
 `;
 
 const CTAButton = styled.button`
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
   font-weight: 600;
+  font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(30, 56, 136, 0.25);
+  box-shadow: 0 4px 15px rgba(30, 56, 136, 0.3);
   margin-top: 1rem;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 56, 136, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(30, 56, 136, 0.4);
+    gap: 0.75rem;
+  }
+  
+  svg {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover svg {
+    transform: translateX(4px);
   }
 `;
 
@@ -98,9 +143,27 @@ const VisualSection = styled.div`
 
 const ImageContainer = styled.div`
   position: relative;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15);
+  transition: all 0.4s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(30, 56, 136, 0.2);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(30, 56, 136, 0.1) 0%, transparent 50%);
+    z-index: 1;
+    pointer-events: none;
+  }
 `;
 
 const MainImage = styled.div`
@@ -180,7 +243,7 @@ const FloatingCard = styled.div`
 const FloatingIcon = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -241,7 +304,14 @@ const AboutSection = () => {
 
           <VisualSection>
             <ImageContainer>
-              <img src="/products/about.jpg" alt="Professional Team Working" style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
+              <Image 
+                src="/products/about.jpg" 
+                alt="Professional Team Working" 
+                width={600} 
+                height={400}
+                style={{ width: "100%", height: "auto", borderRadius: "1rem" }}
+                priority
+              />
             </ImageContainer>
           </VisualSection>
         </AboutGrid>

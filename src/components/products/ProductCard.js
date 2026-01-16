@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FaStar, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 const Card = styled.div`
   width: 100%;
@@ -19,11 +20,12 @@ const Card = styled.div`
   } */
 `;
 
-const ProductImage = styled.img`
+const ProductImageWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 220px;
-  object-fit: cover;
   margin-bottom: 0.5rem;
+  overflow: hidden;
 `;
 
 const ProductName = styled.p`
@@ -98,7 +100,16 @@ function ProductCard({ product }) {
   return (
     <Card>
       <ProductLink href={`/product/${id}`}>
-        <ProductImage src={image} alt={name} />
+        <ProductImageWrapper>
+          <Image 
+            src={image} 
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
+            loading="lazy"
+          />
+        </ProductImageWrapper>
         <ProductDataComponent>
           <ProductName>{name}</ProductName>
           <ProductHeading>{heading}</ProductHeading>

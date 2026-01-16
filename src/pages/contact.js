@@ -183,7 +183,7 @@ const SubmitButton = styled.button`
   gap: 0.5rem;
 
   &:hover {
-    background-color: var(--secondary-blue);
+    background-color: #06b6d4;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 56, 136, 0.3);
   }

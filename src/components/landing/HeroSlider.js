@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 const HeroSection = styled.section`
@@ -19,9 +20,6 @@ const Slide = styled.div`
   transition: opacity 0.5s ease-in-out;
   display: flex;
   align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-image: url(${(props) => props.bgImage});
 `;
 
 const SlideOverlay = styled.div`
@@ -277,7 +275,15 @@ const HeroSlider = () => {
   return (
     <HeroSection>
       {slides.map((slide, index) => (
-        <Slide key={slide.id} active={index === currentSlide} bgImage={slide.bgImage}>
+        <Slide key={slide.id} active={index === currentSlide}>
+          <Image 
+            src={slide.bgImage} 
+            alt={slide.title}
+            fill
+            style={{ objectFit: 'cover', zIndex: 0 }}
+            priority={index === 0}
+            quality={85}
+          />
           <SlideOverlay />
           <ContentContainer>
             <TextContent>

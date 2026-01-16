@@ -1,165 +1,296 @@
-import React from "react";
-import styled from "styled-components";
+import React, { memo } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import {
+  Network,
+  Server,
+  Shield,
+  Database,
+  Cloud,
+  Wrench,
+  Monitor,
+  PhoneCall,
+  Smartphone,
+  Code,
+  Globe,
+  Camera,
+  BarChart2,
+  GitBranch,
+  HeadphonesIcon,
+  Lock,
+  HardDrive,
+  ArrowRight,
+} from "lucide-react";
+import {
+  PageContainer,
+  HeroSection,
+  HeroContainer,
+  HeroTitle,
+  HeroSubtitle,
+  Container,
+  Section,
+  SectionTitle,
+  SectionSubtitle,
+  ServiceGrid,
+  ServiceCard,
+  ServiceIconWrapper,
+  ServiceTitle,
+  ServiceDescription,
+  ServiceFeatures,
+  ServiceFeature,
+  LearnMoreButton,
+  CTASection,
+  CTATitle,
+  CTADescription,
+  CTAButton,
+  StatsSection,
+  StatCard,
+  StatNumber,
+  StatLabel,
+} from "@/styles/ServicesStyles";
 
-const services = {
-  "IT Services": [
-    "IT Support Services",
-    "Network Management",
-    "Server Management",
-    "Cybersecurity",
-    "Backup and Disaster Recovery",
-    "Cloud Services Management",
-    "Software and Hardware Maintenance",
-    "Remote Monitoring and Management (RMM)",
-    "Consulting and Strategic IT Planning",
-    "Compliance and Regulatory Support",
-    "Unified Communications",
-    "Mobile Device Management (MDM)",
-    "Software Development and Customization",
-    "Website Management and Hosting",
-    "Surveillance and Security Systems",
-    "Data Analytics and Business Intelligence",
-    "DevOps Support",
-  ],
+// Icon mapping
+const iconMap = {
+  HeadphonesIcon: HeadphonesIcon,
+  Network: Network,
+  Server: Server,
+  Shield: Shield,
+  HardDrive: HardDrive,
+  Cloud: Cloud,
+  Wrench: Wrench,
+  Monitor: Monitor,
+  Database: Database,
+  Lock: Lock,
+  PhoneCall: PhoneCall,
+  Smartphone: Smartphone,
+  Code: Code,
+  Globe: Globe,
+  Camera: Camera,
+  BarChart2: BarChart2,
+  GitBranch: GitBranch,
 };
 
-const PageContainer = styled.div`
-  min-height: 100vh;
-`;
+// Memoized Service Card Component
+const ServiceCardComponent = memo(({ service, router }) => {
+  const IconComponent = iconMap[service.iconName];
 
-const HeroSection = styled.section`
-  position: relative;
-  padding: 5rem 0;
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
-  color: white;
-`;
+  const handleLearnMore = () => {
+    router.push('/coming-soon');
+  };
 
-const Container = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-`;
+  return (
+    <ServiceCard>
+      <ServiceIconWrapper>
+        {IconComponent && <IconComponent size={30} />}
+      </ServiceIconWrapper>
+      <ServiceTitle>{service.title}</ServiceTitle>
+      <ServiceDescription>{service.description}</ServiceDescription>
+      {service.features && (
+        <ServiceFeatures>
+          {service.features.map((feature, idx) => (
+            <ServiceFeature key={idx}>{feature}</ServiceFeature>
+          ))}
+        </ServiceFeatures>
+      )}
+      <LearnMoreButton onClick={handleLearnMore}>
+        Learn More
+        <ArrowRight size={16} />
+      </LearnMoreButton>
+    </ServiceCard>
+  );
+});
+ServiceCardComponent.displayName = "ServiceCardComponent";
 
-const HeroTitle = styled.h1`
-  font-size: 3.5rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2rem;
+const Services = ({ services, stats }) => {
+  const router = useRouter();
 
-  @media (min-width: 768px) {
-    font-size: 3rem;
-  }
-`;
-
-const HeroSubtitle = styled.p`
-  font-size: 1.25rem;
-  text-align: center;
-  max-width: 48rem;
-  margin: 0 auto;
-`;
-
-const Section = styled.section`
-  padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
-`;
-
-const CategoryTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2rem;
-`;
-
-const ServiceGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-bottom: 4rem;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const ServiceCard = styled.div`
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s;
-
-  &:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const ServiceTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-`;
-
-const ServiceDescription = styled.p`
-  color: #4b5563;
-`;
-
-const CTAButton = styled.button`
-  background-color: #2563eb;
-  color: white;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #1d4ed8;
-  }
-`;
-
-const Services = () => {
   return (
     <PageContainer>
+      <Head>
+        <title>Our Services - Vtechsecure</title>
+        <meta
+          name="description"
+          content="Comprehensive IT solutions including network management, cybersecurity, cloud services, and more. Professional IT support for your business."
+        />
+      </Head>
+
       <HeroSection>
-        <Container>
+        <HeroContainer>
           <HeroTitle>Our Services</HeroTitle>
-          <HeroSubtitle>Comprehensive IT solutions tailored to meet your business needs</HeroSubtitle>
-        </Container>
+          <HeroSubtitle>
+            Comprehensive IT solutions tailored to meet your business needs and drive digital transformation
+          </HeroSubtitle>
+        </HeroContainer>
       </HeroSection>
 
       <Section>
         <Container>
-          {Object.entries(services).map(([category, items], index) => (
-            <div key={index}>
-              <CategoryTitle>{category}</CategoryTitle>
-              <ServiceGrid>
-                {items.map((service, serviceIndex) => (
-                  <ServiceCard key={serviceIndex}>
-                    <ServiceTitle>{service}</ServiceTitle>
-                  </ServiceCard>
-                ))}
-              </ServiceGrid>
-            </div>
-          ))}
+          <SectionTitle>What We Offer</SectionTitle>
+          <SectionSubtitle>
+            From infrastructure management to cybersecurity, we provide end-to-end IT services that keep your business running smoothly and securely.
+          </SectionSubtitle>
+          <ServiceGrid>
+            {services.map((service, index) => (
+              <ServiceCardComponent key={index} service={service} router={router} />
+            ))}
+          </ServiceGrid>
         </Container>
       </Section>
 
-      <Section bgColor="#f9fafb">
-        <Container style={{ textAlign: "center" }}>
-          <CategoryTitle>Ready to Get Started?</CategoryTitle>
-          <p style={{ fontSize: "1.25rem", color: "#4b5563", maxWidth: "42rem", margin: "0 auto 2rem" }}>
-            Contact us today to discuss how our services can help your business grow and succeed in the digital age.
-          </p>
-          <CTAButton>Contact Us</CTAButton>
+      <Section bgColor="#f8f9fa">
+        <Container>
+          <SectionTitle>Why Choose Our Services</SectionTitle>
+          <SectionSubtitle>
+            Trusted by businesses across industries for reliable, secure, and scalable IT solutions
+          </SectionSubtitle>
+          <StatsSection>
+            {stats.map((stat, index) => (
+              <StatCard key={index}>
+                <StatNumber>{stat.number}</StatNumber>
+                <StatLabel>{stat.label}</StatLabel>
+              </StatCard>
+            ))}
+          </StatsSection>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <CTASection>
+            <CTATitle>Ready to Get Started?</CTATitle>
+            <CTADescription>
+              Contact us today to discuss how our services can help your business grow and succeed in the digital age.
+            </CTADescription>
+            <CTAButton onClick={() => router.push("/contact")}>
+              Get in Touch
+            </CTAButton>
+          </CTASection>
         </Container>
       </Section>
     </PageContainer>
   );
 };
 
-export default Services;
+// Static Site Generation
+export async function getStaticProps() {
+  const services = [
+    {
+      iconName: "HeadphonesIcon",
+      title: "IT Support Services",
+      description: "24/7 helpdesk support and technical assistance for your team",
+      features: ["Remote & On-site Support", "24/7 Availability", "Rapid Response"],
+    },
+    {
+      iconName: "Network",
+      title: "Network Management",
+      description: "Complete network design, implementation, and monitoring",
+      features: ["LAN/WAN Setup", "Network Optimization", "Performance Monitoring"],
+    },
+    {
+      iconName: "Server",
+      title: "Server Management",
+      description: "Professional server configuration, maintenance, and monitoring",
+      features: ["Server Setup", "Regular Maintenance", "Performance Tuning"],
+    },
+    {
+      iconName: "Shield",
+      title: "Cybersecurity",
+      description: "Comprehensive security solutions to protect your business",
+      features: ["Threat Monitoring", "Security Audits", "Compliance Support"],
+    },
+    {
+      iconName: "HardDrive",
+      title: "Backup & Disaster Recovery",
+      description: "Reliable backup solutions and business continuity planning",
+      features: ["Automated Backups", "Disaster Recovery Plans", "Data Restoration"],
+    },
+    {
+      iconName: "Cloud",
+      title: "Cloud Services",
+      description: "Cloud migration, management, and optimization services",
+      features: ["Cloud Migration", "Infrastructure Management", "Cost Optimization"],
+    },
+    {
+      iconName: "Wrench",
+      title: "Hardware & Software Maintenance",
+      description: "Regular maintenance and updates for all your IT assets",
+      features: ["Patch Management", "Hardware Repairs", "Software Updates"],
+    },
+    {
+      iconName: "Monitor",
+      title: "Remote Monitoring (RMM)",
+      description: "Proactive monitoring and management of your IT infrastructure",
+      features: ["Real-time Monitoring", "Automated Alerts", "Preventive Maintenance"],
+    },
+    {
+      iconName: "Database",
+      title: "IT Consulting",
+      description: "Strategic IT planning and technology roadmap development",
+      features: ["Technology Assessment", "Strategic Planning", "Implementation Support"],
+    },
+    {
+      iconName: "Lock",
+      title: "Compliance & Regulatory",
+      description: "Ensure your business meets industry compliance standards",
+      features: ["HIPAA Compliance", "Audit Support", "Policy Development"],
+    },
+    {
+      iconName: "PhoneCall",
+      title: "Unified Communications",
+      description: "VoIP, video conferencing, and collaboration tools",
+      features: ["VoIP Phone Systems", "Video Conferencing", "Team Collaboration"],
+    },
+    {
+      iconName: "Smartphone",
+      title: "Mobile Device Management",
+      description: "Secure and manage mobile devices across your organization",
+      features: ["Device Enrollment", "Security Enforcement", "App Management"],
+    },
+    {
+      iconName: "Code",
+      title: "Software Development",
+      description: "Custom application development and integration services",
+      features: ["Custom Applications", "API Integration", "Legacy Modernization"],
+    },
+    {
+      iconName: "Globe",
+      title: "Website Management",
+      description: "Professional website development, hosting, and maintenance",
+      features: ["Website Design", "Hosting Services", "Security Monitoring"],
+    },
+    {
+      iconName: "Camera",
+      title: "Surveillance Systems",
+      description: "CCTV installation and remote monitoring solutions",
+      features: ["CCTV Installation", "IP Camera Setup", "Remote Monitoring"],
+    },
+    {
+      iconName: "BarChart2",
+      title: "Data Analytics",
+      description: "Business intelligence and data-driven insights",
+      features: ["Data Warehousing", "Custom Dashboards", "Predictive Analytics"],
+    },
+    {
+      iconName: "GitBranch",
+      title: "DevOps Support",
+      description: "CI/CD pipeline setup and automation services",
+      features: ["CI/CD Pipelines", "Automation", "Infrastructure as Code"],
+    },
+  ];
+
+  const stats = [
+    { number: "12+", label: "Years of Experience" },
+    { number: "500+", label: "Clients Served" },
+    { number: "99.9%", label: "Uptime Guarantee" },
+  ];
+
+  return {
+    props: {
+      services,
+      stats,
+    },
+    revalidate: 86400,
+  };
+}
+
+export default memo(Services);

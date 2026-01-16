@@ -63,7 +63,7 @@ const ContactCard = styled.div`
 const ContactIcon = styled.div`
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -92,7 +92,7 @@ const ContactLink = styled.a`
   transition: color 0.3s ease;
 
   &:hover {
-    color: var(--secondary-blue);
+    color: #06b6d4;
   }
 `;
 
@@ -179,7 +179,7 @@ const TextArea = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
   color: var(--white);
   border: none;
   padding: 1rem 2rem;
