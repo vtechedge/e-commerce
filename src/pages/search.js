@@ -7,13 +7,13 @@ import Link from 'next/link';
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: ${props => props.theme.background.secondary};
 `;
 
 const SearchHeader = styled.div`
-  background: linear-gradient(135deg, #1e3888 0%, #152a66 100%);
+  background: ${props => props.theme.gradients.hero};
   padding: 3rem 0;
-  color: white;
+  color: ${props => props.theme.background.card};
 `;
 
 const Container = styled.div`
@@ -71,7 +71,7 @@ const SearchIconWrapper = styled.div`
 
 const SearchButton = styled.button`
   padding: 1rem 2rem;
-  background-color: white;
+  background-color: ${props => props.theme.background.card};
   color: var(--primary-blue);
   border: none;
   border-radius: var(--radius-lg);
@@ -114,7 +114,7 @@ const ResultsList = styled.div`
 
 const ResultCard = styled(Link)`
   display: block;
-  background: white;
+  background: ${props => props.theme.background.card};
   padding: 1.75rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-gray);

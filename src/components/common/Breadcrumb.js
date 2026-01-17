@@ -63,8 +63,8 @@ export default Breadcrumb;
 
 const BreadcrumbContainer = styled.nav`
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid rgb(217, 207, 207);
+  background-color: ${props => props.theme.background.secondary};
+  border-bottom: 1px solid ${props => props.theme.border.light};
   margin-bottom: 1rem;
   width: 100%;
   display: flex;
@@ -93,7 +93,7 @@ const BreadcrumbItem = styled.div`
 `;
 
 const BreadcrumbLink = styled(Link)`
-  color: #6c757d;
+  color: ${props => props.theme.text.tertiary};
   text-decoration: none;
   font-size: 0.9rem;
   font-family: "Inter", sans-serif;
@@ -105,14 +105,14 @@ const BreadcrumbLink = styled(Link)`
 `;
 
 const BreadcrumbText = styled.span`
-  color: #212529;
+  color: ${props => props.theme.text.primary};
   font-size: 0.9rem;
   font-weight: 500;
   font-family: "Inter", sans-serif;
 `;
 
 const Separator = styled(FaChevronRight)`
-  color: #6c757d;
+  color: ${props => props.theme.text.tertiary};
   font-size: 1rem;
   margin: 0 0.5rem;
 `;
@@ -125,20 +125,20 @@ const UserActions = styled.div`
 `;
 
 const UserLink = styled(Link)`
-  color: #333;
+  color: ${props => props.theme.text.primary};
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
   font-family: "Inter", sans-serif;
 
   &:hover {
-    color: #666;
+    color: ${props => props.theme.text.secondary};
   }
 `;
 
 const CartButton = styled.button`
   background-color: var(--primary-color);
-  color: white;
+  color: ${props => props.theme.background.card};
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;

@@ -5,7 +5,7 @@ import { Shield, Cloud, Network, Server, Database, Monitor, ArrowRight, CheckCir
 
 const ServicesSection = styled.section`
   padding: 5rem 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
+  background: linear-gradient(180deg, ${props => props.theme.background.primary} 0%, ${props => props.theme.background.secondary} 100%);
   position: relative;
   
   &::before {
@@ -15,7 +15,7 @@ const ServicesSection = styled.section`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+    background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
   }
 `;
 
@@ -34,7 +34,7 @@ const SectionHeader = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -47,7 +47,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     border-radius: 2px;
   }
 `;
@@ -68,8 +68,8 @@ const ServicesGrid = styled.div`
 `;
 
 const ServiceCard = styled.div`
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: ${props => props.theme.background.card};
+  border: 1px solid ${props => props.theme.border.light};
   border-radius: 16px;
   padding: 2.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,7 +81,7 @@ const ServiceCard = styled.div`
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15);
-    border-color: #1e3888;
+    border-color: ${props => props.theme.primary};
   }
 
   &::before {
@@ -91,7 +91,7 @@ const ServiceCard = styled.div`
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -122,13 +122,13 @@ const ServiceCard = styled.div`
 const ServiceIcon = styled.div`
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+  background: ${props => props.theme.gradients.subtle};
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  color: white;
+  color: ${props => props.theme.background.card};
   box-shadow: 0 4px 15px rgba(30, 56, 136, 0.2);
   transition: all 0.3s ease;
   
@@ -141,7 +141,7 @@ const ServiceIcon = styled.div`
 const ServiceTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
   position: relative;
   z-index: 1;
@@ -178,7 +178,7 @@ const ServiceLink = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
@@ -188,7 +188,7 @@ const ServiceLink = styled.a`
 
   &:hover {
     gap: 0.75rem;
-    color: #06b6d4;
+    color: ${props => props.theme.accent};
   }
   
   svg {
@@ -201,8 +201,8 @@ const ServiceLink = styled.a`
 `;
 
 const CTAButton = styled.button`
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border: none;
   padding: 1rem 2.5rem;
   border-radius: 50px;
@@ -303,7 +303,7 @@ const Services = () => {
           ))}
         </ServicesGrid>
 
-        <CTAButton onClick={() => router.push('/coming-soon')}>View All Services</CTAButton>
+        <CTAButton onClick={() => router.push('/services')}>View All Services</CTAButton>
       </Container>
     </ServicesSection>
   );

@@ -96,7 +96,7 @@ const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
         </Container>
       </Section>
 
-      <Section bgColor="#f8f9fa">
+      <Section bgColor="${props => props.theme.background.secondary}">
         <Container>
           <SectionTitle>Our Mission</SectionTitle>
           <HighlightText>
@@ -123,7 +123,7 @@ const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
         </Container>
       </Section>
 
-      <Section bgColor="#f8f9fa">
+      <Section bgColor="${props => props.theme.background.secondary}">
         <Container>
           <SectionTitle>Who We Serve</SectionTitle>
           <ContentText style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -156,7 +156,7 @@ const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
         </Container>
       </Section>
 
-      <Section bgColor="#f8f9fa">
+      <Section bgColor="${props => props.theme.background.secondary}">
         <Container>
           <SectionTitle>Our Culture & Values</SectionTitle>
           <ContentText style={{ textAlign: "center", marginBottom: "3rem" }}>
@@ -213,7 +213,7 @@ const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
         </Container>
       </Section>
 
-      <Section bgColor="#f8f9fa">
+      <Section bgColor="${props => props.theme.background.secondary}">
         <Container>
           <SectionTitle>Let's Move Your IT Forward — Together</SectionTitle>
           <ContentText style={{ textAlign: "center", marginBottom: "3rem" }}>Ready to partner with a team that understands your industry and delivers on its promise?</ContentText>

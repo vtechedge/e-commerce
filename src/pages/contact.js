@@ -6,12 +6,12 @@ import { useToast } from "@/components/common/ToastContext";
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.background.primary};
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #1e3888 0%, #0a235b 100%);
-  color: white;
+  background: ${props => props.theme.gradients.hero};
+  color: ${props => props.theme.background.card};
   padding: 4rem 0;
   text-align: center;
   
@@ -72,7 +72,7 @@ const Grid = styled.div`
 `;
 
 const FormCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   border-radius: 12px;
   padding: 2.5rem;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
@@ -85,7 +85,7 @@ const FormCard = styled.div`
 const FormTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -93,7 +93,7 @@ const FormTitle = styled.h2`
 `;
 
 const FormDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   margin-bottom: 2rem;
   line-height: 1.6;
 `;
@@ -123,13 +123,13 @@ const FormGroup = styled.div`
 
 const Label = styled.label`
   font-weight: 500;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   font-size: 0.95rem;
 `;
 
 const Input = styled.input`
   padding: 0.875rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid ${props => props.theme.border.light};
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -142,13 +142,13 @@ const Input = styled.input`
   }
 
   &::placeholder {
-    color: #999;
+    color: ${props => props.theme.text.muted};
   }
 `;
 
 const TextArea = styled.textarea`
   padding: 0.875rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid ${props => props.theme.border.light};
   border-radius: 8px;
   font-size: 1rem;
   min-height: 150px;
@@ -163,14 +163,14 @@ const TextArea = styled.textarea`
   }
 
   &::placeholder {
-    color: #999;
+    color: ${props => props.theme.text.muted};
   }
 `;
 
 const SubmitButton = styled.button`
   padding: 1rem 2rem;
   background-color: var(--primary-blue);
-  color: white;
+  color: ${props => props.theme.background.card};
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -183,7 +183,7 @@ const SubmitButton = styled.button`
   gap: 0.5rem;
 
   &:hover {
-    background-color: #06b6d4;
+    background-color: ${props => props.theme.accent};
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 56, 136, 0.3);
   }
@@ -193,7 +193,7 @@ const SubmitButton = styled.button`
   }
   
   &:disabled {
-    background-color: #ccc;
+    background-color: ${props => props.theme.border.medium};
     cursor: not-allowed;
     transform: none;
   }
@@ -206,7 +206,7 @@ const ContactInfo = styled.div`
 `;
 
 const InfoCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
@@ -219,7 +219,7 @@ const InfoCard = styled.div`
 const InfoTitle = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   
   @media (max-width: 768px) {
     font-size: 1.25rem;
@@ -245,13 +245,13 @@ const InfoContent = styled.div`
 
 const InfoLabel = styled.div`
   font-weight: 600;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 0.25rem;
   font-size: 0.95rem;
 `;
 
 const InfoText = styled.div`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.6;
   
   a {
@@ -265,7 +265,7 @@ const InfoText = styled.div`
 `;
 
 const MapContainer = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);

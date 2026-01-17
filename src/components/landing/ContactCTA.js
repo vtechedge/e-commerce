@@ -47,7 +47,7 @@ const sparkle = keyframes`
 
 const CTASection = styled.section`
   padding: 5rem 2rem;
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
+  background: ${props => props.theme.gradients.primary};
   position: relative;
   overflow: hidden;
 
@@ -74,7 +74,7 @@ const CTASection = styled.section`
     transform: translate(-50%, -50%);
     width: 800px;
     height: 800px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, ${props => props.theme.mode === "light" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.2)"} 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
   }
@@ -94,7 +94,7 @@ const CTABadge = styled.div`
   gap: 0.5rem;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  color: white;
+  color: ${props => props.theme.background.card};
   padding: 0.5rem 1.25rem;
   border-radius: 50px;
   font-size: 0.875rem;
@@ -115,7 +115,7 @@ const CTABadge = styled.div`
 const CTATitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: white;
+  color: ${props => props.theme.background.card};
   margin-bottom: 1rem;
   line-height: 1.2;
   animation: fadeInUp 0.6s ease-out 0.1s both;
@@ -134,7 +134,7 @@ const CTATitle = styled.h2`
 
 const CTASubtitle = styled.p`
   font-size: 1.125rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: ${props => props.theme.mode === "dark" ? "rgba(122, 159, 196, 0.95)" : "rgba(255, 255, 255, 0.95)"};
   margin-bottom: 2.5rem;
   line-height: 1.6;
   max-width: 600px;
@@ -154,8 +154,8 @@ const CTAButton = styled.button`
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: white;
-  color: #1e3888;
+  background: ${props => props.theme.background.card};
+  color: ${props => props.theme.primary};
   font-size: 1.125rem;
   font-weight: 600;
   padding: 1.125rem 2.5rem;
@@ -175,7 +175,7 @@ const CTAButton = styled.button`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background: linear-gradient(135deg, rgba(240, 249, 255, 0.3) 0%, rgba(224, 242, 254, 0.3) 100%);
     opacity: 0;
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -225,24 +225,24 @@ const SecondaryInfo = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: #6b7280;
+  color: ${props => props.theme.text.tertiary};
   font-size: 0.9rem;
   animation: fadeIn 0.6s ease-out 0.4s both;
 
   svg {
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     width: 18px;
     height: 18px;
   }
 
   a {
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     font-weight: 600;
     text-decoration: none;
     transition: color 0.2s ease;
 
     &:hover {
-      color: #2d4ba8;
+      color: ${props => props.theme.primaryLight};
       text-decoration: underline;
     }
   }

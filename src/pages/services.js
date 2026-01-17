@@ -137,7 +137,7 @@ const Services = ({ services, stats }) => {
         </Container>
       </Section>
 
-      <Section bgColor="#f8f9fa">
+      <Section bgColor="${props => props.theme.background.secondary}">
         <Container>
           <SectionTitle>Why Choose Our Services</SectionTitle>
           <SectionSubtitle>

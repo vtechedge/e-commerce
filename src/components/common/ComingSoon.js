@@ -57,7 +57,7 @@ const gradientShift = keyframes`
 // Styled Components
 const PageContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(-45deg, #1e3888, #152a66, #1e3888, #0a1a44);
+  background: ${props => props.theme.gradients.primary};
   background-size: 400% 400%;
   animation: ${gradientShift} 15s ease infinite;
   display: flex;
@@ -84,7 +84,7 @@ const BackgroundPattern = styled.div`
 const ContentCard = styled.div`
   position: relative;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.98);
+  background: ${props => props.theme.mode === "dark" ? "rgba(22, 27, 34, 0.95)" : "rgba(255, 255, 255, 0.98)"};
   backdrop-filter: blur(20px);
   border-radius: 24px;
   padding: 5rem 4rem;
@@ -106,8 +106,8 @@ const ContentCard = styled.div`
 const StatusBadge = styled.div`
   display: inline-block;
   padding: 0.5rem 1.5rem;
-  background: linear-gradient(135deg, #1e3888, #2d4ba8);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -122,12 +122,12 @@ const IconContainer = styled.div`
   width: 120px;
   height: 120px;
   margin: 0 auto 2.5rem;
-  background: linear-gradient(135deg, #1e3888, #2d4ba8);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: ${props => props.theme.background.card};
   font-size: 3.5rem;
   box-shadow: 
     0 10px 30px rgba(30, 56, 136, 0.3),
@@ -143,7 +143,7 @@ const IconContainer = styled.div`
     right: -5px;
     bottom: -5px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #1e3888, #2d4ba8);
+    background: ${props => props.theme.gradients.primary};
     opacity: 0.3;
     z-index: -1;
     animation: ${pulse} 2s ease-in-out infinite;
@@ -154,7 +154,7 @@ const Title = styled.h1`
   font-family: 'Poppins', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 700;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
   line-height: 1.2;
 `;
@@ -163,7 +163,7 @@ const Subtitle = styled.h2`
   font-family: 'Poppins', sans-serif;
   font-size: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 500;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 1.5rem;
   line-height: 1.4;
 `;
@@ -172,7 +172,7 @@ const Description = styled.p`
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   margin-bottom: 2.5rem;
   max-width: 480px;
   margin-left: auto;
@@ -193,8 +193,8 @@ const Button = styled(Link)`
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, #1e3888, #2d4ba8);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border-radius: 50px;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
@@ -208,7 +208,7 @@ const Button = styled(Link)`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 25px rgba(30, 56, 136, 0.4);
-    background: linear-gradient(135deg, #2d4ba8, #1e3888);
+    background: linear-gradient(135deg, ${props => props.theme.accent}, ${props => props.theme.primary});
   }
 
   &:active {
@@ -219,7 +219,7 @@ const Button = styled(Link)`
 const FloatingCircle = styled.div`
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: ${props => props.theme.mode === "light" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.2)"};
   animation: ${float} 6s ease-in-out infinite;
   
   &:nth-child(1) {

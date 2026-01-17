@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.background.primary};
 `;
 
 export const HeroSection = styled.section`
   position: relative;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: white;
+  background: ${props => props.theme.gradients.hero};
+  color: ${props => props.theme.background.card};
   padding: 5rem 0;
   text-align: center;
   overflow: hidden;
@@ -38,7 +38,7 @@ export const HeroTitle = styled.h1`
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: white;
+  color: ${props => props.theme.background.card};
   position: relative;
 
   &::after {
@@ -49,7 +49,7 @@ export const HeroTitle = styled.h1`
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: #1e3888;
+    background: ${props => props.theme.primary};
     border-radius: 2px;
   }
 
@@ -75,7 +75,7 @@ export const Container = styled.div`
 
 export const Section = styled.section`
   padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
+  background-color: ${(props) => props.bgColor || "${props => props.theme.background.card}"};
 `;
 
 export const SectionTitle = styled.h2`
@@ -83,20 +83,20 @@ export const SectionTitle = styled.h2`
   font-weight: bold;
   text-align: center;
   margin-bottom: 3rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
 `;
 
 export const SectionSubtitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
 `;
 
 export const ContentText = styled.p`
   font-size: 1.1rem;
   line-height: 1.7;
-  color: #555;
+  color: ${props => props.theme.text.secondary};
   margin-bottom: 1.5rem;
 `;
 
@@ -104,7 +104,7 @@ export const HighlightText = styled.p`
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 1.6;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 2rem;
   text-align: center;
   max-width: 800px;
@@ -123,7 +123,7 @@ export const Grid = styled.div`
 `;
 
 export const Card = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -138,12 +138,12 @@ export const Card = styled.div`
 export const CardTitle = styled.h4`
   font-size: 1.4rem;
   font-weight: 600;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 1rem;
 `;
 
 export const CardDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.6;
 `;
 
@@ -162,7 +162,7 @@ export const ValuesGrid = styled.div`
 `;
 
 export const ValueCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -177,8 +177,8 @@ export const ValueCard = styled.div`
 export const ValueNumber = styled.div`
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -191,19 +191,19 @@ export const ValueNumber = styled.div`
 export const ValueTitle = styled.h5`
   font-size: 1.2rem;
   font-weight: 600;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 0.5rem;
 `;
 
 export const ValueDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.5;
   font-size: 0.95rem;
 `;
 
 export const CTAButton = styled.button`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border: none;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -237,22 +237,22 @@ export const IndustryList = styled.ul`
 `;
 
 export const IndustryItem = styled.li`
-  background: white;
+  background: ${props => props.theme.background.card};
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #667eea;
+  border-left: 4px solid ${props => props.theme.primary};
 `;
 
 export const IndustryTitle = styled.h5`
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 0.5rem;
 `;
 
 export const IndustryDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   font-size: 0.95rem;
   line-height: 1.5;
 `;

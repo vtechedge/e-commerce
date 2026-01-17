@@ -12,7 +12,7 @@ const scroll = keyframes`
 
 const Section = styled.section`
   padding: 4rem 0;
-  background: linear-gradient(135deg, #1e3888 0%, #152a66 50%, #1e3888 100%);
+  background: ${props => props.theme.gradients.hero};
   overflow: hidden;
   margin: 5rem 0;
   position: relative;
@@ -43,7 +43,7 @@ const MarqueeContainer = styled.div`
   display: flex;
   width: 100%;
   overflow: hidden;
-  white-space: nowrap;
+  ${props => props.theme.background.card}-space: nowrap;
 `;
 
 const MarqueeContent = styled.div`
@@ -56,7 +56,7 @@ const MarqueeItem = styled.div`
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  color: white;
+  color: ${props => props.theme.background.card};
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -65,7 +65,7 @@ const MarqueeItem = styled.div`
   letter-spacing: 0.5px;
   
   &:hover {
-    color: #06b6d4;
+    color: ${props => props.theme.accent};
     text-shadow: 0 2px 15px rgba(6, 182, 212, 0.5);
   }
 `;

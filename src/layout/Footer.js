@@ -4,8 +4,8 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowUp, S
 import { useToast } from "../components/common/ToastContext";
 
 const FooterContainer = styled.footer`
-  background: linear-gradient(180deg, #1a1f35 0%, #0f1320 100%);
-  color: white;
+  background: ${props => props.theme.gradients.hero};
+  color: ${props => props.theme.background.card};
   position: relative;
   overflow: hidden;
   
@@ -36,7 +36,7 @@ const FooterTop = styled.div`
   gap: 2.5rem;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid ${props => props.theme.mode === "light" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.2)"};
   
   @media (max-width: 1024px) {
     grid-template-columns: repeat(3, 1fr);
@@ -79,7 +79,7 @@ const FooterTitle = styled.h3`
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: white;
+  color: ${props => props.theme.background.card};
   position: relative;
   padding-bottom: 0.65rem;
   
@@ -90,7 +90,7 @@ const FooterTitle = styled.h3`
     left: 0;
     width: 35px;
     height: 2px;
-    background: linear-gradient(90deg, #1e3888, #2d4ba8);
+    background: ${props => props.theme.gradients.primaryHorizontal};
   }
 `;
 
@@ -104,7 +104,7 @@ const FooterLink = styled.a`
   padding-left: 0;
   
   &:hover {
-    color: white;
+    color: ${props => props.theme.background.card};
     padding-left: 8px;
   }
 `;
@@ -121,7 +121,7 @@ const ContactInfo = styled.div`
   svg {
     flex-shrink: 0;
     margin-top: 0.125rem;
-    color: #2d4ba8;
+    color: ${props => props.theme.primaryLight};
   }
   
   a {
@@ -130,7 +130,7 @@ const ContactInfo = styled.div`
     transition: color 0.2s ease;
     
     &:hover {
-      color: white;
+      color: ${props => props.theme.background.card};
     }
   }
 `;
@@ -149,13 +149,13 @@ const SocialLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: ${props => props.theme.background.card};
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid ${props => props.theme.mode === "light" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.2)"};
   
   &:hover {
-    background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
+    background: ${props => props.theme.gradients.subtle};
     transform: translateY(-2px);
     border-color: transparent;
     box-shadow: 0 4px 12px rgba(45, 75, 168, 0.3);
@@ -178,7 +178,7 @@ const NewsletterTitle = styled.h4`
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: white;
+  color: ${props => props.theme.background.card};
 `;
 
 const NewsletterDescription = styled.p`
@@ -203,7 +203,7 @@ const NewsletterInput = styled.input`
   border: 1.5px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.08);
-  color: white;
+  color: ${props => props.theme.background.card};
   outline: none;
   font-size: 0.9rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -213,15 +213,15 @@ const NewsletterInput = styled.input`
   }
   
   &:focus {
-    border-color: #2d4ba8;
+    border-color: ${props => props.theme.primaryLight};
     background: rgba(255, 255, 255, 0.12);
   }
 `;
 
 const NewsletterButton = styled.button`
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-  color: white;
+  background: ${props => props.theme.gradients.subtle};
+  color: ${props => props.theme.background.card};
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -232,7 +232,7 @@ const NewsletterButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   box-shadow: 0 2px 8px rgba(30, 56, 136, 0.25);
-  white-space: nowrap;
+  ${props => props.theme.background.card}-space: nowrap;
   
   &:hover {
     transform: translateY(-2px);
@@ -287,12 +287,12 @@ const LegalLink = styled.a`
     left: 0;
     width: 0;
     height: 1px;
-    background: white;
+    background: ${props => props.theme.background.card};
     transition: width 0.2s ease;
   }
   
   &:hover {
-    color: white;
+    color: ${props => props.theme.background.card};
     
     &::after {
       width: 100%;
@@ -306,8 +306,8 @@ const ScrollToTop = styled.button`
   right: 2rem;
   width: 52px;
   height: 52px;
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-  color: white;
+  background: ${props => props.theme.gradients.subtle};
+  color: ${props => props.theme.background.card};
   border: none;
   border-radius: 12px;
   cursor: pointer;

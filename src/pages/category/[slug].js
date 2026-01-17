@@ -19,13 +19,13 @@ const ProductsGrid = styled.div`
 const CategoryTitle = styled.h1`
   font-size: 2rem;
   margin: 1rem 0;
-  color: #333;
+  color: ${props => props.theme.text.primary};
 `;
 
 const NoProducts = styled.div`
   text-align: center;
   padding: 3rem;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   font-size: 1.1rem;
 `;
 

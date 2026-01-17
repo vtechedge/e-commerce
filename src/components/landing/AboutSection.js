@@ -5,7 +5,7 @@ import { CheckCircle, Users, Award, Clock, ArrowRight } from "lucide-react";
 
 const AboutSectionContainer = styled.section`
   padding: 5rem 0;
-  background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+  background: linear-gradient(180deg, ${props => props.theme.background.secondary} 0%, ${props => props.theme.background.primary} 100%);
   position: relative;
   
   &::after {
@@ -15,7 +15,7 @@ const AboutSectionContainer = styled.section`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+    background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
   }
 `;
 
@@ -42,7 +42,7 @@ const ContentSection = styled.div``;
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1.5rem;
   line-height: 1.2;
   position: relative;
@@ -54,7 +54,7 @@ const SectionTitle = styled.h2`
     bottom: -8px;
     width: 60px;
     height: 4px;
-    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     border-radius: 2px;
   }
 `;
@@ -85,20 +85,20 @@ const FeatureItem = styled.li`
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   font-weight: 500;
   padding: 0.5rem 0;
   transition: all 0.3s ease;
 
   svg {
-    color: #10b981;
+    color: ${props => props.theme.success};
     flex-shrink: 0;
     transition: all 0.3s ease;
   }
   
   &:hover {
     padding-left: 0.5rem;
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     
     svg {
       transform: scale(1.2);
@@ -107,8 +107,8 @@ const FeatureItem = styled.li`
 `;
 
 const CTAButton = styled.button`
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border: none;
   padding: 1rem 2.5rem;
   border-radius: 50px;
@@ -182,7 +182,7 @@ const StatsOverlay = styled.div`
   position: absolute;
   bottom: -2rem;
   right: -2rem;
-  background: var(--white);
+  background: var(--${props => props.theme.background.card});
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -223,7 +223,7 @@ const FloatingCard = styled.div`
   position: absolute;
   top: -1rem;
   left: -1rem;
-  background: var(--white);
+  background: var(--${props => props.theme.background.card});
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -243,12 +243,12 @@ const FloatingCard = styled.div`
 const FloatingIcon = styled.div`
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: var(--${props => props.theme.background.card});
 `;
 
 const FloatingContent = styled.div``;

@@ -48,7 +48,7 @@ const ContactGrid = styled.div`
 const ContactInfo = styled.div``;
 
 const ContactCard = styled.div`
-  background: var(--white);
+  background: var(--${props => props.theme.background.card});
   border-radius: 8px;
   padding: 2rem;
   margin-bottom: 1.5rem;
@@ -63,12 +63,12 @@ const ContactCard = styled.div`
 const ContactIcon = styled.div`
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: var(--${props => props.theme.background.card});
   margin-bottom: 1rem;
 `;
 
@@ -92,12 +92,12 @@ const ContactLink = styled.a`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #06b6d4;
+    color: ${props => props.theme.accent};
   }
 `;
 
 const ContactForm = styled.div`
-  background: var(--white);
+  background: var(--${props => props.theme.background.card});
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -179,8 +179,8 @@ const TextArea = styled.textarea`
 `;
 
 const SubmitButton = styled.button`
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
-  color: var(--white);
+  background: ${props => props.theme.gradients.primary};
+  color: var(--${props => props.theme.background.card});
   border: none;
   padding: 1rem 2rem;
   border-radius: 4px;
@@ -207,7 +207,7 @@ const SubmitButton = styled.button`
 
 const SuccessMessage = styled.div`
   background-color: var(--success-green);
-  color: var(--white);
+  color: var(--${props => props.theme.background.card});
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;

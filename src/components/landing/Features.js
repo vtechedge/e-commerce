@@ -4,7 +4,7 @@ import { Award, Users, Clock, Shield, Zap, Headphones, CheckCircle } from "lucid
 
 const FeaturesSection = styled.section`
   padding: 5rem 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
+  background: linear-gradient(180deg, ${props => props.theme.background.primary} 0%, ${props => props.theme.background.secondary} 100%);
   position: relative;
   
   &::before {
@@ -14,7 +14,7 @@ const FeaturesSection = styled.section`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+    background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
   }
 `;
 
@@ -32,7 +32,7 @@ const SectionHeader = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
@@ -45,7 +45,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     border-radius: 2px;
   }
 `;
@@ -66,12 +66,12 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   border-radius: 16px;
   padding: 2.5rem;
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #e5e7eb;
+  border: 1px solid ${props => props.theme.border.light};
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
@@ -79,7 +79,7 @@ const FeatureCard = styled.div`
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15);
-    border-color: #1e3888;
+    border-color: ${props => props.theme.primary};
   }
   
   &::before {
@@ -89,7 +89,7 @@ const FeatureCard = styled.div`
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #1e3888 0%, #06b6d4 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -103,13 +103,13 @@ const FeatureCard = styled.div`
 const FeatureIcon = styled.div`
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  color: white;
+  color: ${props => props.theme.background.card};
   box-shadow: 0 8px 20px rgba(30, 56, 136, 0.25);
   transition: all 0.4s ease;
   
@@ -154,7 +154,7 @@ const FeatureItem = styled.li`
 `;
 
 const StatsSection = styled.div`
-  background: linear-gradient(135deg, #1e3888 0%, #06b6d4 100%);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 16px;
   padding: 4rem 2rem;
   margin-top: 4rem;
@@ -182,7 +182,7 @@ const StatsGrid = styled.div`
 `;
 
 const StatItem = styled.div`
-  color: var(--white);
+  color: var(--${props => props.theme.background.card});
 `;
 
 const StatNumber = styled.div`

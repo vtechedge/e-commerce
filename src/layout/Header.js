@@ -33,6 +33,8 @@ import {
   Clock,
   Heart,
 } from "lucide-react";
+import ThemeToggle from "../components/common/ThemeToggle";
+import ThemeLogo from "../components/common/Logo";
 
 const HeaderWrapper = styled.header`
   position: sticky;
@@ -42,8 +44,8 @@ const HeaderWrapper = styled.header`
 `;
 
 const TopBar = styled.div`
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-  color: white;
+  background: ${props => props.theme.gradients.subtle};
+  color: ${props => props.theme.text.inverse};
   font-size: 0.813rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   max-height: ${(props) => (props.isHidden ? '0' : '100px')};
@@ -107,7 +109,7 @@ const TopBarItem = styled.a`
   font-weight: 500;
   
   &:hover {
-    color: white;
+    color: ${props => props.theme.background.card};
     transform: translateY(-1px);
   }
   
@@ -127,7 +129,7 @@ const TopBarItem = styled.a`
 `;
 
 const TopBarLink = styled.a`
-  color: rgba(255, 255, 255, 0.9);
+  color: ${props => props.theme.mode === "dark" ? "rgba(122, 159, 196, 0.95)" : "rgba(255, 255, 255, 0.95)"};
   text-decoration: none;
   transition: all 0.2s ease;
   font-weight: 500;
@@ -141,12 +143,12 @@ const TopBarLink = styled.a`
     left: 0;
     width: 0;
     height: 1px;
-    background: white;
+    background: ${props => props.theme.background.card};
     transition: width 0.2s ease;
   }
   
   &:hover {
-    color: white;
+    color: ${props => props.theme.background.card};
     
     &::after {
       width: 100%;
@@ -167,10 +169,15 @@ const Divider = styled.span`
 `;
 
 const MainHeaderWrapper = styled.div`
-  background: rgba(255, 255, 255, 0.98);
+  background: ${props => props.theme.mode === 'dark'
+    ? 'rgba(22, 27, 34, 0.95)'
+    : '${props => props.theme.mode === "dark" ? "rgba(22, 27, 34, 0.95)" : "rgba(255, 255, 255, 0.98)"}'};
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  box-shadow: ${props => props.theme.mode === 'dark'
+    ? '0 2px 12px rgba(0, 0, 0, 0.3)'
+    : '0 2px 12px rgba(0, 0, 0, 0.06)'};
+  border-bottom: 1px solid ${props => props.theme.border.light};
+  transition: all 0.3s ease;
 `;
 
 const MainHeader = styled.div`
@@ -230,21 +237,21 @@ const SearchInput = styled.input`
   border: 1.5px solid transparent;
   border-radius: 50px;
   font-size: 0.875rem;
-  background-color: #f3f4f6;
+  background-color: ${props => props.theme.background.tertiary};
   outline: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   font-weight: 500;
 
   &:focus {
-    border-color: #1e3888;
-    background-color: white;
+    border-color: ${props => props.theme.primary};
+    background-color: ${props => props.theme.background.card};
     box-shadow: 0 4px 12px rgba(30, 56, 136, 0.15);
     transform: translateY(-1px);
   }
 
   &::placeholder {
-    color: #9ca3af;
+    color: ${props => props.theme.text.muted};
     font-weight: 400;
   }
 `;
@@ -254,7 +261,7 @@ const SearchIcon = styled.div`
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: ${props => props.theme.text.muted};
   pointer-events: none;
   z-index: 10;
   
@@ -287,7 +294,7 @@ const ActionButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
-  color: #374151;
+  color: ${props => props.theme.text.secondary};
   font-weight: 600;
   font-size: 0.688rem;
   padding: 0.5rem 0.75rem;
@@ -298,7 +305,7 @@ const ActionButton = styled.button`
 
   &:hover {
     background-color: rgba(240, 244, 255, 0.6);
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     transform: translateY(-1px);
   }
   
@@ -318,8 +325,8 @@ const ActionButton = styled.button`
   }
   
   &.contact-btn {
-    background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-    color: white;
+    background: ${props => props.theme.gradients.subtle};
+    color: ${props => props.theme.background.card};
     padding: 0.65rem 1.5rem;
     font-weight: 600;
     font-size: 0.875rem;
@@ -332,7 +339,7 @@ const ActionButton = styled.button`
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(30, 56, 136, 0.4);
-      background: linear-gradient(135deg, #2d4ba8 0%, #3557c2 100%);
+      background: ${props => props.theme.gradients.subtle};
     }
     
     &:active {
@@ -362,8 +369,8 @@ const CartBadge = styled.span`
   position: absolute;
   top: 0.25rem;
   right: 0.5rem;
-  background: linear-gradient(135deg, #1e3888, #2d4ba8);
-  color: white;
+  background: ${props => props.theme.gradients.subtle};
+  color: ${props => props.theme.background.card};
   border-radius: 10px;
   min-width: 18px;
   height: 18px;
@@ -410,7 +417,7 @@ const NavItem = styled.li`
 const NavLink = styled.a`
   display: block;
   padding: 0.75rem 1rem 1.25rem 1rem;
-  color: #374151;
+  color: ${props => props.theme.text.secondary};
   text-decoration: none;
   font-weight: 600;
   font-size: 0.813rem;
@@ -420,7 +427,7 @@ const NavLink = styled.a`
   gap: 0.4rem;
   border-radius: 8px;
   position: relative;
-  white-space: nowrap;
+  ${props => props.theme.background.card}-space: nowrap;
   letter-spacing: -0.01em;
 
   &::after {
@@ -431,13 +438,13 @@ const NavLink = styled.a`
     transform: translateX(-50%);
     width: 0;
     height: 2.5px;
-    background: linear-gradient(90deg, #1e3888, #2d4ba8);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     border-radius: 2px;
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &:hover {
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     background-color: rgba(240, 244, 255, 0.8);
     transform: translateY(-1px);
     
@@ -459,7 +466,7 @@ const Dropdown = styled.div`
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  background: linear-gradient(to bottom, ${props => props.theme.background.primary}, ${props => props.theme.background.secondary});
   min-width: 1250px;
   max-width: 1450px;
   box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -497,7 +504,7 @@ const DropdownItem = styled.div`
   gap: 0.3rem;
   padding: 0.5rem;
   border-radius: 6px;
-  background: white;
+  background: ${props => props.theme.background.card};
   transition: all 0.2s ease;
   border: 1px solid transparent;
   
@@ -513,20 +520,20 @@ const ServiceTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1px;
   margin-bottom: 0.25rem;
   padding-bottom: 0.25rem;
-  border-bottom: 2px solid #1e3888;
+  border-bottom: 2px solid ${props => props.theme.primary};
   line-height: 1.1;
   
   svg {
     width: 12px;
     height: 12px;
-    color: #2d4ba8;
+    color: ${props => props.theme.primaryLight};
     flex-shrink: 0;
   }
 `;
@@ -539,7 +546,7 @@ const SubDropdown = styled.div`
 
 const SubDropdownItem = styled.a`
   display: block;
-  color: #4b5563;
+  color: ${props => props.theme.text.secondary};
   text-decoration: none;
   font-size: 0.65rem;
   font-weight: 500;
@@ -554,14 +561,14 @@ const SubDropdownItem = styled.a`
     content: '•';
     position: absolute;
     left: 0.15rem;
-    color: #2d4ba8;
+    color: ${props => props.theme.primaryLight};
     font-weight: 700;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
 
   &:hover {
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     background: rgba(30, 56, 136, 0.05);
     padding-left: 0.75rem;
     
@@ -572,7 +579,7 @@ const SubDropdownItem = styled.a`
 `;
 
 const ServiceIcon = styled.div`
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -598,7 +605,7 @@ top: 0;
 left: 0;
 right: 0;
 bottom: 0;
-background - color: var(--white);
+background - color: var(--${props => props.theme.background.card});
 z - index: 1002;
 padding: 2rem;
 overflow - y: auto;
@@ -671,7 +678,7 @@ const Header = () => {
 
   useEffect(() => {
     let ticking = false;
-    
+
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
@@ -818,7 +825,7 @@ const Header = () => {
       <MainHeaderWrapper>
         <MainHeader>
           <Logo href="/">
-            <Image src="/logo.png" alt="VtechSecure Logo" width={180} height={50} priority />
+            <ThemeLogo width={180} height={50} />
           </Logo>
 
           {/* Navigation Links - Now in main header row */}
@@ -854,6 +861,9 @@ const Header = () => {
           </SearchContainer>
 
           <HeaderActions>
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
+
             {/* Simplified icon buttons - Myntra style */}
             <ActionButton onClick={() => router.push('/contact')}>
               <Headphones size={22} />
@@ -932,7 +942,7 @@ const Header = () => {
       <MobileMenu isOpen={isMobileMenuOpen}>
         <MobileMenuHeader>
           <Logo href="/">
-            <Image src="/logo.png" alt="VtechSecure Logo" width={180} height={50} />
+            <ThemeLogo width={180} height={50} />
           </Logo>
           <MobileMenuButton onClick={() => setIsMobileMenuOpen(false)}>
             <X size={24} />

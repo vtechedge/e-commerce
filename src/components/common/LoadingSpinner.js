@@ -26,7 +26,7 @@ const Spinner = styled.div`
 `;
 
 const LoadingText = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   font-size: 1rem;
 `;
 

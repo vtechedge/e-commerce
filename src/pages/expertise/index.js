@@ -4,12 +4,12 @@ import styled from "styled-components";
 
 const PageContainer = styled.div`
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.background.primary};
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   padding: 4rem 0;
   text-align: center;
 `;
@@ -45,7 +45,7 @@ const SectionTitle = styled.h2`
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 3rem;
-  color: #333;
+  color: ${props => props.theme.text.primary};
 `;
 
 const ExpertiseGrid = styled.div`
@@ -56,7 +56,7 @@ const ExpertiseGrid = styled.div`
 `;
 
 const ExpertiseCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -70,12 +70,12 @@ const ExpertiseCard = styled.div`
 
 const CardTitle = styled.h3`
   font-size: 1.5rem;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
 `;
 
 const CardDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.6;
 `;
 

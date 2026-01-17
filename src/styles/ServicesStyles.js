@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.background.primary};
 `;
 
 export const HeroSection = styled.section`
   position: relative;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: white;
+  background: ${props => props.theme.gradients.hero};
+  color: ${props => props.theme.background.card};
   padding: 6rem 0 5rem;
   text-align: center;
   overflow: hidden;
@@ -38,7 +38,7 @@ export const HeroTitle = styled.h1`
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: white;
+  color: ${props => props.theme.background.card};
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -62,7 +62,7 @@ export const Container = styled.div`
 
 export const Section = styled.section`
   padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
+  background-color: ${(props) => props.bgColor || "${props => props.theme.background.card}"};
 `;
 
 export const SectionTitle = styled.h2`
@@ -70,13 +70,13 @@ export const SectionTitle = styled.h2`
   font-weight: 700;
   text-align: center;
   margin-bottom: 1rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
 `;
 
 export const SectionSubtitle = styled.p`
   font-size: 1.1rem;
   text-align: center;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   max-width: 700px;
   margin: 0 auto 3rem;
   line-height: 1.6;
@@ -97,12 +97,12 @@ export const ServiceGrid = styled.div`
 `;
 
 export const ServiceCard = styled.div`
-  background: white;
+  background: ${props => props.theme.background.card};
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #f0f0f0;
+  border: 1px solid ${props => props.theme.border.light};
   position: relative;
   overflow: hidden;
 
@@ -113,7 +113,7 @@ export const ServiceCard = styled.div`
     left: 0;
     width: 4px;
     height: 0;
-    background: linear-gradient(180deg, #1e3888, #2d4ba8);
+    background: ${props => props.theme.gradients.subtle};
     transition: height 0.3s ease;
   }
 
@@ -142,15 +142,15 @@ export const ServiceIconWrapper = styled.div`
   svg {
     width: 30px;
     height: 30px;
-    color: #1e3888;
+    color: ${props => props.theme.primary};
   }
 
   ${ServiceCard}:hover & {
-    background: linear-gradient(135deg, #1e3888, #2d4ba8);
+    background: ${props => props.theme.gradients.subtle};
     transform: scale(1.1);
 
     svg {
-      color: white;
+      color: ${props => props.theme.background.card};
     }
   }
 `;
@@ -158,13 +158,13 @@ export const ServiceIconWrapper = styled.div`
 export const ServiceTitle = styled.h3`
   font-size: 1.4rem;
   font-weight: 600;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 1rem;
   line-height: 1.3;
 `;
 
 export const ServiceDescription = styled.p`
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.6;
   font-size: 0.95rem;
 `;
@@ -176,7 +176,7 @@ export const ServiceFeatures = styled.ul`
 `;
 
 export const ServiceFeature = styled.li`
-  color: #555;
+  color: ${props => props.theme.text.secondary};
   font-size: 0.9rem;
   padding: 0.5rem 0;
   padding-left: 1.5rem;
@@ -187,7 +187,7 @@ export const ServiceFeature = styled.li`
     content: "✓";
     position: absolute;
     left: 0;
-    color: #1e3888;
+    color: ${props => props.theme.primary};
     font-weight: 700;
   }
 `;
@@ -195,8 +195,8 @@ export const ServiceFeature = styled.li`
 export const LearnMoreButton = styled.button`
   margin-top: 1.5rem;
   background: transparent;
-  color: #1e3888;
-  border: 2px solid #1e3888;
+  color: ${props => props.theme.primary};
+  border: 2px solid ${props => props.theme.primary};
   padding: 0.65rem 1.5rem;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -210,8 +210,8 @@ export const LearnMoreButton = styled.button`
   justify-content: center;
 
   &:hover {
-    background: #1e3888;
-    color: white;
+    background: ${props => props.theme.primary};
+    color: ${props => props.theme.background.card};
     transform: translateX(3px);
   }
 
@@ -230,14 +230,14 @@ export const LearnMoreButton = styled.button`
 export const CTASection = styled.div`
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+  background: ${props => props.theme.background.accent};
   border-radius: 20px;
 `;
 
 export const CTATitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 1rem;
 
   @media (max-width: 768px) {
@@ -247,15 +247,15 @@ export const CTATitle = styled.h2`
 
 export const CTADescription = styled.p`
   font-size: 1.2rem;
-  color: #555;
+  color: ${props => props.theme.text.secondary};
   max-width: 600px;
   margin: 0 auto 2rem;
   line-height: 1.6;
 `;
 
 export const CTAButton = styled.button`
-  background: linear-gradient(135deg, #1e3888 0%, #2d4ba8 100%);
-  color: white;
+  background: ${props => props.theme.gradients.subtle};
+  color: ${props => props.theme.background.card};
   border: none;
   padding: 1rem 2.5rem;
   border-radius: 50px;
@@ -268,7 +268,7 @@ export const CTAButton = styled.button`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(30, 56, 136, 0.4);
-    background: linear-gradient(135deg, #2d4ba8 0%, #3557c2 100%);
+    background: ${props => props.theme.gradients.subtle};
   }
 
   &:active {
@@ -295,12 +295,12 @@ export const StatCard = styled.div`
 export const StatNumber = styled.div`
   font-size: 3rem;
   font-weight: 700;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
   margin-bottom: 0.5rem;
 `;
 
 export const StatLabel = styled.div`
   font-size: 1.1rem;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   font-weight: 500;
 `;

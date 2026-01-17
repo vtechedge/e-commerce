@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Section = styled.section`
   padding: 5rem 0;
-  background-color: ${(props) => props.bgColor || "white"};
+  background-color: ${(props) => props.bgColor || "${props => props.theme.background.card}"};
 `;
 
 const Container = styled.div`
@@ -18,7 +18,7 @@ const SectionTitle = styled.h2`
   font-weight: bold;
   text-align: center;
   margin-bottom: 3rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
 `;
 
 const Grid = styled.div`
@@ -32,7 +32,7 @@ const Grid = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: white;
+  background-color: ${props => props.theme.background.card};
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -57,11 +57,11 @@ const CardTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #1e3888;
+  color: ${props => props.theme.primary};
 `;
 
 const CardDescription = styled.p`
-  color: #4b5563;
+  color: ${props => props.theme.text.secondary};
   line-height: 1.6;
 `;
 
