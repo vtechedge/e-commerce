@@ -38,7 +38,7 @@ export const HeroTitle = styled.h1`
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: ${props => props.theme.background.card};
+  color: ${props => props.theme.text.inverse};
 
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -52,6 +52,7 @@ export const HeroSubtitle = styled.p`
   line-height: 1.6;
   opacity: 0.95;
   font-weight: 300;
+  color: ${props => props.theme.text.inverse};
 `;
 
 export const Container = styled.div`

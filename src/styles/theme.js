@@ -112,13 +112,13 @@ export const lightTheme = {
   primaryLight: '#1a4971',   // Medium navy
   primaryDark: '#071b2e',    // Very deep navy
   primaryHover: '#2563a0',   // Brighter on hover for clarity
-  
+
   // Accent Colors - Bright Cyan (High-tech, Security)
   // Cyan represents technology, digital security, innovation
   accent: '#00d4ff',         // Bright cyan (tech/security standard)
   accentLight: '#33ddff',    // Lighter cyan
   accentDark: '#00a8cc',     // Deeper cyan
-  
+
   // Gradients - Deep Navy to Cyan (High-Tech Security Look)
   // Creates depth and modern tech aesthetic
   gradients: {
@@ -129,7 +129,7 @@ export const lightTheme = {
     subtle: 'linear-gradient(135deg, #0f2942 0%, #1a4971 100%)',        // Subtle navy gradient
     hero: 'linear-gradient(135deg, #071b2e 0%, #0f2942 100%)',          // Deep navy for heroes
   },
-  
+
   // Background Colors - Clean White (Professional, Enterprise)
   // White conveys cleanliness, security, professionalism
   background: {
@@ -139,7 +139,7 @@ export const lightTheme = {
     accent: '#e6f4ff',         // Light cyan tint
     card: '#ffffff',           // White cards for clarity
   },
-  
+
   // Text Colors - Strong Contrast (Clear, Professional)
   // Dark text ensures readability and authority
   text: {
@@ -150,7 +150,7 @@ export const lightTheme = {
     inverse: '#ffffff',        // Pure white for dark backgrounds
     accent: '#00d4ff',         // Cyan accent text
   },
-  
+
   // Border Colors - Clean & Precise
   border: {
     light: '#e2e8f0',      // Very light blue-gray
@@ -159,7 +159,7 @@ export const lightTheme = {
     accent: '#00d4ff',     // Cyan accent borders
     focus: '#33ddff',      // Bright cyan for focus states
   },
-  
+
   // Shadows - Subtle & Professional
   shadows: {
     sm: '0 1px 3px 0 rgb(15 41 66 / 0.08)',              // Subtle shadow
@@ -169,10 +169,10 @@ export const lightTheme = {
     primary: '0 4px 16px rgba(0, 212, 255, 0.3)',        // Cyan glow for primary buttons
     primaryHover: '0 8px 24px rgba(0, 212, 255, 0.4)',   // Stronger cyan glow on hover
   },
-  
+
   // Common colors
   ...commonColors,
-  
+
   // Theme mode
   mode: 'light',
 };
@@ -191,13 +191,13 @@ export const darkTheme = {
   primaryLight: '#4d7fb8',   // Brighter navy
   primaryDark: '#2a4a6f',    // Deeper navy
   primaryHover: '#5a8ec7',   // Bright on hover
-  
+
   // Accent Colors - Bright Cyan (Glowing Tech Effect)
   // Creates high-tech, security dashboard aesthetic
   accent: '#00e5ff',         // Bright glowing cyan
   accentLight: '#66edff',    // Very bright cyan
   accentDark: '#00b8d4',     // Deeper cyan
-  
+
   // Gradients - Deep Dark with Cyan Highlights
   // Creates depth and high-tech security aesthetic
   gradients: {
@@ -208,7 +208,7 @@ export const darkTheme = {
     subtle: 'linear-gradient(135deg, #0a1929 0%, #1a2f42 100%)',        // Subtle dark gradient
     hero: 'linear-gradient(135deg, #020a12 0%, #0a1929 100%)',          // Very deep for heroes
   },
-  
+
   // Background Colors - Deep Security Dark
   // Very dark backgrounds create professional security aesthetic
   background: {
@@ -218,7 +218,7 @@ export const darkTheme = {
     accent: '#0d2438',        // Accent dark navy
     card: '#0f2438',          // Card backgrounds
   },
-  
+
   // Text Colors - High Contrast for Clarity
   // Bright text on dark backgrounds for security dashboards
   text: {
@@ -226,10 +226,10 @@ export const darkTheme = {
     secondary: '#b8c9e0',     // Light blue-white
     tertiary: '#8fa3bf',      // Medium blue-gray
     muted: '#6a7e99',         // Muted blue-gray
-    inverse: '#0a1929',       // Dark navy (for light backgrounds)
+    inverse: '#ffffff',       // Pure white (for dark hero sections with gradient backgrounds)
     accent: '#00e5ff',        // Bright cyan accent text
   },
-  
+
   // Border Colors - Visible on Dark
   border: {
     light: '#1a3a52',      // Dark blue-gray border
@@ -238,7 +238,7 @@ export const darkTheme = {
     accent: '#00e5ff',     // Bright cyan accent borders
     focus: '#66edff',      // Very bright cyan for focus
   },
-  
+
   // Shadows - Glowing Cyan Effect (High-Tech)
   shadows: {
     sm: '0 1px 3px 0 rgb(0 0 0 / 0.4)',                  // Subtle shadow
@@ -248,10 +248,10 @@ export const darkTheme = {
     primary: '0 4px 20px rgba(0, 229, 255, 0.4)',        // Glowing cyan effect
     primaryHover: '0 8px 32px rgba(0, 229, 255, 0.6)',   // Strong glow on hover
   },
-  
+
   // Common colors
   ...commonColors,
-  
+
   // Theme mode
   mode: 'dark',
 };

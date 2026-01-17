@@ -478,6 +478,21 @@ const Dropdown = styled.div`
   margin-top: 0;
   padding-top: 0.75rem;
   animation: dropdownSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Add backdrop to prevent hero section showing through */
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${props => props.theme.mode === 'dark' 
+      ? 'rgba(0, 0, 0, 0.5)' 
+      : 'rgba(0, 0, 0, 0.3)'};
+    z-index: -1;
+    backdrop-filter: blur(2px);
+  }
 
   @keyframes dropdownSlideIn {
     from {
@@ -928,7 +943,7 @@ const Header = () => {
                 </ServiceTitle>
                 <SubDropdown>
                   {service.subServices.map((subService, subIndex) => (
-                    <SubDropdownItem key={subIndex} href={`/ services / ${service.name.toLowerCase().replace(/\s+/g, "-")} /${subService.toLowerCase().replace(/\s +/g, "-")}`}>
+                    <SubDropdownItem key={subIndex} href={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}/${subService.toLowerCase().replace(/\s+/g, "-")}`}>
                       {subService}
                     </SubDropdownItem>
                   ))}

@@ -30,13 +30,13 @@ const SlideOverlay = styled.div`
   bottom: 0;
   background: ${props => {
     // Security Theme: Deep navy overlays
-    const primaryRgb = props.theme.mode === 'dark' 
+    const primaryRgb = props.theme.mode === 'dark'
       ? '10, 25, 41'     // #0a1929 in RGB (deep navy dark)
       : '15, 41, 66';    // #0f2942 in RGB (deep navy)
     const darkRgb = props.theme.mode === 'dark'
       ? '15, 36, 56'     // #0f2438 in RGB (darker navy)
       : '7, 27, 46';     // #071b2e in RGB (very deep navy)
-    
+
     return `linear-gradient(135deg, rgba(${primaryRgb}, 0.85) 0%, rgba(${darkRgb}, 0.9) 100%)`;
   }};
 `;
@@ -118,11 +118,11 @@ const Button = styled.button`
   gap: 0.5rem;
 
   &.primary {
-    background-color: ${props => props.theme.background.card};
+    background-color: #ffffff;
     color: ${props => props.theme.primary};
 
     &:hover {
-      background-color: ${props => props.theme.background.secondary};
+      background-color: rgba(255, 255, 255, 0.9);
       transform: translateY(-2px);
     }
   }
@@ -214,8 +214,8 @@ const NavButton = styled.button`
 
   &:hover {
     background-color: ${props => props.theme.mode === 'dark'
-      ? 'rgba(138, 164, 196, 1)'
-      : props.theme.background.primary};
+    ? 'rgba(138, 164, 196, 1)'
+    : props.theme.background.primary};
     transform: scale(1.1);
     box-shadow: ${props => props.theme.shadows.lg};
   }
@@ -292,8 +292,8 @@ const HeroSlider = () => {
     <HeroSection>
       {slides.map((slide, index) => (
         <Slide key={slide.id} active={index === currentSlide}>
-          <Image 
-            src={slide.bgImage} 
+          <Image
+            src={slide.bgImage}
             alt={slide.title}
             fill
             style={{ objectFit: 'cover', zIndex: 0 }}

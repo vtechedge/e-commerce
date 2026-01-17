@@ -43,7 +43,7 @@ const MarqueeContainer = styled.div`
   display: flex;
   width: 100%;
   overflow: hidden;
-  ${props => props.theme.background.card}-space: nowrap;
+  white-space: nowrap;
 `;
 
 const MarqueeContent = styled.div`
@@ -56,7 +56,7 @@ const MarqueeItem = styled.div`
   display: flex;
   align-items: center;
   padding: 0 2rem;
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);

@@ -128,7 +128,7 @@ const ServiceIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   box-shadow: 0 4px 15px rgba(30, 56, 136, 0.2);
   transition: all 0.3s ease;
   
