@@ -1,13 +1,14 @@
 import React from "react";
 import Head from "next/head";
-import styled from "styled-components";
+import dynamic from "next/dynamic";
 import HeroSlider from "../components/landing/HeroSlider";
-import Services from "../components/landing/Services";
-import Features from "../components/landing/Features";
 import AboutSection from "../components/landing/AboutSection";
-import CardSection from "../components/landing/CardSection";
-import MarqueeSection from "../components/landing/MarqueeSection";
-import Touch from "@/components/landing/Touch";
+
+// Lazy load below-the-fold components
+const Services = dynamic(() => import("../components/landing/Services"));
+const Features = dynamic(() => import("../components/landing/Features"));
+const MarqueeSection = dynamic(() => import("../components/landing/MarqueeSection"));
+const ContactCTA = dynamic(() => import("@/components/landing/ContactCTA"));
 
 const Home = () => {
   return (
@@ -24,7 +25,7 @@ const Home = () => {
       <MarqueeSection />
       {/* <CardSection /> */}
       <Features />
-      <Touch />
+      <ContactCTA />
     </>
   );
 };

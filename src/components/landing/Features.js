@@ -3,8 +3,19 @@ import styled from "styled-components";
 import { Award, Users, Clock, Shield, Zap, Headphones, CheckCircle } from "lucide-react";
 
 const FeaturesSection = styled.section`
-  padding: 4rem 0;
-  background-color: var(--light-gray);
+  padding: 5rem 0;
+  background: linear-gradient(180deg, ${props => props.theme.background.primary} 0%, ${props => props.theme.background.secondary} 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
+  }
 `;
 
 const Container = styled.div`
@@ -21,8 +32,22 @@ const SectionHeader = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--dark-gray);
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: ${props => props.theme.gradients.primaryHorizontal};
+    border-radius: 2px;
+  }
 `;
 
 const SectionSubtitle = styled.p`
@@ -41,29 +66,57 @@ const FeaturesGrid = styled.div`
 `;
 
 const FeatureCard = styled.div`
-  background: var(--white);
-  border-radius: 8px;
-  padding: 2rem;
+  background: ${props => props.theme.background.card};
+  border-radius: 16px;
+  padding: 2.5rem;
   text-align: center;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-gray);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid ${props => props.theme.border.light};
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15);
+    border-color: ${props => props.theme.primary};
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: ${props => props.theme.gradients.primaryHorizontal};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  
+  &:hover::before {
+    transform: scaleX(1);
   }
 `;
 
 const FeatureIcon = styled.div`
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  background: ${props => props.theme.gradients.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  color: var(--white);
+  color: ${props => props.theme.background.card};
+  box-shadow: 0 8px 20px rgba(30, 56, 136, 0.25);
+  transition: all 0.4s ease;
+  
+  ${FeatureCard}:hover & {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 30px rgba(30, 56, 136, 0.35);
+  }
 `;
 
 const FeatureTitle = styled.h3`
@@ -101,10 +154,24 @@ const FeatureItem = styled.li`
 `;
 
 const StatsSection = styled.div`
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-  border-radius: 8px;
-  padding: 3rem 2rem;
-  margin-top: 3rem;
+  background: ${props => props.theme.gradients.primary};
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  margin-top: 4rem;
+  box-shadow: 0 20px 40px rgba(30, 56, 136, 0.2);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+  }
 `;
 
 const StatsGrid = styled.div`
@@ -115,7 +182,7 @@ const StatsGrid = styled.div`
 `;
 
 const StatItem = styled.div`
-  color: var(--white);
+  color: var(--${props => props.theme.background.card});
 `;
 
 const StatNumber = styled.div`

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 const HeroSection = styled.section`
   position: relative;
   height: 500px;
   overflow: hidden;
-  background-color: var(--white);
+  background-color: ${props => props.theme.background.card};
 `;
 
 const Slide = styled.div`
@@ -19,8 +20,6 @@ const Slide = styled.div`
   transition: opacity 0.5s ease-in-out;
   display: flex;
   align-items: center;
-  background-size: cover;
-  background-position: center;
 `;
 
 const SlideOverlay = styled.div`
@@ -29,7 +28,17 @@ const SlideOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 204, 0.9) 0%, rgba(0, 68, 153, 0.8) 100%);
+  background: ${props => {
+    // Security Theme: Deep navy overlays
+    const primaryRgb = props.theme.mode === 'dark'
+      ? '10, 25, 41'     // #0a1929 in RGB (deep navy dark)
+      : '15, 41, 66';    // #0f2942 in RGB (deep navy)
+    const darkRgb = props.theme.mode === 'dark'
+      ? '15, 36, 56'     // #0f2438 in RGB (darker navy)
+      : '7, 27, 46';     // #071b2e in RGB (very deep navy)
+
+    return `linear-gradient(135deg, rgba(${primaryRgb}, 0.85) 0%, rgba(${darkRgb}, 0.9) 100%)`;
+  }};
 `;
 
 const ContentContainer = styled.div`
@@ -43,10 +52,16 @@ const ContentContainer = styled.div`
   gap: 4rem;
   align-items: center;
   height: 100%;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
 `;
 
 const TextContent = styled.div`
-  color: var(--white);
+  color: ${props => props.theme.text.inverse};
 `;
 
 const Headline = styled.h1`
@@ -54,7 +69,8 @@ const Headline = styled.h1`
   font-weight: 700;
   margin-bottom: 1.5rem;
   line-height: 1.1;
-  color: var(--white);
+  color: ${props => props.theme.text.inverse};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 768px) {
     font-size: 2rem;
@@ -66,7 +82,8 @@ const Subheadline = styled.p`
   font-weight: 400;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -78,6 +95,10 @@ const ButtonContainer = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
 
+  @media (max-width: 968px) {
+    justify-content: center;
+  }
+  
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -97,23 +118,23 @@ const Button = styled.button`
   gap: 0.5rem;
 
   &.primary {
-    background-color: var(--white);
-    color: var(--primary-blue);
+    background-color: #ffffff;
+    color: ${props => props.theme.primary};
 
     &:hover {
-      background-color: var(--light-gray);
+      background-color: rgba(255, 255, 255, 0.9);
       transform: translateY(-2px);
     }
   }
 
   &.secondary {
     background-color: transparent;
-    color: var(--white);
-    border: 2px solid var(--white);
+    color: ${props => props.theme.text.inverse};
+    border: 2px solid ${props => props.theme.text.inverse};
 
     &:hover {
-      background-color: var(--white);
-      color: var(--primary-blue);
+      background-color: ${props => props.theme.background.card};
+      color: ${props => props.theme.primary};
       transform: translateY(-2px);
     }
   }
@@ -123,13 +144,17 @@ const VisualContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 968px) {
+    display: none;
+  }
 `;
 
 const VideoThumbnail = styled.div`
   position: relative;
   width: 400px;
   height: 250px;
-  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--light-gray) 100%);
+  background: ${props => props.theme.gradients.subtle};
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -150,14 +175,14 @@ const VideoThumbnail = styled.div`
 const PlayButton = styled.div`
   width: 80px;
   height: 80px;
-  background-color: var(--primary-blue);
+  background-color: ${props => props.theme.primary};
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
+  color: ${props => props.theme.text.inverse};
   font-size: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: ${props => props.theme.shadows.lg};
 `;
 
 const NavigationButtons = styled.div`
@@ -169,10 +194,16 @@ const NavigationButtons = styled.div`
   width: 100%;
   padding: 0 2rem;
   z-index: 20;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavButton = styled.button`
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: ${props => props.theme.mode === 'dark'
+    ? 'rgba(122, 159, 196, 0.95)'
+    : 'rgba(255, 255, 255, 0.95)'};
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -182,11 +213,15 @@ const NavButton = styled.button`
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  color: var(--dark-gray);
+  color: ${props => props.theme.mode === 'dark' ? props.theme.text.inverse : props.theme.text.primary};
+  box-shadow: ${props => props.theme.shadows.md};
 
   &:hover {
-    background-color: var(--white);
+    background-color: ${props => props.theme.mode === 'dark'
+    ? 'rgba(138, 164, 196, 1)'
+    : props.theme.background.primary};
     transform: scale(1.1);
+    box-shadow: ${props => props.theme.shadows.lg};
   }
 `;
 
@@ -205,12 +240,12 @@ const Dot = styled.button`
   height: 12px;
   border-radius: 50%;
   border: none;
-  background-color: ${(props) => (props.active ? "var(--white)" : "rgba(255, 255, 255, 0.5)")};
+  background-color: ${(props) => (props.active ? props.theme.text.inverse : "rgba(255, 255, 255, 0.5)")};
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: var(--white);
+    background-color: ${props => props.theme.text.inverse};
   }
 `;
 
@@ -218,20 +253,23 @@ const slides = [
   {
     id: 1,
     title: "Enterprise Technology Solutions",
-    subtitle: "Transform your business with cutting-edge IT infrastructure, cloud solutions, and digital transformation services.",
+    subtitle: "Transform your business with cutting-edge IT infrastructure, cloud solutions, and comprehensive digital transformation services tailored for healthcare and pharma industries.",
     videoThumbnail: true,
+    bgImage: "/banners/banner1.png",
   },
   {
     id: 2,
-    title: "Cybersecurity & Compliance",
-    subtitle: "Protect your organization with advanced security solutions, threat monitoring, and regulatory compliance services.",
+    title: "Healthcare & Pharma IT Excellence",
+    subtitle: "Specialized technology solutions ensuring compliance, data security, and operational efficiency for healthcare providers and pharmaceutical companies.",
     videoThumbnail: true,
+    bgImage: "/banners/banner2.png",
   },
   {
     id: 3,
-    title: "Cloud & Data Management",
-    subtitle: "Optimize your operations with scalable cloud solutions, data analytics, and intelligent automation.",
+    title: "Cybersecurity & Cloud Innovation",
+    subtitle: "Protect your critical assets with advanced security solutions, threat monitoring, and scalable cloud infrastructure designed for enterprise excellence.",
     videoThumbnail: true,
+    bgImage: "/banners/banner3.png",
   },
 ];
 
@@ -258,14 +296,22 @@ const HeroSlider = () => {
     <HeroSection>
       {slides.map((slide, index) => (
         <Slide key={slide.id} active={index === currentSlide}>
+          <Image
+            src={slide.bgImage}
+            alt={slide.title}
+            fill
+            style={{ objectFit: 'cover', zIndex: 0 }}
+            priority={index === 0}
+            quality={85}
+          />
           <SlideOverlay />
           <ContentContainer>
             <TextContent>
               <Headline>{slide.title}</Headline>
               <Subheadline>{slide.subtitle}</Subheadline>
               <ButtonContainer>
-                <Button className="primary">Get Started</Button>
-                <Button className="secondary">Learn More</Button>
+                <Button className="primary" onClick={() => window.location.href = '/contact'}>Get Started</Button>
+                <Button className="secondary" onClick={() => window.location.href = '/services'}>Learn More</Button>
               </ButtonContainer>
             </TextContent>
             <VisualContent>

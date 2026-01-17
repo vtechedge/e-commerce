@@ -1,10 +1,30 @@
 import React from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import { Shield, Cloud, Network, Server, Database, Monitor, ArrowRight, CheckCircle } from "lucide-react";
 
 const ServicesSection = styled.section`
-  padding: 4rem 0;
-  background-color: var(--white);
+  padding: 5rem 0;
+  background: linear-gradient(180deg, ${props => props.theme.background.primary} 0%, ${props => props.theme.background.secondary} 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem 0;
+  }
 `;
 
 const Container = styled.div`
@@ -15,14 +35,45 @@ const Container = styled.div`
 
 const SectionHeader = styled.div`
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--dark-gray);
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: ${props => props.theme.gradients.primaryHorizontal};
+    border-radius: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
+  }
 `;
 
 const SectionSubtitle = styled.p`
@@ -31,29 +82,43 @@ const SectionSubtitle = styled.p`
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 `;
 
 const ServiceCard = styled.div`
-  background: var(--white);
-  border: 1px solid var(--border-gray);
-  border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.3s ease;
+  background: ${props => props.theme.background.card};
+  border: 1px solid ${props => props.theme.border.light};
+  border-radius: 16px;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary-blue);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(30, 56, 136, 0.15);
+    border-color: ${props => props.theme.primary};
   }
 
   &::before {
@@ -63,33 +128,68 @@ const ServiceCard = styled.div`
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    background: ${props => props.theme.gradients.primaryHorizontal};
     transform: scaleX(0);
-    transition: transform 0.3s ease;
+    transform-origin: left;
+    transition: transform 0.4s ease;
   }
 
   &:hover::before {
     transform: scaleX(1);
   }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(30, 56, 136, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+    transition: all 0.4s ease;
+  }
+  
+  &:hover::after {
+    transform: translate(30%, -30%) scale(1.5);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
 `;
 
 const ServiceIcon = styled.div`
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--accent-blue) 0%, var(--light-gray) 100%);
-  border-radius: 12px;
+  width: 70px;
+  height: 70px;
+  background: ${props => props.theme.gradients.subtle};
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  color: var(--primary-blue);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(30, 56, 136, 0.2);
+  transition: all 0.3s ease;
+  
+  ${ServiceCard}:hover & {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(30, 56, 136, 0.3);
+  }
 `;
 
 const ServiceTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--dark-gray);
+  color: ${props => props.theme.text.primary};
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
 `;
 
 const ServiceDescription = styled.p`
@@ -119,36 +219,50 @@ const ServiceFeature = styled.li`
   }
 `;
 
-const ServiceLink = styled.a`
+const ServiceLink = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--primary-blue);
+  color: ${props => props.theme.primary};
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: gap 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
 
   &:hover {
     gap: 0.75rem;
+    color: ${props => props.theme.accent};
+  }
+  
+  svg {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover svg {
+    transform: translateX(4px);
   }
 `;
 
 const CTAButton = styled.button`
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-  color: var(--white);
+  background: ${props => props.theme.gradients.primary};
+  color: ${props => props.theme.background.card};
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 4px;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
   font-weight: 600;
+  font-size: 1.05rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: block;
   margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(30, 56, 136, 0.3);
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(30, 56, 136, 0.4);
   }
 `;
 
@@ -159,7 +273,7 @@ const services = [
     title: "Cybersecurity Solutions",
     description: "Comprehensive security services to protect your organization from evolving cyber threats.",
     features: ["Threat monitoring & detection", "Vulnerability assessments", "Security compliance", "Incident response"],
-    link: "/services/cybersecurity",
+    link: "/coming-soon",
   },
   {
     id: 2,
@@ -167,7 +281,7 @@ const services = [
     title: "Cloud Services",
     description: "Scalable cloud solutions to modernize your infrastructure and drive digital transformation.",
     features: ["Cloud migration", "Infrastructure as a Service", "Cloud security", "Performance optimization"],
-    link: "/services/cloud",
+    link: "/coming-soon",
   },
   {
     id: 3,
@@ -175,7 +289,7 @@ const services = [
     title: "Network Solutions",
     description: "Reliable networking infrastructure designed for performance, security, and scalability.",
     features: ["Network design & implementation", "Wireless solutions", "Network monitoring", "Performance optimization"],
-    link: "/services/networking",
+    link: "/coming-soon",
   },
   {
     id: 4,
@@ -183,7 +297,7 @@ const services = [
     title: "Infrastructure Management",
     description: "End-to-end infrastructure solutions to keep your systems running efficiently.",
     features: ["Server management", "Virtualization", "Backup & recovery", "System monitoring"],
-    link: "/services/infrastructure",
+    link: "/coming-soon",
   },
   {
     id: 5,
@@ -191,7 +305,7 @@ const services = [
     title: "Data Management",
     description: "Comprehensive data solutions for storage, analytics, and business intelligence.",
     features: ["Data warehousing", "Business intelligence", "Data analytics", "Compliance & governance"],
-    link: "/services/data",
+    link: "/coming-soon",
   },
   {
     id: 6,
@@ -199,11 +313,17 @@ const services = [
     title: "Managed IT Services",
     description: "Proactive IT management to reduce costs and improve operational efficiency.",
     features: ["24/7 monitoring", "Help desk support", "Proactive maintenance", "Strategic planning"],
-    link: "/services/managed-it",
+    link: "/coming-soon",
   },
 ];
 
 const Services = () => {
+  const router = useRouter();
+
+  const handleServiceClick = (link) => {
+    router.push(link);
+  };
+
   return (
     <ServicesSection>
       <Container>
@@ -214,7 +334,7 @@ const Services = () => {
 
         <ServicesGrid>
           {services.map((service) => (
-            <ServiceCard key={service.id}>
+            <ServiceCard key={service.id} onClick={() => handleServiceClick(service.link)}>
               <ServiceIcon>{service.icon}</ServiceIcon>
               <ServiceTitle>{service.title}</ServiceTitle>
               <ServiceDescription>{service.description}</ServiceDescription>
@@ -226,14 +346,14 @@ const Services = () => {
                   </ServiceFeature>
                 ))}
               </ServiceFeatures>
-              <ServiceLink href={service.link}>
+              <ServiceLink onClick={(e) => { e.stopPropagation(); handleServiceClick(service.link); }}>
                 Learn More <ArrowRight size={16} />
               </ServiceLink>
             </ServiceCard>
           ))}
         </ServicesGrid>
 
-        <CTAButton>View All Services</CTAButton>
+        <CTAButton onClick={() => router.push('/services')}>View All Services</CTAButton>
       </Container>
     </ServicesSection>
   );

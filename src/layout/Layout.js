@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
@@ -18,4 +18,5 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default memo(Layout);
+

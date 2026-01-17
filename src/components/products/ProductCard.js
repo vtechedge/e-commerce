@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { FaStar, FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 const Card = styled.div`
   width: 100%;
   max-width: 100%;
   height: 420px;
-  border: 1px solid rgb(217, 207, 207);
+  border: 1px solid ${props => props.theme.border.light};
   border-radius: 10px;
   transition: transform 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
@@ -19,17 +20,18 @@ const Card = styled.div`
   } */
 `;
 
-const ProductImage = styled.img`
+const ProductImageWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 220px;
-  object-fit: cover;
   margin-bottom: 0.5rem;
+  overflow: hidden;
 `;
 
 const ProductName = styled.p`
   font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: ${props => props.theme.text.primary};
   margin: 0.3rem 0;
   text-align: left;
   width: 100%;
@@ -37,7 +39,7 @@ const ProductName = styled.p`
 
 const ProductHeading = styled.h3`
   font-size: 0.8rem;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   margin: 0.2rem 0;
   text-align: left;
   width: 100%;
@@ -46,7 +48,7 @@ const ProductHeading = styled.h3`
 const ProductPrice = styled.span`
   font-size: 0.9rem;
   font-weight: bold;
-  color: #2c2c2c;
+  color: ${props => props.theme.text.primary};
 `;
 
 const RatingContainer = styled.div`
@@ -57,7 +59,7 @@ const RatingContainer = styled.div`
 `;
 
 const StarIcon = styled(FaStar)`
-  color: #ffd700;
+  color: #ffd700; /* Gold for star ratings - intentional */
   font-size: 0.9rem;
 `;
 
@@ -66,7 +68,7 @@ const AddToCartButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   background-color: var(--primary-color);
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -98,7 +100,16 @@ function ProductCard({ product }) {
   return (
     <Card>
       <ProductLink href={`/product/${id}`}>
-        <ProductImage src={image} alt={name} />
+        <ProductImageWrapper>
+          <Image
+            src={image}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
+            loading="lazy"
+          />
+        </ProductImageWrapper>
         <ProductDataComponent>
           <ProductName>{name}</ProductName>
           <ProductHeading>{heading}</ProductHeading>
@@ -109,7 +120,7 @@ function ProductCard({ product }) {
                 style={{ opacity: i < Math.floor(rating) ? 1 : 0.3 }}
               />
             ))}
-            <span style={{ fontSize: "0.8rem", color: "#666" }}>
+            <span style={{ fontSize: "0.8rem", color: "${props => props.theme.text.secondary}" }}>
               ({rating})
             </span>
           </RatingContainer>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: #fafafa; */
+  /* background-color removed - using theme */
   padding: 1rem 2rem;
 `;
 

@@ -158,10 +158,10 @@ function ProductsPage() {
                   {filterBy === "default"
                     ? "Filters"
                     : filterBy === "price-low-high"
-                    ? "Price: Low to High"
-                    : filterBy === "price-high-low"
-                    ? "Price: High to Low"
-                    : "Rating"}
+                      ? "Price: Low to High"
+                      : filterBy === "price-high-low"
+                        ? "Price: High to Low"
+                        : "Rating"}
                 </span>
               </DropdownButton>
               <DropdownContent isOpen={isDropdownOpen}>
@@ -260,7 +260,7 @@ const FilterGroup = styled.div`
 
 const FilterLabel = styled.label`
   font-weight: 500;
-  color: #555;
+  color: ${props => props.theme.text.secondary};
   margin-right: 8px;
 `;
 
@@ -272,7 +272,7 @@ const FilterSelect = styled.select`
 const NoProducts = styled.div`
   text-align: center;
   padding: 3rem;
-  color: #666;
+  color: ${props => props.theme.text.secondary};
   font-size: 1.1rem;
 `;
 
@@ -286,7 +286,7 @@ const SearchGroup = styled.div`
 
 const SearchInput = styled.input`
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid ${props => props.theme.border.light};
   border-radius: 10px;
   flex: 1;
   max-width: 400px;
@@ -294,8 +294,8 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.button`
   padding: 12px 1rem;
-  background-color: #285feb;
-  color: white;
+  background-color: ${props => props.theme.primary};
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -303,7 +303,7 @@ const SearchButton = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #1e4bb8;
+    background-color: ${props => props.theme.primaryHover};
   }
 `;
 
@@ -317,15 +317,15 @@ const DropdownButton = styled.button`
   align-items: center;
   gap: 8px;
   padding: 10px 15px;
-  background: white;
-  border: 1px solid #ddd;
+  background: ${props => props.theme.background.card};
+  border: 1px solid ${props => props.theme.border.light};
   border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
-  color: #333;
+  color: ${props => props.theme.text.primary};
 
   &:hover {
-    background: #f5f5f5;
+    background: ${props => props.theme.background.tertiary};
   }
 `;
 
@@ -335,8 +335,8 @@ const DropdownContent = styled.div`
   top: 100%;
   left: 0;
   min-width: 160px;
-  background: white;
-  border: 1px solid #ddd;
+  background: ${props => props.theme.background.card};
+  border: 1px solid ${props => props.theme.border.light};
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -347,10 +347,10 @@ const DropdownItem = styled.div`
   padding: 10px 15px;
   cursor: pointer;
   font-size: 14px;
-  color: #333;
+  color: ${props => props.theme.text.primary};
 
   &:hover {
-    background: #f5f5f5;
+    background: ${props => props.theme.background.tertiary};
   }
 
   &:first-child {
