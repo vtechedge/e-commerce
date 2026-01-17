@@ -8,7 +8,7 @@ export const PageContainer = styled.div`
 export const HeroSection = styled.section`
   position: relative;
   background: ${props => props.theme.gradients.hero};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   padding: 5rem 0;
   text-align: center;
   overflow: hidden;
@@ -84,14 +84,14 @@ export const SectionTitle = styled.h2`
   font-weight: bold;
   text-align: center;
   margin-bottom: 3rem;
-  color: ${props => props.theme.primary};
+  color: ${props => props.theme.mode === 'dark' ? '#ffffff' : props.theme.primary};
 `;
 
 export const SectionSubtitle = styled.h3`
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: ${props => props.theme.primary};
+  color: ${props => props.theme.mode === 'dark' ? '#ffffff' : props.theme.primary};
 `;
 
 export const ContentText = styled.p`
@@ -139,7 +139,7 @@ export const Card = styled.div`
 export const CardTitle = styled.h4`
   font-size: 1.4rem;
   font-weight: 600;
-  color: ${props => props.theme.primary};
+  color: ${props => props.theme.mode === 'dark' ? '#ffffff' : props.theme.primary};
   margin-bottom: 1rem;
 `;
 
@@ -192,7 +192,7 @@ export const ValueNumber = styled.div`
 export const ValueTitle = styled.h5`
   font-size: 1.2rem;
   font-weight: 600;
-  color: ${props => props.theme.primary};
+  color: ${props => props.theme.mode === 'dark' ? '#ffffff' : props.theme.primary};
   margin-bottom: 0.5rem;
 `;
 
@@ -248,7 +248,7 @@ export const IndustryItem = styled.li`
 export const IndustryTitle = styled.h5`
   font-size: 1.1rem;
   font-weight: 600;
-  color: ${props => props.theme.primary};
+  color: ${props => props.theme.mode === 'dark' ? '#ffffff' : props.theme.primary};
   margin-bottom: 0.5rem;
 `;
 

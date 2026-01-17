@@ -17,6 +17,14 @@ const ServicesSection = styled.section`
     height: 1px;
     background: linear-gradient(90deg, transparent, ${props => props.theme.border.light}, transparent);
   }
+  
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 2rem 0;
+  }
 `;
 
 const Container = styled.div`
@@ -29,6 +37,14 @@ const SectionHeader = styled.div`
   text-align: center;
   margin-bottom: 4rem;
   padding-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    margin-bottom: 2rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
@@ -50,6 +66,14 @@ const SectionTitle = styled.h2`
     background: ${props => props.theme.gradients.primaryHorizontal};
     border-radius: 2px;
   }
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
+  }
 `;
 
 const SectionSubtitle = styled.p`
@@ -58,13 +82,26 @@ const SectionSubtitle = styled.p`
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 `;
 
 const ServiceCard = styled.div`
@@ -116,6 +153,14 @@ const ServiceCard = styled.div`
   
   &:hover::after {
     transform: translate(30%, -30%) scale(1.5);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem;
   }
 `;
 
@@ -174,7 +219,7 @@ const ServiceFeature = styled.li`
   }
 `;
 
-const ServiceLink = styled.a`
+const ServiceLink = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -185,6 +230,7 @@ const ServiceLink = styled.a`
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
+  cursor: pointer;
 
   &:hover {
     gap: 0.75rem;
@@ -274,6 +320,10 @@ const services = [
 const Services = () => {
   const router = useRouter();
 
+  const handleServiceClick = (link) => {
+    router.push(link);
+  };
+
   return (
     <ServicesSection>
       <Container>
@@ -284,7 +334,7 @@ const Services = () => {
 
         <ServicesGrid>
           {services.map((service) => (
-            <ServiceCard key={service.id}>
+            <ServiceCard key={service.id} onClick={() => handleServiceClick(service.link)}>
               <ServiceIcon>{service.icon}</ServiceIcon>
               <ServiceTitle>{service.title}</ServiceTitle>
               <ServiceDescription>{service.description}</ServiceDescription>
@@ -296,7 +346,7 @@ const Services = () => {
                   </ServiceFeature>
                 ))}
               </ServiceFeatures>
-              <ServiceLink href={service.link}>
+              <ServiceLink onClick={(e) => { e.stopPropagation(); handleServiceClick(service.link); }}>
                 Learn More <ArrowRight size={16} />
               </ServiceLink>
             </ServiceCard>

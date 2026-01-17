@@ -194,6 +194,10 @@ const NavigationButtons = styled.div`
   width: 100%;
   padding: 0 2rem;
   z-index: 20;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const NavButton = styled.button`

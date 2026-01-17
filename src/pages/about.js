@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import {
   PageContainer,
   HeroSection,
@@ -64,6 +65,16 @@ const IndustryListItem = memo(({ industry }) => (
 IndustryListItem.displayName = 'IndustryListItem';
 
 const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
+  const router = useRouter();
+
+  const handleBookCall = () => {
+    router.push('/contact');
+  };
+
+  const handleContactExperts = () => {
+    router.push('/contact');
+  };
+
   return (
     <PageContainer>
       <Head>
@@ -218,8 +229,8 @@ const About = ({ corePrinciples, whyChooseUs, coreValues, industries }) => {
           <SectionTitle>Let's Move Your IT Forward — Together</SectionTitle>
           <ContentText style={{ textAlign: "center", marginBottom: "3rem" }}>Ready to partner with a team that understands your industry and delivers on its promise?</ContentText>
           <CTASection>
-            <CTAButton>Book a Free Discovery Call</CTAButton>
-            <CTAButton>Contact Our Experts</CTAButton>
+            <CTAButton onClick={handleBookCall}>Book a Free Discovery Call</CTAButton>
+            <CTAButton onClick={handleContactExperts}>Contact Our Experts</CTAButton>
           </CTASection>
         </Container>
       </Section>

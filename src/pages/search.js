@@ -10,10 +10,11 @@ const PageContainer = styled.div`
   background-color: ${props => props.theme.background.secondary};
 `;
 
-const SearchHeader = styled.div`
-  background: ${props => props.theme.gradients.hero};
-  padding: 3rem 0;
-  color: ${props => props.theme.background.card};
+const HeroSection = styled.section`
+  background: ${props => props.theme.gradients.primary};
+  color: #ffffff;
+  padding: 4rem 0;
+  text-align: center;
 `;
 
 const Container = styled.div`
@@ -70,9 +71,9 @@ const SearchIconWrapper = styled.div`
 `;
 
 const SearchButton = styled.button`
-  padding: 1rem 2rem;
-  background-color: ${props => props.theme.background.card};
-  color: var(--primary-blue);
+  padding: 12px 1rem;
+  background-color: ${props => props.theme.primary};
+  color: #ffffff;
   border: none;
   border-radius: var(--radius-lg);
   font-weight: 600;
@@ -186,181 +187,181 @@ const NoResults = styled.div`
 `;
 
 const SEARCH_DATA = [
-    {
-        title: 'About Us',
-        path: '/about',
-        description: 'Learn more about VtechSecure and our mission to provide cutting-edge IT solutions.',
-        category: 'page'
-    },
-    {
-        title: 'IT Support Services',
-        path: '/services',
-        description: 'Comprehensive IT support including help desk, desktop support, and user training.',
-        category: 'service'
-    },
-    {
-        title: 'Network Management',
-        path: '/services',
-        description: 'Computer networking, router configuration, firewall management, and VPN setup.',
-        category: 'service'
-    },
-    {
-        title: 'Server Management',
-        path: '/services',
-        description: 'Server installation, monitoring, virtualization, and backup solutions.',
-        category: 'service'
-    },
-    {
-        title: 'Cybersecurity',
-        path: '/services',
-        description: 'Threat monitoring, vulnerability management, and security audits.',
-        category: 'service'
-    },
-    {
-        title: 'Cloud Services',
-        path: '/services',
-        description: 'Cloud infrastructure management, migration, and security optimization.',
-        category: 'service'
-    },
-    {
-        title: 'Contact Us',
-        path: '/contact',
-        description: 'Get in touch with our team for any inquiries or support needs.',
-        category: 'page'
-    },
-    {
-        title: 'Hardware Products',
-        path: '/hardware',
-        description: 'Browse our selection of enterprise-grade hardware solutions.',
-        category: 'products'
-    },
-    {
-        title: 'Software Solutions',
-        path: '/software',
-        description: 'Explore our software offerings for business productivity and security.',
-        category: 'products'
-    }
+  {
+    title: 'About Us',
+    path: '/about',
+    description: 'Learn more about VtechSecure and our mission to provide cutting-edge IT solutions.',
+    category: 'page'
+  },
+  {
+    title: 'IT Support Services',
+    path: '/services',
+    description: 'Comprehensive IT support including help desk, desktop support, and user training.',
+    category: 'service'
+  },
+  {
+    title: 'Network Management',
+    path: '/services',
+    description: 'Computer networking, router configuration, firewall management, and VPN setup.',
+    category: 'service'
+  },
+  {
+    title: 'Server Management',
+    path: '/services',
+    description: 'Server installation, monitoring, virtualization, and backup solutions.',
+    category: 'service'
+  },
+  {
+    title: 'Cybersecurity',
+    path: '/services',
+    description: 'Threat monitoring, vulnerability management, and security audits.',
+    category: 'service'
+  },
+  {
+    title: 'Cloud Services',
+    path: '/services',
+    description: 'Cloud infrastructure management, migration, and security optimization.',
+    category: 'service'
+  },
+  {
+    title: 'Contact Us',
+    path: '/contact',
+    description: 'Get in touch with our team for any inquiries or support needs.',
+    category: 'page'
+  },
+  {
+    title: 'Hardware Products',
+    path: '/hardware',
+    description: 'Browse our selection of enterprise-grade hardware solutions.',
+    category: 'products'
+  },
+  {
+    title: 'Software Solutions',
+    path: '/software',
+    description: 'Explore our software offerings for business productivity and security.',
+    category: 'products'
+  }
 ];
 
 function Search() {
-    const router = useRouter();
-    const { q } = router.query;
-    const [searchQuery, setSearchQuery] = useState(q || '');
-    const [results, setResults] = useState([]);
+  const router = useRouter();
+  const { q } = router.query;
+  const [searchQuery, setSearchQuery] = useState(q || '');
+  const [results, setResults] = useState([]);
 
-    React.useEffect(() => {
-        if (q) {
-            performSearch(q);
-        }
-    }, [q]);
+  React.useEffect(() => {
+    if (q) {
+      performSearch(q);
+    }
+  }, [q]);
 
-    const performSearch = (query) => {
-        if (!query || query.trim() === '') {
-            setResults([]);
-            return;
-        }
+  const performSearch = (query) => {
+    if (!query || query.trim() === '') {
+      setResults([]);
+      return;
+    }
 
-        const searchTerm = query.toLowerCase().trim();
-        const filtered = SEARCH_DATA.filter(item =>
-            item.title.toLowerCase().includes(searchTerm) ||
-            item.description.toLowerCase().includes(searchTerm) ||
-            item.category.toLowerCase().includes(searchTerm)
-        );
-
-        setResults(filtered);
-    };
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (searchQuery.trim()) {
-            router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-            performSearch(searchQuery);
-        }
-    };
-
-    const getIcon = (category) => {
-        switch (category) {
-            case 'service':
-                return <Settings size={20} />;
-            case 'products':
-                return <SearchIcon size={20} />;
-            default:
-                return <FileText size={20} />;
-        }
-    };
-
-    return (
-        <PageContainer>
-            <Head>
-                <title>{q ? `Search Results for "${q}"` : 'Search'} - VtechSecure</title>
-                <meta name="description" content="Search VtechSecure website" />
-            </Head>
-
-            <SearchHeader>
-                <Container>
-                    <SearchBox>
-                        <form onSubmit={handleSearch}>
-                            <SearchInputWrapper>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <SearchInput
-                                    type="text"
-                                    placeholder="Search for services, products, or information..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    autoFocus
-                                />
-                                <SearchButton type="submit">Search</SearchButton>
-                            </SearchInputWrapper>
-                        </form>
-                    </SearchBox>
-                </Container>
-            </SearchHeader>
-
-            <ResultsSection>
-                <Container>
-                    {q && (
-                        <ResultsHeader>
-                            <ResultsCount>
-                                Found {results.length} result{results.length !== 1 ? 's' : ''}
-                            </ResultsCount>
-                            <ResultsTitle>Search results for "{q}"</ResultsTitle>
-                        </ResultsHeader>
-                    )}
-
-                    {results.length > 0 ? (
-                        <ResultsList>
-                            {results.map((result, index) => (
-                                <ResultCard key={index} href={result.path}>
-                                    <ResultHeader>
-                                        <ResultIcon>
-                                            {getIcon(result.category)}
-                                        </ResultIcon>
-                                        <ResultContent>
-                                            <ResultTitle>{result.title}</ResultTitle>
-                                            <ResultPath>{window.location.origin}{result.path}</ResultPath>
-                                        </ResultContent>
-                                    </ResultHeader>
-                                    <ResultDescription>{result.description}</ResultDescription>
-                                </ResultCard>
-                            ))}
-                        </ResultsList>
-                    ) : q ? (
-                        <NoResults>
-                            <h2>No results found</h2>
-                            <p>Try different keywords or browse our services pages</p>
-                        </NoResults>
-                    ) : (
-                        <NoResults>
-                            <h2>Start searching</h2>
-                            <p>Enter a search term above to find what you're looking for</p>
-                        </NoResults>
-                    )}
-                </Container>
-            </ResultsSection>
-        </PageContainer>
+    const searchTerm = query.toLowerCase().trim();
+    const filtered = SEARCH_DATA.filter(item =>
+      item.title.toLowerCase().includes(searchTerm) ||
+      item.description.toLowerCase().includes(searchTerm) ||
+      item.category.toLowerCase().includes(searchTerm)
     );
+
+    setResults(filtered);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+      performSearch(searchQuery);
+    }
+  };
+
+  const getIcon = (category) => {
+    switch (category) {
+      case 'service':
+        return <Settings size={20} />;
+      case 'products':
+        return <SearchIcon size={20} />;
+      default:
+        return <FileText size={20} />;
+    }
+  };
+
+  return (
+    <PageContainer>
+      <Head>
+        <title>{q ? `Search Results for "${q}"` : 'Search'} - VtechSecure</title>
+        <meta name="description" content="Search VtechSecure website" />
+      </Head>
+
+      <SearchHeader>
+        <Container>
+          <SearchBox>
+            <form onSubmit={handleSearch}>
+              <SearchInputWrapper>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <SearchInput
+                  type="text"
+                  placeholder="Search for services, products, or information..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+                <SearchButton type="submit">Search</SearchButton>
+              </SearchInputWrapper>
+            </form>
+          </SearchBox>
+        </Container>
+      </SearchHeader>
+
+      <ResultsSection>
+        <Container>
+          {q && (
+            <ResultsHeader>
+              <ResultsCount>
+                Found {results.length} result{results.length !== 1 ? 's' : ''}
+              </ResultsCount>
+              <ResultsTitle>Search results for "{q}"</ResultsTitle>
+            </ResultsHeader>
+          )}
+
+          {results.length > 0 ? (
+            <ResultsList>
+              {results.map((result, index) => (
+                <ResultCard key={index} href={result.path}>
+                  <ResultHeader>
+                    <ResultIcon>
+                      {getIcon(result.category)}
+                    </ResultIcon>
+                    <ResultContent>
+                      <ResultTitle>{result.title}</ResultTitle>
+                      <ResultPath>{window.location.origin}{result.path}</ResultPath>
+                    </ResultContent>
+                  </ResultHeader>
+                  <ResultDescription>{result.description}</ResultDescription>
+                </ResultCard>
+              ))}
+            </ResultsList>
+          ) : q ? (
+            <NoResults>
+              <h2>No results found</h2>
+              <p>Try different keywords or browse our services pages</p>
+            </NoResults>
+          ) : (
+            <NoResults>
+              <h2>Start searching</h2>
+              <p>Enter a search term above to find what you're looking for</p>
+            </NoResults>
+          )}
+        </Container>
+      </ResultsSection>
+    </PageContainer>
+  );
 }
 
 export default Search;

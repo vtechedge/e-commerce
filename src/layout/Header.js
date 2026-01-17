@@ -201,7 +201,7 @@ const Logo = styled.a`
   text-decoration: none;
   cursor: pointer;
   flex-shrink: 0;
-  background: transparent;
+  background: transparent !important;
   padding: 0;
   
   img {
@@ -209,7 +209,8 @@ const Logo = styled.a`
     width: auto;
     object-fit: contain;
     transition: transform 0.2s ease;
-    background: transparent;
+    background: transparent !important;
+    mix-blend-mode: multiply;
     
     @media (max-width: 768px) {
       height: 40px;

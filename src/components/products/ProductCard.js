@@ -68,7 +68,7 @@ const AddToCartButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   background-color: var(--primary-color);
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -101,8 +101,8 @@ function ProductCard({ product }) {
     <Card>
       <ProductLink href={`/product/${id}`}>
         <ProductImageWrapper>
-          <Image 
-            src={image} 
+          <Image
+            src={image}
             alt={name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

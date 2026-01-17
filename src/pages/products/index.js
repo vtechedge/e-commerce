@@ -158,10 +158,10 @@ function ProductsPage() {
                   {filterBy === "default"
                     ? "Filters"
                     : filterBy === "price-low-high"
-                    ? "Price: Low to High"
-                    : filterBy === "price-high-low"
-                    ? "Price: High to Low"
-                    : "Rating"}
+                      ? "Price: Low to High"
+                      : filterBy === "price-high-low"
+                        ? "Price: High to Low"
+                        : "Rating"}
                 </span>
               </DropdownButton>
               <DropdownContent isOpen={isDropdownOpen}>
@@ -295,7 +295,7 @@ const SearchInput = styled.input`
 const SearchButton = styled.button`
   padding: 12px 1rem;
   background-color: ${props => props.theme.primary};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   cursor: pointer;

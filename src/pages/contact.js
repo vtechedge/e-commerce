@@ -3,6 +3,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
 import { useToast } from "@/components/common/ToastContext";
+import ContactEmailModal from "@/components/common/ContactEmailModal";
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -11,7 +12,7 @@ const PageContainer = styled.div`
 
 const HeroSection = styled.section`
   background: ${props => props.theme.gradients.hero};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   padding: 4rem 0;
   text-align: center;
   
@@ -172,7 +173,7 @@ const TextArea = styled.textarea`
 const SubmitButton = styled.button`
   padding: 1rem 2rem;
   background-color: var(--primary-blue);
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -290,6 +291,12 @@ function Contact() {
     message: ''
   });
   const [submitting, setSubmitting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [emailData, setEmailData] = useState({
+    email: '',
+    subject: '',
+    body: ''
+  });
 
   const handleChange = (e) => {
     setFormData({
@@ -300,20 +307,46 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    
+    if (!formData.email || !formData.email.includes('@')) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast.success('Thank you! Your message has been sent successfully. We will get back to you within 24 hours.');
-      setSubmitting(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
-    }, 1000);
+    if (!formData.name || !formData.subject || !formData.message) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    // Prepare email data
+    const subject = `Contact Form: ${formData.subject}`;
+    const body = `Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || 'Not provided'}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}`;
+
+    setEmailData({
+      email: formData.email,
+      subject: subject,
+      body: body
+    });
+
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: ''
+    });
+    toast.success('Thank you! We will get back to you within 24 hours.');
   };
 
   return (
@@ -481,6 +514,12 @@ function Contact() {
           </Grid>
         </Container>
       </ContentSection>
+
+      <ContactEmailModal 
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        emailData={emailData}
+      />
     </PageContainer>
   );
 }

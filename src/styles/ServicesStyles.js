@@ -8,7 +8,7 @@ export const PageContainer = styled.div`
 export const HeroSection = styled.section`
   position: relative;
   background: ${props => props.theme.gradients.hero};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   padding: 6rem 0 5rem;
   text-align: center;
   overflow: hidden;
@@ -151,7 +151,7 @@ export const ServiceIconWrapper = styled.div`
     transform: scale(1.1);
 
     svg {
-      color: ${props => props.theme.background.card};
+      color: #ffffff;
     }
   }
 `;
@@ -212,7 +212,7 @@ export const LearnMoreButton = styled.button`
 
   &:hover {
     background: ${props => props.theme.primary};
-    color: ${props => props.theme.background.card};
+    color: #ffffff;
     transform: translateX(3px);
   }
 
@@ -256,7 +256,7 @@ export const CTADescription = styled.p`
 
 export const CTAButton = styled.button`
   background: ${props => props.theme.gradients.subtle};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   padding: 1rem 2.5rem;
   border-radius: 50px;

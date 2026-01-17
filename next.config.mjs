@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true, // Enable SWC-based minification for better performance
+  // swcMinify is now enabled by default in Next.js 15
+  // optimizeFonts is now automatic in Next.js 15
 
   compiler: {
     styledComponents: true,
@@ -20,9 +21,6 @@ const nextConfig = {
 
   // Production optimizations
   productionBrowserSourceMaps: false,
-
-  // Optimize page data
-  optimizeFonts: true,
 
   // Compression
   compress: true,

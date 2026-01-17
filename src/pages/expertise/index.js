@@ -9,7 +9,7 @@ const PageContainer = styled.div`
 
 const HeroSection = styled.section`
   background: ${props => props.theme.gradients.primary};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   padding: 4rem 0;
   text-align: center;
 `;

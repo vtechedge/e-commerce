@@ -1,4 +1,6 @@
-import ComingSoon from "@/components/common/ComingSoon";
+import React from "react";
+import ComingSoon from "../components/common/ComingSoon";
 
-export default ComingSoon;
-
+export default function ComingSoonPage() {
+  return <ComingSoon />;
+}

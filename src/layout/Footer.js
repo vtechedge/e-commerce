@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowUp, Send } from "lucide-react";
 import { useToast } from "../components/common/ToastContext";
+import EmailSubscriptionModal from "../components/common/EmailSubscriptionModal";
 
 const FooterContainer = styled.footer`
   background: ${props => props.theme.gradients.hero};
@@ -79,7 +80,7 @@ const FooterTitle = styled.h3`
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   position: relative;
   padding-bottom: 0.65rem;
   
@@ -149,7 +150,7 @@ const SocialLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid ${props => props.theme.mode === "light" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.2)"};
@@ -178,7 +179,7 @@ const NewsletterTitle = styled.h4`
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
 `;
 
 const NewsletterDescription = styled.p`
@@ -221,7 +222,7 @@ const NewsletterInput = styled.input`
 const NewsletterButton = styled.button`
   padding: 0.75rem 1.5rem;
   background: ${props => props.theme.gradients.subtle};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -232,7 +233,7 @@ const NewsletterButton = styled.button`
   align-items: center;
   gap: 0.5rem;
   box-shadow: 0 2px 8px rgba(30, 56, 136, 0.25);
-  ${props => props.theme.background.card}-space: nowrap;
+  white-space: nowrap;
   
   &:hover {
     transform: translateY(-2px);
@@ -259,9 +260,18 @@ const FooterBottom = styled.div`
     gap: 1rem;
     text-align: center;
   }
+  
+  @media (max-width: 480px) {
+    padding-top: 1.25rem;
+    font-size: 0.813rem;
+  }
 `;
 
-const Copyright = styled.div``;
+const Copyright = styled.div`
+  @media (max-width: 480px) {
+    font-size: 0.813rem;
+  }
+`;
 
 const LegalLinks = styled.div`
   display: flex;
@@ -270,7 +280,13 @@ const LegalLinks = styled.div`
   @media (max-width: 768px) {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.75rem 1rem;
+    width: 100%;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 0.5rem 0.75rem;
+    font-size: 0.813rem;
   }
 `;
 
@@ -279,6 +295,11 @@ const LegalLink = styled.a`
   text-decoration: none;
   transition: color 0.2s ease;
   position: relative;
+  font-size: 0.875rem;
+  
+  @media (max-width: 480px) {
+    font-size: 0.813rem;
+  }
   
   &::after {
     content: '';
@@ -298,6 +319,10 @@ const LegalLink = styled.a`
       width: 100%;
     }
   }
+  
+  @media (max-width: 480px) {
+    font-size: 0.813rem;
+  }
 `;
 
 const ScrollToTop = styled.button`
@@ -307,7 +332,7 @@ const ScrollToTop = styled.button`
   width: 52px;
   height: 52px;
   background: ${props => props.theme.gradients.subtle};
-  color: ${props => props.theme.background.card};
+  color: #ffffff;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -334,7 +359,9 @@ const ScrollToTop = styled.button`
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { showToast } = useToast();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const { success } = useToast();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -342,14 +369,19 @@ const Footer = () => {
 
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      showToast("Successfully subscribed to newsletter!", "success");
-      setEmail("");
-      setIsSubmitting(false);
-    }, 1000);
+    if (!email || !email.includes('@')) {
+      return;
+    }
+
+    setSubmittedEmail(email);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setEmail("");
+    setSubmittedEmail("");
   };
 
   const footerSections = [
@@ -468,6 +500,12 @@ const Footer = () => {
       <ScrollToTop onClick={scrollToTop} aria-label="Scroll to top">
         <ArrowUp size={22} />
       </ScrollToTop>
+
+      <EmailSubscriptionModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        email={submittedEmail}
+      />
     </FooterContainer>
   );
 };

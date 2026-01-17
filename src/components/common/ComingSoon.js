@@ -107,7 +107,7 @@ const StatusBadge = styled.div`
   display: inline-block;
   padding: 0.5rem 1.5rem;
   background: ${props => props.theme.gradients.primary};
-  color: ${props => props.theme.background.card};
+  color: ${props => props.theme.text.inverse};
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -127,7 +127,7 @@ const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.theme.background.card};
+  color: ${props => props.theme.text.inverse};
   font-size: 3.5rem;
   box-shadow: 
     0 10px 30px rgba(30, 56, 136, 0.3),
@@ -194,7 +194,7 @@ const Button = styled(Link)`
   gap: 0.5rem;
   padding: 1rem 2rem;
   background: ${props => props.theme.gradients.primary};
-  color: ${props => props.theme.background.card};
+  color: ${props => props.theme.text.inverse};
   border-radius: 50px;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
