@@ -57,6 +57,9 @@ const ContentContainer = styled.div`
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
+    padding: 0 1.5rem;
+    max-width: 100%;
+    width: 100%;
   }
 `;
 
@@ -97,10 +100,13 @@ const ButtonContainer = styled.div`
 
   @media (max-width: 968px) {
     justify-content: center;
+    width: 100%;
+    max-width: 100%;
   }
   
   @media (max-width: 768px) {
     flex-direction: column;
+    align-items: stretch;
   }
 `;
 
@@ -137,6 +143,12 @@ const Button = styled.button`
       color: ${props => props.theme.primary};
       transform: translateY(-2px);
     }
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
   }
 `;
 
@@ -228,11 +240,13 @@ const NavButton = styled.button`
 const Dots = styled.div`
   position: absolute;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   z-index: 20;
+  padding: 0 1rem;
 `;
 
 const Dot = styled.button`

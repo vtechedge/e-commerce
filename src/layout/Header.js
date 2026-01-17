@@ -222,12 +222,25 @@ const Logo = styled.a`
   }
 `;
 
+const DesktopNavList = styled.ul`
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
 const SearchContainer = styled.div`
   flex: 1;
   max-width: 520px;
   position: relative;
   
-  @media (max-width: 968px) {
+  @media (max-width: 767px) {
     display: none;
   }
 `;
@@ -255,6 +268,16 @@ const SearchInput = styled.input`
     color: ${props => props.theme.text.muted};
     font-weight: 400;
   }
+  
+  @media (max-width: 968px) {
+    padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+    font-size: 0.813rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.4rem 0.5rem 0.4rem 2rem;
+    font-size: 0.75rem;
+  }
 `;
 
 const SearchIcon = styled.div`
@@ -270,19 +293,34 @@ const SearchIcon = styled.div`
     width: 18px;
     height: 18px;
   }
+  
+  @media (max-width: 768px) {
+    left: 0.5rem;
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 `;
 
 const HeaderActions = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-shrink: 0;
   
-  gap: 0.75rem; /* Increased gap between buttons */
-  flex-shrink: 0;
+  .theme-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
   
   @media (max-width: 768px) {
-    gap: 0.5rem; /* Adjusted for smaller screens */
+    gap: 0.4rem;
   }
 `;
 
@@ -353,15 +391,31 @@ const ActionButton = styled.button`
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 968px) {
     &:not(.contact-btn) {
-      padding: 0.4rem 0.6rem;
-      min-width: 50px;
+      padding: 0.4rem;
+      min-width: auto;
+      gap: 0;
+      
+      span {
+        display: none;
+      }
       
       svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    &.contact-btn {
+      display: none;
+    }
+    
+    /* Hide all action buttons except hamburger menu on mobile */
+    &.mobile-hide {
+      display: none;
     }
   }
 `;
@@ -392,7 +446,7 @@ const Navigation = styled.nav`
   position: relative;
   z-index: 100;
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     display: none;
   }
 `;
@@ -488,9 +542,9 @@ const Dropdown = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: ${props => props.theme.mode === 'dark' 
-      ? 'rgba(0, 0, 0, 0.5)' 
-      : 'rgba(0, 0, 0, 0.3)'};
+    background: ${props => props.theme.mode === 'dark'
+    ? 'rgba(0, 0, 0, 0.5)'
+    : 'rgba(0, 0, 0, 0.3)'};
     z-index: -1;
     backdrop-filter: blur(2px);
   }
@@ -602,70 +656,74 @@ const ServiceIcon = styled.div`
 `;
 
 const MobileMenuButton = styled.button`
-display: none;
-background: none;
-border: none;
-cursor: pointer;
-padding: 0.5rem;
-color: var(--dark - gray);
-
-@media(max - width: 768px) {
-  display: block;
-}
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: ${props => props.theme.text.primary};
+  
+  @media (max-width: 767px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const MobileMenu = styled.div`
-display: ${(props) => (props.isOpen ? "block" : "none")};
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background - color: var(--${props => props.theme.background.card});
-z - index: 1002;
-padding: 2rem;
-overflow - y: auto;
-animation: slideIn 0.3s ease - out;
-
-@keyframes slideIn {
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: ${props => props.theme.background.primary};
+  z-index: 1002;
+  padding: 2rem;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+  
+  @keyframes slideIn {
     from {
-    transform: translateX(100 %);
-  }
+      transform: translateX(100%);
+    }
     to {
-    transform: translateX(0);
+      transform: translateX(0);
+    }
   }
-}
 `;
 
 const MobileMenuHeader = styled.div`
-display: flex;
-justify - content: space - between;
-align - items: center;
-margin - bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid ${props => props.theme.border.light};
 `;
 
 const MobileNavList = styled.ul`
-list - style: none;
-margin: 0;
-padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 const MobileNavItem = styled.li`
-border - bottom: 1px solid var(--border - gray);
+  border-bottom: 1px solid ${props => props.theme.border.light};
 `;
 
 const MobileNavLink = styled.a`
-display: block;
-padding: 1rem 0;
-color: var(--dark - gray);
-text - decoration: none;
-font - weight: 500;
-font - size: 1.125rem;
-transition: color 0.2s ease;
+  display: block;
+  padding: 1rem 0;
+  color: ${props => props.theme.text.primary};
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.125rem;
+  transition: color 0.2s ease;
   
   &:hover {
-  color: var(--primary - blue);
-}
+    color: ${props => props.theme.primary};
+  }
 `;
 
 const Header = () => {
@@ -844,8 +902,8 @@ const Header = () => {
             <ThemeLogo width={180} height={50} />
           </Logo>
 
-          {/* Navigation Links - Now in main header row */}
-          <NavList style={{ display: 'flex', listStyle: 'none', margin: 0, padding: 0, gap: '0.75rem', flexShrink: 0 }}>
+          {/* Navigation Links - Hidden on mobile */}
+          <DesktopNavList>
             {navigationItems.map((item) => (
               <NavItem key={item.name}>
                 <NavLink
@@ -860,7 +918,7 @@ const Header = () => {
                 </NavLink>
               </NavItem>
             ))}
-          </NavList>
+          </DesktopNavList>
 
           <SearchContainer>
             <form onSubmit={handleSearch} style={{ width: '100%' }}>
@@ -877,23 +935,25 @@ const Header = () => {
           </SearchContainer>
 
           <HeaderActions>
-            {/* Theme Toggle Button */}
-            <ThemeToggle />
+            {/* Theme Toggle Button - Hidden on mobile */}
+            <div style={{ display: 'flex', alignItems: 'center' }} className="theme-toggle-wrapper">
+              <ThemeToggle />
+            </div>
 
             {/* Simplified icon buttons - Myntra style */}
-            <ActionButton onClick={() => router.push('/contact')}>
+            <ActionButton className="mobile-hide" onClick={() => router.push('/contact')}>
               <Headphones size={22} />
               <span>Help</span>
             </ActionButton>
-            <ActionButton>
+            <ActionButton className="mobile-hide">
               <User size={22} />
               <span>Profile</span>
             </ActionButton>
-            <ActionButton>
+            <ActionButton className="mobile-hide">
               <Heart size={22} />
               <span>Wishlist</span>
             </ActionButton>
-            <ActionButton style={{ position: 'relative' }}>
+            <ActionButton className="mobile-hide" style={{ position: 'relative' }}>
               <ShoppingCart size={22} />
               <span>Bag</span>
               {cartCount > 0 && <CartBadge>{cartCount}</CartBadge>}
@@ -905,29 +965,8 @@ const Header = () => {
         </MainHeader>
       </MainHeaderWrapper>
 
-      {/* Hide the separate navigation row */}
-      <div style={{ display: 'none' }}>
-        <Navigation>
-          <NavContainer>
-            <NavList>
-              {navigationItems.map((item) => (
-                <NavItem key={item.name}>
-                  <NavLink
-                    href={item.href}
-                    onClick={item.name === "Services" ? toggleServices : undefined}
-                    isOpen={isServicesOpen && item.name === "Services"}
-                    ref={item.name === "Services" ? dropdownRef : undefined}
-                  >
-                    {item.name}
-                    {item.name === "Services" && <ChevronDown size={16} />}
-                  </NavLink>
-                </NavItem>
-              ))}
-            </NavList>
-          </NavContainer>
-        </Navigation>
-      </div>
 
+      {/* Services dropdown - shows only when hovering Services link */}
       {isServicesOpen && (
         <Dropdown
           isOpen={true}

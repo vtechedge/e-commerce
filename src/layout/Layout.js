@@ -5,16 +5,23 @@ import styled from "styled-components";
 
 
 const MainContent = styled.main`
-  /* padding-bottom: 2rem; */
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+`;
+
+const LayoutWrapper = styled.div`
+  max-width: 100vw;
+  overflow-x: hidden;
 `;
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <LayoutWrapper>
       <Header />
       <MainContent>{children}</MainContent>
       <Footer />
-    </div>
+    </LayoutWrapper>
   );
 };
 

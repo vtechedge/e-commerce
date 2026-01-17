@@ -16,6 +16,9 @@ const Section = styled.section`
   overflow: hidden;
   margin: 5rem 0;
   position: relative;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
   
   &::before {
     content: '';
